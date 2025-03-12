@@ -1,0 +1,15 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="video-container">
+    <h1>{{ anime.title }}</h1>
+    <video width="800" controls>
+        <source src="{{ url_for('static', filename='videos/' + anime.video) }}" type="video/mp4">
+        Your browser does not support the video tag.
+    </video>
+    <div class="anime-info">
+        <img src="{{ url_for('static', filename='img/' + anime.image) }}" alt="{{ anime.title }}">
+        <p>{{ anime.description }}</p>
+    </div>
+</div>
+{% endblock %}

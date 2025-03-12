@@ -1,0 +1,30 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="chat-container">
+    <div class="chat-messages" id="messages"></div>
+    <div class="chat-input">
+        <input type="text" id="messageInput" placeholder="Type your message...">
+        <button onclick="sendMessage()">Send</button>
+    </div>
+</div>
+
+<script>
+    function sendMessage() {
+        const input = document.getElementById('messageInput');
+        const message = input.value;
+        if (message.trim()) {
+            socket.emit('message', message);
+            input.value = '';
+        }
+    }
+
+    socket.on('message', function (data) {
+        const messages = document.getElementById('messages');
+        const messageElement = document.createElement('div');
+        messageElement.innerHTML = `<strong>${data.user}:</strong> ${data.message}`;
+        messages.appendChild(messageElement);
+        messages.scrollTop = messages.scrollHeight;
+    });
+</script>
+{% endblock %}

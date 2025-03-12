@@ -1,0 +1,20 @@
+{% extends "base.html" %}
+
+{% block content %}
+<div class="search-container">
+    <form action="/search" method="GET">
+        <input type="text" name="q" placeholder="Search anime..." value="{{ query }}">
+        <button type="submit">Search</button>
+    </form>
+
+    <div class="results">
+        {% for anime in results %}
+        <div class="anime-card">
+            <img src="{{ url_for('static', filename='img/' + anime.image) }}">
+            <h3>{{ anime.title }}</h3>
+            <a href="/">Watch Now</a>
+        </div>
+        {% endfor %}
+    </div>
+</div>
+{% endblock %}
