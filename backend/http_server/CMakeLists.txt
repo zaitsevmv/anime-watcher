@@ -1,0 +1,1 @@
+add_library(http_server STATIC server.hpp fields_alloc.hpp server.cpp)

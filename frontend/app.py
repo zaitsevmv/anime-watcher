@@ -14,9 +14,10 @@ socketio = SocketIO(app)
 
 def api_request(method, endpoint, data=None, headers=None):
     """Helper function for making API calls"""
-    url = f"{API_BASE_URL}/{endpoint}"
+    url = f"{API_BASE_URL}"
     try:
         response = requests.request(method, url, json=data, headers=headers)
+        
         return response.json()
     except Exception as e:
         print(f"API Error: {e}")
@@ -42,6 +43,8 @@ anime_list = [
 
 @app.route('/')
 def index():
+    for _ in range(100):
+        api_request('POST', '')
     # Display first anime for demonstration
     return render_template('index.html', anime=anime_list[0])
 

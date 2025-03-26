@@ -1,5 +1,11 @@
 *.env
 
-/.venv
+.bashrc
+.bash_logout
+.profile
 
-*_pychache_
+/.venv
+build
+*.vscode
+*.cache
+*__pycache__
