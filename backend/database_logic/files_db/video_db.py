@@ -7,8 +7,7 @@ from persistent.mapping import PersistentMapping
 
 
 class Video(Persistent):
-    def __init__(self, video_name, blob):
-        self.video_name = video_name
+    def __init__(self, blob):
         self.blob = blob
         
 
@@ -23,23 +22,20 @@ class VideoDatabase:
             self.root.videos = PersistentMapping()
             transaction.commit()
         
-    def add_video(self, file_path, video_name):
+    def add_video(self, file_path, video_hash):
         blob = Blob()
         with blob.open(file_path) as f:
             f.write(file_path.read())
-            
-        video_hash = 1  # create hash from name
-        self.root.videos[video_hash] = Video(video_name, blob)
+
+        self.root.videos[video_hash] = Video(blob)
         transaction.commit()
     
-    def delete_video(self, video_name):
-        video_hash = 1
+    def delete_video(self, video_hash):
         if video_hash in self.root.videos:
             del self.root.videos[video_hash]
             transaction.commit()
     
-    def get_video(self, video_name):
-        video_hash = 1
+    def get_video(self, video_hash):
         return self.root.videos.get(video_hash, None)
     
     def close(self):

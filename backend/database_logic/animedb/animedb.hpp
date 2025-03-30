@@ -11,15 +11,13 @@
 
 class AnimeDB: private BaseMongoDB{
 public:
-    std::optional<std::string> GetAnime(const std::string& anime_name);
+    std::optional<std::string> GetAnime(const std::string& anime_hash);
 
     std::optional<uint64_t> AddAnime(const std::string& anime_data_json);
 
-    std::optional<int> DeleteAnime(const std::string& anime_name);
+    std::optional<int> DeleteAnime(const std::string& anime_hash);
 
-    std::optional<std::string> UpdateAnime(const std::string& anime_name, const std::string& anime_data_json);
-private:
-    std::hash<std::string> h;
+    std::optional<std::string> UpdateAnime(const std::string& anime_hash, const std::string& anime_data_json);
 };
 
 #endif
