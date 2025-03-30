@@ -1,4 +1,6 @@
-include_directories(abstractdb)
+set(DATABASE_LOGIC_DIRS ${CMAKE_CURRENT_SOURCE_DIR})
+
+add_subdirectory(base_mongodb)
 
 add_subdirectory(animedb)
 # add_subdirectory(chatdb)

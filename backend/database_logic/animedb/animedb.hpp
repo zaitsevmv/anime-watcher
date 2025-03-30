@@ -1,12 +1,25 @@
 #ifndef __ANIME_DB_H__
 #define __ANIME_DB_H__
 
-#include "abstractdb.hpp"
+#include "base_mongodb.hpp"
 
-class AnimeDB: public Database{
+#include <mongocxx/collection.hpp>
+#include <mongocxx/client.hpp>
+
+#include <optional>
+#include <string>
+
+class AnimeDB: private BaseMongoDB{
 public:
-    void CreateDatabase() override;
-    ~AnimeDB() override = default;
+    std::optional<std::string> GetAnime(const std::string& anime_name);
+
+    std::optional<uint64_t> AddAnime(const std::string& anime_data_json);
+
+    std::optional<int> DeleteAnime(const std::string& anime_name);
+
+    std::optional<std::string> UpdateAnime(const std::string& anime_name, const std::string& anime_data_json);
+private:
+    std::hash<std::string> h;
 };
 
 #endif
