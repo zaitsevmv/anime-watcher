@@ -13,6 +13,8 @@ public:
     std::optional<int32_t> DeleteDocument();
 
     std::optional<std::string> ProcessSearchRequest(const std::string& search_request);
+private:
+    
 };
 
 #endif
