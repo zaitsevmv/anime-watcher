@@ -1,6 +1,18 @@
-add_library(http_server STATIC server.hpp fields_alloc.hpp server.cpp)
+add_library(http_server STATIC server.hpp fields_alloc.hpp server.cpp requests_handler.cpp)
 
 find_package(Boost REQUIRED)
-message("${BOOST_VERSION}")
+
 include_directories(${Boost_INCLUDE_DIRS})
-target_link_libraries(http_server LINK_PUBLIC ${Boost_LIBRARIES})
+
+target_link_libraries(http_server PUBLIC 
+    ${Boost_LIBRARIES}
+    anime_db
+    anime_search_db
+    chat_db
+    user_data_db
+    user_name_db
+)
+
+target_include_directories(http_server PUBLIC
+    ${DATABASE_LOGIC_DIRS}
+)

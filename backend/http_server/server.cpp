@@ -21,6 +21,10 @@ void http_worker::start() {
     check_deadline();
 }
 
+void http_worker::set_anime_db(AnimeDB& db) {
+    anime_db.reset(&db);
+}
+
 void http_worker::accept() {
     boost::beast::error_code ec;
     socket_.close(ec);
@@ -73,14 +77,14 @@ void http_worker::read_request() {
 void http_worker::process_request(const http::request<request_body_t, http::basic_fields<alloc_t>>& req) {
     switch (req.method()) {
         case http::verb::get:
+            process_get_request(req);
             accept();
             break;
         case http::verb::post:
+            process_post_request(req);
             accept();
             break;
         default:
             break;
     }
 }
-
-

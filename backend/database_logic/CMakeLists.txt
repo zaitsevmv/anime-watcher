@@ -1,5 +1,3 @@
-set(DATABASE_LOGIC_DIRS ${CMAKE_CURRENT_SOURCE_DIR})
-message("${DATABASE_LOGIC_DIRS}/base_mongodb")
 set(REDIS_CPP_LIB_DIR ${CMAKE_CURRENT_SOURCE_DIR}/redis_cpp_lib)
 
 add_subdirectory(base_mongodb)

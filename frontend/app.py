@@ -43,8 +43,6 @@ anime_list = [
 
 @app.route('/')
 def index():
-    for _ in range(100):
-        api_request('POST', '')
     # Display first anime for demonstration
     return render_template('index.html', anime=anime_list[0])
 

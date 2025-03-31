@@ -39,6 +39,7 @@ int main(int argc, char* argv[])
         std::list<http_worker> workers;
         for (int i = 0; i < num_workers; ++i) {
             workers.emplace_back(acceptor);
+            workers.back().set_anime_db(animedb);
             workers.back().start();
         }
 

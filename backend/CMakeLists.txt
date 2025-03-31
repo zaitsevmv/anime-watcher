@@ -3,6 +3,7 @@ cmake_minimum_required(VERSION 3.12)
 project(anime-backend)
 set(CMAKE_CXX_STANDARD 20)
 
+set(DATABASE_LOGIC_DIRS ${CMAKE_CURRENT_SOURCE_DIR}/database_logic)
 add_subdirectory(database_logic)
 add_subdirectory(http_server)
 

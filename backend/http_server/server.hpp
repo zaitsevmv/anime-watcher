@@ -2,6 +2,9 @@
 #define __RESPONSE_SERVER_H__
 
 #include "fields_alloc.hpp"
+#include "anime_db/anime_db.hpp"
+// #include "anime_search_db/anime_search_db.hpp"
+
 
 #include <boost/asio/basic_waitable_timer.hpp>
 #include <boost/beast/core.hpp>
@@ -16,6 +19,7 @@
 #include <boost/filesystem.hpp>
 
 #include <chrono>
+#include <memory>
 #include <optional>
 #include <string>
 
@@ -32,6 +36,8 @@ public:
 
     void start();
 
+    void set_anime_db(AnimeDB& db);
+
 private:
     using alloc_t = fields_alloc<char>;
     using request_body_t = http::string_body;
@@ -41,6 +47,9 @@ private:
 
     void read_request();
     void process_request(const http::request<request_body_t, http::basic_fields<alloc_t>>& req);
+
+    void process_get_request(const http::request<request_body_t, http::basic_fields<alloc_t>>& req);
+    void process_post_request(const http::request<request_body_t, http::basic_fields<alloc_t>>& req);
 
     tcp::acceptor& acceptor_;
 
@@ -52,6 +61,8 @@ private:
 
     std::optional<http::request_parser<request_body_t, alloc_t>> parser_;
     alloc_t alloc_{8192};
+
+    std::shared_ptr<AnimeDB> anime_db;
 };
 
 #endif
