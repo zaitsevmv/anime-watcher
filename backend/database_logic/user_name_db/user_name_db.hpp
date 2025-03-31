@@ -11,8 +11,8 @@ class UserNameDB{
 public:
     UserNameDB();
 
-    std::optional<std::string> SetUserName(uint64_t user_id, const std::string& user_name);
-    std::optional<std::string> GetUserName(uint64_t user_id);
+    std::optional<std::string> SetUserName(int64_t user_id, const std::string& user_name);
+    std::optional<std::string> GetUserName(int64_t user_id);
 
 private:
     std::shared_ptr<std::iostream> stream;

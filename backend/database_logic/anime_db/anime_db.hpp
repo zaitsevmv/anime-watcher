@@ -9,7 +9,7 @@
 #include <optional>
 #include <string>
 
-class AnimeDB: private BaseMongoDB{
+class AnimeDB: public BaseMongoDB{
 public:
     std::optional<std::string> GetAnime(const std::string& anime_hash);
 

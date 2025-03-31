@@ -1,7 +1,8 @@
 #include "http_server/server.hpp"
-#include "database_logic/animedb/animedb.hpp"
+#include "database_logic/anime_db/anime_db.hpp"
 
 #include <iostream>
+#include <list>
 #include <vector>
 
 int main(int argc, char* argv[])
@@ -25,7 +26,7 @@ int main(int argc, char* argv[])
         // bool spin = (std::strcmp(argv[5], "spin") == 0);
 
         auto animedb = AnimeDB();
-        animedb.CreateDatabase();
+        animedb.CreateDatabase("test_db", "test");
 
         auto const address = boost::asio::ip::make_address("0.0.0.0");
         unsigned short port = static_cast<unsigned short>(8080);

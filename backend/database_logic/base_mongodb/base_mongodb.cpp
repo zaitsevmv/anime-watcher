@@ -14,7 +14,7 @@
 
 std::optional<int32_t> BaseMongoDB::CreateDatabase(const std::string& db_name, const std::string& collection_name) {
     mongocxx::instance instance;
-    mongocxx::uri uri("mongodb://localhost:27017");
+    mongocxx::uri uri("mongodb://admin:secret@localhost:27017");
     client = mongocxx::client(uri);
     if(client[db_name].has_collection(collection_name)){
         collection = client[db_name][collection_name];

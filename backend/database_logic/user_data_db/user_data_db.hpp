@@ -10,7 +10,7 @@
 #include <optional>
 #include <string>
 
-class UserDataDB: private BaseMongoDB{
+class UserDataDB: public BaseMongoDB{
 public:
     UserDataDB();
 

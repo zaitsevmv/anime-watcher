@@ -1,10 +1,13 @@
-#include "search_db.hpp"
+#include "anime_search_db.hpp"
 
 #include <curl/curl.h>
 #include <curl/easy.h>
+#include <memory>
 
-AnimeSearchDB::~AnimeSearchDB() {
-    curl_global_cleanup();
+
+AnimeSearchDB::AnimeSearchDB()
+    :curl(curl_easy_init()) {
+    curl_global_init(CURL_GLOBAL_DEFAULT);
 }
 
 size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* s) {
@@ -15,11 +18,6 @@ size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* s) 
         return 0;
     }
     return newLength;
-}
-
-void AnimeSearchDB::Start() {
-    curl_global_init(CURL_GLOBAL_DEFAULT);
-    curl.reset(curl_easy_init());
 }
 
 std::optional<int32_t> AnimeSearchDB::AddAnime(const std::string& anime_hash, const std::string& anime_data_json) {

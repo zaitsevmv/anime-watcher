@@ -1,18 +1,19 @@
 #ifndef __SEARCH_DB__
 #define __SEARCH_DB__
 
+#include <algorithm>
 #include <curl/curl.h>
 
 #include <cstdint>
+#include <curl/easy.h>
 #include <memory>
 #include <optional>
 #include <string>
 
+
 class AnimeSearchDB{
 public:
-    ~AnimeSearchDB();
-
-    void Start();
+    AnimeSearchDB();
 
     std::optional<int32_t> AddAnime(const std::string& anime_hash, const std::string& anime_data_json);
 
@@ -22,7 +23,13 @@ public:
 
     std::optional<int32_t> UpdateAnime(const std::string& anime_hash, const std::string& anime_data_json);
 private:
-    std::unique_ptr<CURL> curl;
+    struct CURL_deleter{
+        void operator()(CURL* pCURL) const {
+            curl_easy_cleanup(pCURL);
+            curl_global_cleanup();
+        }
+    };
+    std::unique_ptr<CURL, CURL_deleter> curl;
 
     std::string db_name = "anime_names";
     std::string anime_name_field = "anime_name";

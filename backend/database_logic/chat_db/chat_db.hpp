@@ -10,7 +10,7 @@
 #include <string>
 #include <chrono>
 
-class ChatDB: private BaseMongoDB{
+class ChatDB: public BaseMongoDB{
 public:
     std::optional<uint64_t> AddMessage(const std::string& message_data);
     std::optional<int> DeleteMessage(const std::string& message_uid);
