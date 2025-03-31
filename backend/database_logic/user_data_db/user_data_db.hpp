@@ -3,6 +3,7 @@
 
 #include "base_mongodb.hpp"
 
+#include <cstdint>
 #include <mongocxx/collection.hpp>
 #include <mongocxx/client.hpp>
 
@@ -11,19 +12,25 @@
 
 class UserDataDB: private BaseMongoDB{
 public:
-    std::optional<std::string> GetUser(uint64_t user_id);
+    UserDataDB();
 
-    std::optional<uint64_t> AddUser(const std::string& user_data_json);
+    std::optional<std::string> GetUser(int64_t user_id);
 
-    std::optional<int32_t> DeleteUser(uint64_t user_id);
+    std::optional<int32_t> AddUser(const std::string& user_data_json);
 
-    std::optional<std::string> ChangeUserPassword(uint64_t user_id);
+    std::optional<int32_t> DeleteUser(int64_t user_id);
 
-    std::optional<std::string> ChangeUserLogin(uint64_t user_id);
+    std::optional<int32_t> ChangeUserPassword(int64_t user_id, const std::string& new_password_hash);
 
-    std::optional<std::string> AddUserFavourite(uint64_t user_id, const std::string& anime_hash);
+    std::optional<int32_t> ChangeUserLogin(int64_t user_id,  const std::string& new_user_login);
 
-    std::optional<std::string> RemoveUserFavourite(uint64_t user_id, const std::string& anime_hash);
+    std::optional<int32_t> AddUserFavourite(int64_t user_id, const std::string& anime_hash);
+
+    std::optional<int32_t> RemoveUserFavourite(int64_t user_id, const std::string& anime_hash);
+
+    std::optional<bool> LoginUnique(const std::string& user_login);
+
+    std::optional<bool> UserExist(const std::string& user_login, const std::string& user_password_hash);
 };
 
 #endif

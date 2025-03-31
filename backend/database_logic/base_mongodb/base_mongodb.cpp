@@ -1,4 +1,5 @@
 #include "base_mongodb.hpp"
+#include "mongodb_filters.hpp"
 
 #include <bsoncxx/builder/basic/document.hpp>
 #include <bsoncxx/builder/basic/kvp.hpp>
@@ -10,8 +11,6 @@
 #include <fstream>
 #include <optional>
 #include <filesystem>
-
-BaseMongoDB::~BaseMongoDB() = default;
 
 std::optional<int32_t> BaseMongoDB::CreateDatabase(const std::string& db_name, const std::string& collection_name) {
     mongocxx::instance instance;
@@ -44,7 +43,7 @@ void BaseMongoDB::DropCollection() {
     collection.drop();
 }
 
-std::optional<std::string> BaseMongoDB::GetDocument(const Filter& filter) {
+std::optional<std::string> BaseMongoDB::GetDocument(const SearchFilter& filter) {
     auto search_result = collection.find_one(filter.get());
     if(search_result){
         return bsoncxx::to_json(*search_result);
@@ -61,7 +60,7 @@ std::optional<int32_t> BaseMongoDB::AddDocument(const std::string& document_json
     return std::nullopt;
 }
 
-std::optional<int32_t> BaseMongoDB::DeleteDocument(const Filter& filter) {
+std::optional<int32_t> BaseMongoDB::DeleteDocument(const SearchFilter& filter) {
     auto deletion_result = collection.delete_one(filter.get());
     if(deletion_result){
         return deletion_result->deleted_count();
@@ -69,7 +68,7 @@ std::optional<int32_t> BaseMongoDB::DeleteDocument(const Filter& filter) {
     return std::nullopt;
 }
 
-std::optional<std::string> BaseMongoDB::UpdateDocument(const Filter& filter, const std::string& new_data_json) {
+std::optional<std::string> BaseMongoDB::UpdateDocument(const SearchFilter& filter, const std::string& new_data_json) {
     auto bson_document = bsoncxx::from_json(new_data_json);
     auto update_result = collection.find_one_and_update(filter.get(), bson_document.view());
     if(update_result){
