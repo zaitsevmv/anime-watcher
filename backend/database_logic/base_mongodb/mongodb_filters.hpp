@@ -7,22 +7,22 @@
 #include <mongocxx/client.hpp>
 
 struct Filter{
+    Filter() : bson_filter(bsoncxx::builder::basic::make_document()) {}
     auto get() const {
-        return bson_filter;
+        return bson_filter.view();
     }
-
 protected:
-    bsoncxx::v_noabi::document::view bson_filter;
+    bsoncxx::document::value bson_filter;
 };
 
-struct SearchFilter: public Filter{
-    SearchFilter(std::string&& field, bsoncxx::types::bson_value::value&& value){
+struct SearchFilter: public Filter{   
+    SearchFilter(std::string field, bsoncxx::types::bson_value::value value) {
         bson_filter = bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp(field, value));
     }
 };
 
 struct SetFieldFilter: public Filter{
-    SetFieldFilter(std::string&& field, bsoncxx::types::bson_value::value&& value) { 
+    SetFieldFilter(std::string field, bsoncxx::types::bson_value::value value) { 
         bson_filter = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("$set",
                 bsoncxx::builder::basic::make_document(
@@ -34,7 +34,7 @@ struct SetFieldFilter: public Filter{
 };
 
 struct AddToSetFilter: public Filter{
-    AddToSetFilter(std::string&& field, bsoncxx::types::bson_value::value&& value) { 
+    AddToSetFilter(std::string field, bsoncxx::types::bson_value::value value) { 
         bson_filter = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("$addToSet",
                 bsoncxx::builder::basic::make_document(
@@ -46,7 +46,7 @@ struct AddToSetFilter: public Filter{
 };
 
 struct RemoveFromSetFilter: public Filter{
-    RemoveFromSetFilter(std::string&& field, bsoncxx::types::bson_value::value&& value) { 
+    RemoveFromSetFilter(std::string field, bsoncxx::types::bson_value::value value) { 
         bson_filter = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp("$pull",
                 bsoncxx::builder::basic::make_document(
@@ -58,7 +58,7 @@ struct RemoveFromSetFilter: public Filter{
 };
 
 struct GreaterThanFilter: public Filter{
-    GreaterThanFilter(std::string&& field, bsoncxx::types::bson_value::value&& value) { 
+    GreaterThanFilter(std::string field, bsoncxx::types::bson_value::value value) { 
         bson_filter = bsoncxx::builder::basic::make_document(
             bsoncxx::builder::basic::kvp(field,
                 bsoncxx::builder::basic::make_document(

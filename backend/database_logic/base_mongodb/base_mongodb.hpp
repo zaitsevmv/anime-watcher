@@ -5,6 +5,7 @@
 
 #include <bsoncxx/document/view.hpp>
 #include <bsoncxx/types/bson_value/value.hpp>
+#include <mongocxx/instance.hpp>
 #include <mongocxx/collection.hpp>
 #include <mongocxx/client.hpp>
 
@@ -13,7 +14,7 @@
 
 class BaseMongoDB{
 public:
-    std::optional<int32_t> CreateDatabase(const std::string& db_name, const std::string& collection_name);
+    BaseMongoDB(const std::string& db_name, const std::string& collection_name);
 
     std::optional<int32_t> LoadCollectionData(const std::string& path);
 
@@ -28,7 +29,8 @@ protected:
 
     std::optional<std::string> UpdateDocument(const SearchFilter& filter, const std::string& new_data_json);
 
-    mongocxx::v_noabi::collection collection;
+    static mongocxx::instance instance;
+    mongocxx::collection collection;
     mongocxx::client client;
 };
 

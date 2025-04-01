@@ -21,8 +21,12 @@ void http_worker::start() {
     check_deadline();
 }
 
-void http_worker::set_anime_db(AnimeDB& db) {
-    anime_db.reset(&db);
+void http_worker::set_anime_db(std::shared_ptr<AnimeDB> db) {
+    anime_db = std::move(db);
+}
+
+void http_worker::set_user_data_db(std::shared_ptr<UserDataDB> db) {
+    user_data_db = std::move(db);
 }
 
 void http_worker::accept() {

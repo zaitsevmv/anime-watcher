@@ -3,9 +3,11 @@
 
 #include "fields_alloc.hpp"
 #include "anime_db/anime_db.hpp"
+#include "user_data_db/user_data_db.hpp"
 // #include "anime_search_db/anime_search_db.hpp"
 
 
+#include <boost/asio/any_io_executor.hpp>
 #include <boost/asio/basic_waitable_timer.hpp>
 #include <boost/beast/core.hpp>
 #include <boost/beast/core/flat_static_buffer.hpp>
@@ -15,6 +17,7 @@
 #include <boost/beast/http/parser.hpp>
 #include <boost/beast/http/string_body.hpp>
 #include <boost/beast/version.hpp>
+#include <boost/json.hpp>
 #include <boost/asio.hpp>
 #include <boost/filesystem.hpp>
 
@@ -36,7 +39,8 @@ public:
 
     void start();
 
-    void set_anime_db(AnimeDB& db);
+    void set_anime_db(std::shared_ptr<AnimeDB> db);
+    void set_user_data_db(std::shared_ptr<UserDataDB> db);
 
 private:
     using alloc_t = fields_alloc<char>;
@@ -63,6 +67,7 @@ private:
     alloc_t alloc_{8192};
 
     std::shared_ptr<AnimeDB> anime_db;
+    std::shared_ptr<UserDataDB> user_data_db;
 };
 
 #endif

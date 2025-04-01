@@ -1,8 +1,11 @@
+#include "base_mongodb.hpp"
 #include "http_server/server.hpp"
 #include "database_logic/anime_db/anime_db.hpp"
+#include "user_data_db/user_data_db.hpp"
 
 #include <iostream>
 #include <list>
+#include <memory>
 #include <vector>
 
 int main(int argc, char* argv[])
@@ -25,8 +28,8 @@ int main(int argc, char* argv[])
         // int num_workers = 3;
         // bool spin = (std::strcmp(argv[5], "spin") == 0);
 
-        auto animedb = AnimeDB();
-        animedb.CreateDatabase("test_db", "test");
+        auto animedb = std::make_shared<AnimeDB>("test_db", "test");
+        auto user_data_db = std::make_shared<UserDataDB>("test_db", "test");
 
         auto const address = boost::asio::ip::make_address("0.0.0.0");
         unsigned short port = static_cast<unsigned short>(8080);
@@ -39,7 +42,10 @@ int main(int argc, char* argv[])
         std::list<http_worker> workers;
         for (int i = 0; i < num_workers; ++i) {
             workers.emplace_back(acceptor);
+
             workers.back().set_anime_db(animedb);
+            workers.back().set_user_data_db(user_data_db);
+
             workers.back().start();
         }
 

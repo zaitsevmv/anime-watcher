@@ -12,7 +12,8 @@
 
 class UserDataDB: public BaseMongoDB{
 public:
-    UserDataDB();
+    UserDataDB(const std::string& db_name, const std::string& collection_name)
+        : BaseMongoDB(db_name, collection_name) {}
 
     std::optional<std::string> GetUser(int64_t user_id);
 

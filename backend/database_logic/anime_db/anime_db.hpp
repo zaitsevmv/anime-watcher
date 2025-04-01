@@ -11,6 +11,9 @@
 
 class AnimeDB: public BaseMongoDB{
 public:
+    AnimeDB(const std::string& db_name, const std::string& collection_name)
+        : BaseMongoDB(db_name, collection_name) {}
+
     std::optional<std::string> GetAnime(const std::string& anime_hash);
 
     std::optional<uint64_t> AddAnime(const std::string& anime_data_json);

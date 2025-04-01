@@ -14,7 +14,7 @@ socketio = SocketIO(app)
 
 def api_request(method, endpoint, data=None, headers=None):
     """Helper function for making API calls"""
-    url = f"{API_BASE_URL}"
+    url = f"{API_BASE_URL}/{endpoint}"
     try:
         response = requests.request(method, url, json=data, headers=headers)
         
@@ -58,12 +58,12 @@ def login():
     if request.method == 'POST':
         # API call to backend
         response = api_request('POST', 'auth/login', {
-            'username': request.form['username'],
-            'password': request.form['password']
+            'login': request.form['login'],
+            'password_hash': request.form['password']
         })
         
         if response and response.get('success'):
-            session['user_token'] = response['token']
+            session['user_id'] = response['id']
             return redirect(url_for('index'))
         flash('Invalid credentials')
     return render_template('login.html')
@@ -86,20 +86,20 @@ def register():
 
 @app.route('/logout')
 def logout():
-    session.pop('user_token', None)
+    session.pop('user_id', None)
     return redirect(url_for('index'))
 
 # Updated chat route with authentication
 @app.route('/chat')
 def chat():
-    if 'user_token' not in session:
+    if 'user_id' not in session:
         return redirect(url_for('login'))
     return render_template('chat.html')
 
 # Modified WebSocket handler with authentication
 @socketio.on('message')
 def handle_message(msg):
-    if 'user_token' not in session:
+    if 'user_id' not in session:
         return
     # Store message via API
     api_request('POST', 'chat', {

@@ -12,6 +12,9 @@
 
 class ChatDB: public BaseMongoDB{
 public:
+    ChatDB(const std::string& db_name, const std::string& collection_name)
+        : BaseMongoDB(db_name, collection_name) {}
+
     std::optional<uint64_t> AddMessage(const std::string& message_data);
     std::optional<int> DeleteMessage(const std::string& message_uid);
     std::optional<std::vector<std::string>> GetNewMessages(const std::chrono::steady_clock::time_point& last_update);

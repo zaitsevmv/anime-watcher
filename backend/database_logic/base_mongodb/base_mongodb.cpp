@@ -12,16 +12,14 @@
 #include <optional>
 #include <filesystem>
 
-std::optional<int32_t> BaseMongoDB::CreateDatabase(const std::string& db_name, const std::string& collection_name) {
-    mongocxx::instance instance;
-    mongocxx::uri uri("mongodb://admin:secret@localhost:27017");
-    client = mongocxx::client(uri);
+BaseMongoDB::BaseMongoDB(const std::string& db_name, const std::string& collection_name)
+    : client(mongocxx::uri("mongodb://admin:secret@localhost:27017"))
+{
     if(client[db_name].has_collection(collection_name)){
         collection = client[db_name][collection_name];
     } else{
         collection = client[db_name].create_collection(collection_name);
     }
-    return 0;
 }
 
 std::optional<int32_t> BaseMongoDB::LoadCollectionData(const std::string& path) {
