@@ -65,7 +65,7 @@ std::optional<int32_t> UserDataDB::RemoveUserFavourite(int64_t user_id, const st
 }
 std::optional<bool> UserDataDB::LoginUnique(const std::string& user_login) {
     auto search_result = GetDocument(SearchFilter("login", user_login));
-    return search_result.has_value();
+    return !search_result.has_value();
 }
 
 std::optional<bool> UserDataDB::UserExist(const std::string& user_login, const std::string& user_password_hash) {

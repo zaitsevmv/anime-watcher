@@ -73,9 +73,9 @@ def register():
     if request.method == 'POST':
         # API call to backend
         response = api_request('POST', 'auth/register', {
-            'username': request.form['username'],
+            'login': request.form['login'],
             'email': request.form['email'],
-            'password': request.form['password']
+            'password_hash': request.form['password']
         })
         
         if response and response.get('success'):
