@@ -29,6 +29,18 @@ void http_worker::set_user_data_db(std::shared_ptr<UserDataDB> db) {
     user_data_db = std::move(db);
 }
 
+void http_worker::set_anime_search_db(std::shared_ptr<AnimeSearchDB> db) {
+    anime_search_db = std::move(db);
+}
+
+void http_worker::set_user_name_db(std::shared_ptr<UserNameDB> db) {
+    user_name_db = std::move(db);
+}
+
+void http_worker::set_chat_db(std::shared_ptr<ChatDB> db) {
+    chat_db = std::move(db);
+}
+
 void http_worker::accept() {
     boost::beast::error_code ec;
     socket_.close(ec);

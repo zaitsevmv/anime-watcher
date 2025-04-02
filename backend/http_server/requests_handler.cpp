@@ -54,6 +54,8 @@ uint32_t convert_endpoint(const std::string_view& endpoint){
     return encoded;
 }
 
+//User data database
+
 bool login_user(std::shared_ptr<UserDataDB> db, const std::string& login, const std::string& password_hash){
     auto uq = db->UserExist(login, password_hash);
     return (uq.has_value() && *uq);
@@ -66,10 +68,71 @@ bool register_user(std::shared_ptr<UserDataDB> db, const std::string& login, con
     }
     boost::json::object new_user_data;
     new_user_data["login"] = login;
+    new_user_data["name"] = login;
     new_user_data["password_hash"] = password_hash;
     new_user_data["favourite_anime"] = boost::json::array();
     auto add_result = db->AddUser(boost::json::serialize(new_user_data));
     return (add_result.has_value() && ((*add_result) == 1));
+}
+
+//User name database
+
+auto get_redis_user_name(std::shared_ptr<UserNameDB> db, const int64_t user_id){
+    return db->GetUserName(user_id);
+}
+
+auto set_redis_user_name(std::shared_ptr<UserNameDB> db, const int64_t user_id, const std::string& user_name){
+    return db->SetUserName(user_id, user_name);
+}
+
+//Anime Database
+
+bool add_anime(std::shared_ptr<AnimeDB> db, const std::string& anime_data_json){
+    auto result = db->AddAnime(anime_data_json);
+    return (result.has_value() && (*result == 1));
+}
+
+bool delete_anime(std::shared_ptr<AnimeDB> db, const int64_t anime_id){
+    auto result = db->DeleteAnime(anime_id);
+    return (result.has_value() && (*result == 1));
+}
+
+auto get_anime(std::shared_ptr<AnimeDB> db, const int64_t anime_id){
+    return db->GetAnime(anime_id);
+}
+
+auto update_anime(std::shared_ptr<AnimeDB> db, const int64_t anime_id,  const std::string& anime_data_json){
+    return db->UpdateAnime(anime_id, anime_data_json);
+}
+
+//Anime search Database
+
+auto index_anime(std::shared_ptr<AnimeSearchDB> db, const int64_t anime_id, const std::string& anime_data_json){
+    return db->AddAnime(anime_id, anime_data_json);
+}
+
+auto delete_indexed_anime(std::shared_ptr<AnimeSearchDB> db, const int64_t anime_id){
+    return db->DeleteAnime(anime_id);
+} 
+
+auto update_indexed_anime(std::shared_ptr<AnimeSearchDB> db, const int64_t anime_id, const std::string& anime_data_json){
+    return db->UpdateAnime(anime_id, anime_data_json);
+} 
+
+auto search_indexed_anime(std::shared_ptr<AnimeSearchDB> db, const std::string& search_request){
+    return db->SearchAnime(search_request);
+}
+
+//Chat Database
+
+bool add_message(std::shared_ptr<ChatDB> db, const std::string& message_data_json){
+    auto result = db->AddMessage(message_data_json);
+    return (result.has_value() && (*result == 1));
+}
+
+bool delete_message(std::shared_ptr<ChatDB> db, const int64_t message_id){
+    auto result = db->DeleteMessage(message_id);
+    return (result.has_value() && (*result == 1));
 }
 
 void http_worker::process_get_request(const http::request<request_body_t, http::basic_fields<alloc_t>>& req) {
@@ -91,7 +154,7 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                         jv.at("login").as_string().c_str(), 
                         jv.at("password_hash").as_string().c_str()
                     );
-                    std::cout << "Login successful: " << res << std::endl;
+                    std::cout << "Login result: " << res << std::endl;
                 }
             }
             break;
@@ -104,7 +167,7 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                         jv.at("login").as_string().c_str(), 
                         jv.at("password_hash").as_string().c_str()
                     );
-                    std::cout << "Register successful: " << res << std::endl;
+                    std::cout << "Register result: " << res << std::endl;
                 }
             }
             break;

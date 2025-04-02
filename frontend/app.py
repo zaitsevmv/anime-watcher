@@ -26,17 +26,11 @@ def api_request(method, endpoint, data=None, headers=None):
 # Mock data for demonstration
 anime_list = [
     {
-        'id': 1,
         'title': 'Attack on Titan',
-        'image': 'aot.jpg',
-        'video': 'aot_ep1.mp4',
         'description': 'Humans fight giant humanoid creatures called Titans'
     },
     {
-        'id': 2,
         'title': 'Demon Slayer',
-        'image': 'demonslayer.jpg',
-        'video': 'demonslayer_ep1.mp4',
         'description': 'A young boy becomes a demon slayer after his family is slaughtered'
     }
 ]

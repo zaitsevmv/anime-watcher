@@ -20,8 +20,8 @@ size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* s) 
     return newLength;
 }
 
-std::optional<int32_t> AnimeSearchDB::AddAnime(const std::string& anime_hash, const std::string& anime_data_json) {
-    std::string url = "http://localhost:9200/" + db_name + "/_doc/" + anime_hash;
+std::optional<int32_t> AnimeSearchDB::AddAnime(const int64_t anime_id, const std::string& anime_data_json) {
+    std::string url = "http://localhost:9200/" + db_name + "/_doc/" + std::to_string(anime_id);
     curl_easy_setopt(curl.get(), CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, WriteCallback);
     std::string curl_buffer;
@@ -41,8 +41,8 @@ std::optional<int32_t> AnimeSearchDB::AddAnime(const std::string& anime_hash, co
     return 1;
 }
 
-std::optional<int32_t> AnimeSearchDB::DeleteAnime(const std::string& anime_hash) {
-    std::string url = "http://localhost:9200/" + db_name + "/_doc/" + anime_hash;
+std::optional<int32_t> AnimeSearchDB::DeleteAnime(const int64_t anime_id) {
+    std::string url = "http://localhost:9200/" + db_name + "/_doc/" + std::to_string(anime_id);
     curl_easy_setopt(curl.get(), CURLOPT_CUSTOMREQUEST, "DELETE");
     curl_easy_setopt(curl.get(), CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, WriteCallback);
@@ -72,8 +72,8 @@ std::optional<std::string> AnimeSearchDB::SearchAnime(const std::string& search_
     return curl_buffer;
 }
 
-std::optional<int32_t> AnimeSearchDB::UpdateAnime(const std::string& anime_hash, const std::string& anime_data_json) {
-    std::string url = "http://localhost:9200/" + db_name + "/_update/" + anime_hash;
+std::optional<int32_t> AnimeSearchDB::UpdateAnime(const int64_t anime_id, const std::string& anime_data_json) {
+    std::string url = "http://localhost:9200/" + db_name + "/_update/" + std::to_string(anime_id);
     curl_easy_setopt(curl.get(), CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, WriteCallback);
     std::string curl_buffer;

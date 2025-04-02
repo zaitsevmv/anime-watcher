@@ -9,12 +9,12 @@
 #include <bsoncxx/json.hpp>
 #include <chrono>
 
-std::optional<uint64_t> ChatDB::AddMessage(const std::string& message_data) {
+std::optional<int32_t> ChatDB::AddMessage(const std::string& message_data) {
     return AddDocument(message_data);
 }
 
-std::optional<int> ChatDB::DeleteMessage(const std::string& message_uid) {
-    return DeleteDocument({"uid", message_uid});
+std::optional<int32_t> ChatDB::DeleteMessage(const int64_t message_id) {
+    return DeleteDocument(SearchFilter("_id", message_id));
 }
 
 std::optional<std::vector<std::string>> ChatDB::GetNewMessages(const std::chrono::steady_clock::time_point& last_update) {

@@ -6,19 +6,19 @@
 #include <mongocxx/uri.hpp>
 #include <bsoncxx/json.hpp>
 
-std::optional<std::string> AnimeDB::GetAnime(const std::string& anime_hash) {
-    return GetDocument({"hashed_name", anime_hash});
+std::optional<std::string> AnimeDB::GetAnime(const int64_t anime_id) {
+    return GetDocument({"_id", anime_id});
 }
 
-std::optional<uint64_t> AnimeDB::AddAnime(const std::string& anime_data_json) {
+std::optional<int32_t> AnimeDB::AddAnime(const std::string& anime_data_json) {
     return AddDocument(anime_data_json);
 }
 
-std::optional<int> AnimeDB::DeleteAnime(const std::string& anime_hash) {
-    return DeleteDocument({"hashed_name", anime_hash});
+std::optional<int32_t> AnimeDB::DeleteAnime(const int64_t anime_id) {
+    return DeleteDocument({"_id", anime_id});
 }
 
-std::optional<std::string> AnimeDB::UpdateAnime(const std::string& anime_hash, const std::string& anime_data_json) {
-    return UpdateDocument({"hashed_name", anime_hash}, anime_data_json);
+std::optional<std::string> AnimeDB::UpdateAnime(const int64_t anime_id, const std::string& anime_data_json) {
+    return UpdateDocument({"_id", anime_id}, anime_data_json);
 }
 

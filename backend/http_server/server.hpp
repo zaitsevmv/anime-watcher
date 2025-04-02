@@ -1,11 +1,12 @@
 #ifndef __RESPONSE_SERVER_H__
 #define __RESPONSE_SERVER_H__
 
+#include "chat_db/chat_db.hpp"
 #include "fields_alloc.hpp"
 #include "anime_db/anime_db.hpp"
 #include "user_data_db/user_data_db.hpp"
-// #include "anime_search_db/anime_search_db.hpp"
-
+#include "anime_search_db/anime_search_db.hpp"
+#include "user_name_db/user_name_db.hpp"
 
 #include <boost/asio/any_io_executor.hpp>
 #include <boost/asio/basic_waitable_timer.hpp>
@@ -24,7 +25,6 @@
 #include <chrono>
 #include <memory>
 #include <optional>
-#include <string>
 
 namespace ip = boost::asio::ip;         // from <boost/asio.hpp>
 using tcp = boost::asio::ip::tcp;       // from <boost/asio.hpp>
@@ -41,6 +41,9 @@ public:
 
     void set_anime_db(std::shared_ptr<AnimeDB> db);
     void set_user_data_db(std::shared_ptr<UserDataDB> db);
+    void set_anime_search_db(std::shared_ptr<AnimeSearchDB> db);
+    void set_user_name_db(std::shared_ptr<UserNameDB> db);
+    void set_chat_db(std::shared_ptr<ChatDB> db);
 
 private:
     using alloc_t = fields_alloc<char>;
@@ -67,7 +70,10 @@ private:
     alloc_t alloc_{8192};
 
     std::shared_ptr<AnimeDB> anime_db;
+    std::shared_ptr<AnimeSearchDB> anime_search_db;
     std::shared_ptr<UserDataDB> user_data_db;
+    std::shared_ptr<UserNameDB> user_name_db;
+    std::shared_ptr<ChatDB> chat_db;
 };
 
 #endif

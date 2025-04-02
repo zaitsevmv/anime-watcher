@@ -1,7 +1,5 @@
 #include "base_mongodb.hpp"
 #include "http_server/server.hpp"
-#include "database_logic/anime_db/anime_db.hpp"
-#include "user_data_db/user_data_db.hpp"
 
 #include <iostream>
 #include <list>
@@ -30,6 +28,7 @@ int main(int argc, char* argv[])
 
         auto animedb = std::make_shared<AnimeDB>("test_db", "test");
         auto user_data_db = std::make_shared<UserDataDB>("test_db", "test");
+        auto chat_db = std::make_shared<ChatDB>("test_db", "test");
 
         auto const address = boost::asio::ip::make_address("0.0.0.0");
         unsigned short port = static_cast<unsigned short>(8080);
