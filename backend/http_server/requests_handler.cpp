@@ -11,9 +11,16 @@
 enum class req_targets: uint32_t{
     auth = 0x01,
     chat = 0x02,
+    anime = 0x03,
+    users = 0x05,
 
     reg = 0x0100,
-    login = 0x0200
+    login = 0x0200,
+    fav = 0x0300,
+    details = 0x0400,
+    search = 0x0500,
+    send = 0x0600,
+    msg = 0x0700
 
 };
 
@@ -150,7 +157,7 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                 auto jv = boost::json::parse(body);
                 if(jv.as_object().contains("login") && jv.as_object().contains("password_hash")){
                     auto res = login_user(
-                        user_data_db, 
+                        user_data_db_, 
                         jv.at("login").as_string().c_str(), 
                         jv.at("password_hash").as_string().c_str()
                     );
@@ -163,7 +170,7 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                 auto jv = boost::json::parse(body);
                 if(jv.as_object().contains("login") && jv.as_object().contains("password_hash")){
                     auto res = register_user(
-                        user_data_db, 
+                        user_data_db_, 
                         jv.at("login").as_string().c_str(), 
                         jv.at("password_hash").as_string().c_str()
                     );

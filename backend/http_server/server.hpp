@@ -1,8 +1,9 @@
 #ifndef __RESPONSE_SERVER_H__
 #define __RESPONSE_SERVER_H__
 
-#include "chat_db/chat_db.hpp"
 #include "fields_alloc.hpp"
+
+#include "chat_db/chat_db.hpp"
 #include "anime_db/anime_db.hpp"
 #include "user_data_db/user_data_db.hpp"
 #include "anime_search_db/anime_search_db.hpp"
@@ -15,6 +16,7 @@
 #include <boost/beast/http.hpp>
 #include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/message.hpp>
+#include <boost/beast/http/message_fwd.hpp>
 #include <boost/beast/http/parser.hpp>
 #include <boost/beast/http/string_body.hpp>
 #include <boost/beast/version.hpp>
@@ -25,6 +27,7 @@
 #include <chrono>
 #include <memory>
 #include <optional>
+#include <string>
 
 namespace ip = boost::asio::ip;         // from <boost/asio.hpp>
 using tcp = boost::asio::ip::tcp;       // from <boost/asio.hpp>
@@ -55,6 +58,8 @@ private:
     void read_request();
     void process_request(const http::request<request_body_t, http::basic_fields<alloc_t>>& req);
 
+    void send_response(http::status status, const std::string& message);
+
     void process_get_request(const http::request<request_body_t, http::basic_fields<alloc_t>>& req);
     void process_post_request(const http::request<request_body_t, http::basic_fields<alloc_t>>& req);
 
@@ -69,11 +74,14 @@ private:
     std::optional<http::request_parser<request_body_t, alloc_t>> parser_;
     alloc_t alloc_{8192};
 
-    std::shared_ptr<AnimeDB> anime_db;
-    std::shared_ptr<AnimeSearchDB> anime_search_db;
-    std::shared_ptr<UserDataDB> user_data_db;
-    std::shared_ptr<UserNameDB> user_name_db;
-    std::shared_ptr<ChatDB> chat_db;
+    std::optional<http::response<http::string_body, http::basic_fields<alloc_t>>> string_response_;
+    std::optional<http::response_serializer<http::string_body, http::basic_fields<alloc_t>>> string_serializer_;
+
+    std::shared_ptr<AnimeDB> anime_db_;
+    std::shared_ptr<AnimeSearchDB> anime_search_db_;
+    std::shared_ptr<UserDataDB> user_data_db_;
+    std::shared_ptr<UserNameDB> user_name_db_;
+    std::shared_ptr<ChatDB> chat_db_;
 };
 
 #endif

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, session, flash
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for
 from flask_socketio import SocketIO, send
 import requests  # For making API calls
 from dotenv import load_dotenv
@@ -17,40 +17,57 @@ def api_request(method, endpoint, data=None, headers=None):
     url = f"{API_BASE_URL}/{endpoint}"
     try:
         response = requests.request(method, url, json=data, headers=headers)
-        
         return response.json()
     except Exception as e:
         print(f"API Error: {e}")
         return None
-    
-# Mock data for demonstration
-anime_list = [
-    {
-        'title': 'Attack on Titan',
-        'description': 'Humans fight giant humanoid creatures called Titans'
-    },
-    {
-        'title': 'Demon Slayer',
-        'description': 'A young boy becomes a demon slayer after his family is slaughtered'
-    }
-]
 
 @app.route('/')
 def index():
-    # Display first anime for demonstration
-    return render_template('index.html', anime=anime_list[0])
+    """Fetch user's favorite anime and display one as the featured anime."""
+    if 'user_id' not in session:
+        return redirect(url_for('login'))
 
-@app.route('/search')
-def search():
-    query = request.args.get('q', '')
-    results = [anime for anime in anime_list if query.lower() in anime['title'].lower()]
-    return render_template('search.html', results=results, query=query)
+    user_id = session['user_id']
+    
+    # Step 1: Get user's favorite anime list
+    fav_response = api_request('GET', f'users/favorites/{user_id}')
+    favorite_anime_ids = fav_response.get('anime_ids', []) if fav_response and fav_response.get('success') else []
+
+    # Step 2: Fetch details of those anime
+    anime_list = []
+    if favorite_anime_ids:
+        details_response = api_request('POST', 'anime/details', data={'anime_ids': favorite_anime_ids})
+        anime_list = details_response.get('anime', []) if details_response and details_response.get('success') else []
+
+    return render_template('index.html', anime_list=anime_list)
+
+@app.route('/anime')
+def anime():
+    """Render the anime search page."""
+    return render_template('anime.html')
+
+@app.route('/search_anime')
+def search_anime():
+    """API route to search anime based on user input (live search)."""
+    query = request.args.get('q', '').strip()
+
+    if not query:
+        return jsonify([])  # Return empty if no search term
+
+    # Call backend search API
+    response = api_request('GET', f'anime/search?q={query}')
+    
+    if response and response.get('success'):
+        return jsonify(response.get('anime', []))  # Return list of found anime
+
+    return jsonify([])  # Return empty on error
 
 # Authentication routes
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
-        # API call to backend
+        # API call to backend for authentication
         response = api_request('POST', 'auth/login', {
             'login': request.form['login'],
             'password_hash': request.form['password']
@@ -59,13 +76,12 @@ def login():
         if response and response.get('success'):
             session['user_id'] = response['id']
             return redirect(url_for('index'))
-        flash('Invalid credentials')
     return render_template('login.html')
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
-        # API call to backend
+        # API call to backend for user registration
         response = api_request('POST', 'auth/register', {
             'login': request.form['login'],
             'email': request.form['email'],
@@ -73,9 +89,7 @@ def register():
         })
         
         if response and response.get('success'):
-            flash('Registration successful! Please login.')
-            return redirect(url_for('login'))
-        flash('Registration failed')
+            return redirect(url_for('index'))
     return render_template('register.html')
 
 @app.route('/logout')
@@ -83,27 +97,34 @@ def logout():
     session.pop('user_id', None)
     return redirect(url_for('index'))
 
-# Updated chat route with authentication
 @app.route('/chat')
 def chat():
     if 'user_id' not in session:
         return redirect(url_for('login'))
     return render_template('chat.html')
 
-# Modified WebSocket handler with authentication
-@socketio.on('message')
-def handle_message(msg):
-    if 'user_id' not in session:
-        return
-    # Store message via API
-    api_request('POST', 'chat', {
-        'message': msg,
-        'user_token': session['user_token']
-    }, headers={'Authorization': f"Bearer {session['user_token']}"})
+@app.route('/get_messages')
+def get_messages():
+    """Fetch messages after a given timestamp from the backend."""
+    last_timestamp = request.args.get('after', 0)  # Default to 0 if no timestamp is provided
+    response = api_request('GET', f'chat/messages?after={last_timestamp}')
     
-    send({
-        'message': msg,
-        'user': session.get('username', 'Anonymous')
-    }, broadcast=True)
+    if response and response.get('success'):
+        return jsonify(response.get('messages', []))
+    return jsonify([])  # Return empty list if there’s an issue
 
-# Add login_required decorator to protected routes as needed
+@app.route('/send_message', methods=['POST'])
+def send_message():
+    """Send a new message to the backend."""
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+
+    message_text = request.json.get('message')
+    if not message_text:
+        return jsonify({'success': False, 'error': 'Empty message'}), 400
+
+    response = api_request('POST', 'chat/send', data={'user_id': session['user_id'], 'message': message_text})
+
+    if response and response.get('success'):
+        return jsonify({'success': True})
+    return jsonify({'success': False, 'error': 'Failed to send message'}), 500
