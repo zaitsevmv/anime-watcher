@@ -58,7 +58,8 @@ private:
     void read_request();
     void process_request(const http::request<request_body_t, http::basic_fields<alloc_t>>& req);
 
-    void send_response(http::status status, const std::string& message);
+    void send_json_response(http::status status, const std::string& message);
+    void send_text_response(http::status status, const std::string& message);
 
     void process_get_request(const http::request<request_body_t, http::basic_fields<alloc_t>>& req);
     void process_post_request(const http::request<request_body_t, http::basic_fields<alloc_t>>& req);

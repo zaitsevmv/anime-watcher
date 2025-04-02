@@ -107,16 +107,41 @@ void http_worker::process_request(const http::request<request_body_t, http::basi
     }
 }
 
-void http_worker::send_response(http::status status, const std::string& message) {
+void http_worker::send_json_response(http::status status, const std::string& message) {
     string_response_.emplace(std::piecewise_construct, std::make_tuple(), std::make_tuple(alloc_));
 
     string_response_->result(status);
     string_response_->keep_alive(false);
     string_response_->set(http::field::server, "Beast");
     string_response_->set(http::field::content_type, "application/json");  
+    string_response_->body() = message;
     string_response_->prepare_payload();
 
-    string_response_.emplace(*string_response_);
+    string_serializer_.emplace(*string_response_);
+
+    http::async_write(
+        socket_, 
+        *string_serializer_, 
+        [this](boost::beast::error_code ec, std::size_t){
+            socket_.shutdown(tcp::socket::shutdown_send, ec);
+            string_serializer_.reset();
+            string_response_.reset();
+            accept();
+        }
+    );
+}
+
+void http_worker::send_text_response(http::status status, const std::string& message) {
+    string_response_.emplace(std::piecewise_construct, std::make_tuple(), std::make_tuple(alloc_));
+
+    string_response_->result(status);
+    string_response_->keep_alive(false);
+    string_response_->set(http::field::server, "Beast");
+    string_response_->set(http::field::content_type, "text/plain");  
+    string_response_->body() = message;
+    string_response_->prepare_payload();
+
+    string_serializer_.emplace(*string_response_);
 
     http::async_write(
         socket_, 

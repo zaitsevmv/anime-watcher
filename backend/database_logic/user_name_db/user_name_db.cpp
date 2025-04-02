@@ -6,7 +6,7 @@
 #include <iostream>
 
 UserNameDB::UserNameDB(){
-    stream = rediscpp::make_stream("localhost", "6379");
+    // stream = rediscpp::make_stream("localhost", "6379");
 }
 
 std::optional<std::string> UserNameDB::SetUserName(int64_t user_id, const std::string& user_name) {

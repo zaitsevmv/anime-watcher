@@ -63,9 +63,8 @@ uint32_t convert_endpoint(const std::string_view& endpoint){
 
 //User data database
 
-bool login_user(std::shared_ptr<UserDataDB> db, const std::string& login, const std::string& password_hash){
-    auto uq = db->UserExist(login, password_hash);
-    return (uq.has_value() && *uq);
+std::optional<std::string> login_user(std::shared_ptr<UserDataDB> db, const std::string& login, const std::string& password_hash){
+    return db->UserExist(login, password_hash);
 }
 
 bool register_user(std::shared_ptr<UserDataDB> db, const std::string& login, const std::string& password_hash){
@@ -161,7 +160,15 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                         jv.at("login").as_string().c_str(), 
                         jv.at("password_hash").as_string().c_str()
                     );
-                    std::cout << "Login result: " << res << std::endl;
+                    std::cout << "Login result: " << res.has_value() << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res.has_value();
+                    if(res){
+                        response_object["user_id"] = *res;
+                    }
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
                 }
             }
             break;
@@ -175,6 +182,11 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                         jv.at("password_hash").as_string().c_str()
                     );
                     std::cout << "Register result: " << res << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res;
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
                 }
             }
             break;

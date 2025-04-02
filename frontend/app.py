@@ -74,7 +74,8 @@ def login():
         })
         
         if response and response.get('success'):
-            session['user_id'] = response['id']
+            print(response)
+            session['user_id'] = response['user_id']
             return redirect(url_for('index'))
     return render_template('login.html')
 
