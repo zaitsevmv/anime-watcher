@@ -17,9 +17,8 @@ std::optional<int32_t> ChatDB::DeleteMessage(const int64_t message_id) {
     return DeleteDocument(SearchFilter("_id", message_id));
 }
 
-std::optional<std::vector<std::string>> ChatDB::GetNewMessages(const std::chrono::steady_clock::time_point& last_update) {
-    auto timestamp = std::chrono::duration_cast<std::chrono::milliseconds>(last_update.time_since_epoch());
-    auto search_result = collection.find(GreaterThanFilter("timestamp_miliseconds", timestamp).get()); 
+std::optional<std::vector<std::string>> ChatDB::GetNewMessages(const int64_t last_update_ms) {
+    auto search_result = collection.find(GreaterThanFilter("timestamp_ms", last_update_ms).get()); 
     std::vector<std::string> result;
     result.reserve(128);
     for(const auto& message: search_result){

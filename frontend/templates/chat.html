@@ -4,7 +4,7 @@
 <div class="chat-container">
     <div class="chat-messages" id="messages"></div>
     <div class="chat-input">
-        <input type="text" id="messageInput" placeholder="Type your message...">
+        <input type="text" id="message-input" placeholder="Type your message...">
         <button onclick="sendMessage()">Send</button>
     </div>
 </div>
@@ -17,9 +17,13 @@
             .then(response => response.json())
             .then(messages => {
                 if (messages.length > 0) {
-                    messages.forEach(msg => {
-                        document.getElementById('chat-box').innerHTML += `<p><b>User ${msg.user_id}:</b> ${msg.message}</p>`;
-                        lastTimestamp = msg.timestamp;  // Update the last timestamp
+                    messages.forEach(msgStr => {
+                        let msg = JSON.parse(msgStr);
+                        console.log(msg.user_id);
+                        console.log(msg.message);
+                        console.log(msg.timestamp_ms);
+                        document.getElementById('messages').innerHTML += `<p><b>User ${msg.user_id}:</b> ${msg.message}</p>`;
+                        lastTimestamp = msg.timestamp_ms;  // Update the last timestamp
                     });
                 }
             })

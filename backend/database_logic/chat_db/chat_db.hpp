@@ -17,7 +17,7 @@ public:
 
     std::optional<int32_t> AddMessage(const std::string& message_data);
     std::optional<int32_t> DeleteMessage(const int64_t message_id);
-    std::optional<std::vector<std::string>> GetNewMessages(const std::chrono::steady_clock::time_point& last_update);
+    std::optional<std::vector<std::string>> GetNewMessages(const int64_t last_update_ms);
 };
 
 #endif

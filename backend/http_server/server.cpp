@@ -54,7 +54,6 @@ void http_worker::accept() {
             if(ec){
                 accept();
             } else{
-                std::cout << "New connection" << socket_.remote_endpoint() << std::endl;
                 request_deadline_.expires_after(60s);
                 read_request();
             }

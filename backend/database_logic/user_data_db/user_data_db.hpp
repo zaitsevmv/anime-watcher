@@ -30,6 +30,7 @@ public:
     std::optional<int32_t> RemoveUserFavourite(std::string user_id, const std::string& anime_hash);
 
     std::optional<bool> LoginUnique(const std::string& user_login);
+    std::optional<bool> EmailUnique(const std::string& user_email);
 
     std::optional<std::string> UserExist(const std::string& user_login, const std::string& user_password_hash);
 };

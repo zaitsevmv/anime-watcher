@@ -3,6 +3,8 @@ from flask_socketio import SocketIO, send
 import requests  # For making API calls
 from dotenv import load_dotenv
 import os
+import time
+import logging
 
 load_dotenv()  # Load environment variables from .env file
 
@@ -10,6 +12,8 @@ app = Flask(__name__)
 app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
 API_BASE_URL = os.getenv('API_BASE_URL')
 socketio = SocketIO(app)
+
+logging.basicConfig(filename="debug.log", level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
 
 def api_request(method, endpoint, data=None, headers=None):
@@ -110,6 +114,8 @@ def get_messages():
     last_timestamp = request.args.get('after', 0)  # Default to 0 if no timestamp is provided
     response = api_request('GET', f'chat/messages?after={last_timestamp}')
     
+    logging.debug(f"API response: {response}")
+
     if response and response.get('success'):
         return jsonify(response.get('messages', []))
     return jsonify([])  # Return empty list if there’s an issue
@@ -124,7 +130,11 @@ def send_message():
     if not message_text:
         return jsonify({'success': False, 'error': 'Empty message'}), 400
 
-    response = api_request('POST', 'chat/send', data={'user_id': session['user_id'], 'message': message_text})
+    response = api_request('POST', 'chat/send', data={
+        'user_id': session['user_id'],
+        'message': message_text,
+        'timestamp_ms': int(time.time() * 1000)  # Add milliseconds timestamp
+    })
 
     if response and response.get('success'):
         return jsonify({'success': True})

@@ -20,7 +20,9 @@ enum class req_targets: uint32_t{
     details = 0x0400,
     search = 0x0500,
     send = 0x0600,
-    msg = 0x0700
+    msg = 0x0700,
+
+    after = 0x010000
 
 };
 
@@ -29,7 +31,13 @@ constexpr auto toUType(E e) noexcept {
     return static_cast<std::underlying_type_t<E>>(e);
 }
 
-uint32_t convert_endpoint(const std::string_view& endpoint){
+struct EndpointStruct{
+    uint32_t target;
+    std::optional<std::string> data;
+};
+
+EndpointStruct convert_endpoint(const std::string_view& endpoint){
+    EndpointStruct result;
     std::vector<std::string> targets;
     std::string cur_target;
     for(auto c: endpoint){
@@ -45,37 +53,66 @@ uint32_t convert_endpoint(const std::string_view& endpoint){
     }
     uint32_t encoded = 0;
     for(const auto& tr: targets){
-        if(tr == "auth"){
+        if(tr == "auth") 
             encoded += toUType(req_targets::auth);
-        }
-        else if(tr == "chat"){
+        else if(tr == "chat") 
             encoded += toUType(req_targets::chat);
-        }
-        if(tr == "register"){
+        else if(tr == "register") 
             encoded += toUType(req_targets::reg);
-        }
-        else if(tr == "login"){
+        else if(tr == "login") 
             encoded += toUType(req_targets::login);
-        }
+        else if(tr == "register") 
+            encoded += toUType(req_targets::reg);
+        else if(tr == "send") 
+            encoded += toUType(req_targets::send); 
+        else if(tr == "messages") 
+            encoded += toUType(req_targets::msg); 
     }
-    return encoded;
+    if(targets.back().find('?') < targets.back().size()){
+        auto lhs = targets.back().substr(0, targets.back().find('?'));
+        auto rhs = targets.back().substr(lhs.size()+1u);
+        auto com = rhs.substr(0, rhs.find('='));
+        auto val = rhs.substr(com.size()+1u);
+
+        if(lhs == "messages")
+            encoded += toUType(req_targets::msg);
+
+        if(com == "after")
+            encoded += toUType(req_targets::after);
+
+        result.data.emplace(val);
+    }
+    result.target = encoded;
+    return result;
 }
 
 //User data database
 
-std::optional<std::string> login_user(std::shared_ptr<UserDataDB> db, const std::string& login, const std::string& password_hash){
-    return db->UserExist(login, password_hash);
+struct UserDataForm{
+    std::string login;
+    std::string name;
+    std::string email;
+    std::string password_hash;
+};
+
+std::optional<std::string> login_user(std::shared_ptr<UserDataDB> db, const UserDataForm& form){
+    return db->UserExist(form.login, form.password_hash);
 }
 
-bool register_user(std::shared_ptr<UserDataDB> db, const std::string& login, const std::string& password_hash){
-    auto login_unique = db->LoginUnique(login);
+bool register_user(std::shared_ptr<UserDataDB> db, const UserDataForm& form){
+    auto login_unique = db->LoginUnique(form.login);
     if(!login_unique.has_value() || !(*login_unique)){
         return false;
     }
+    auto email_unique = db->EmailUnique(form.email);
+    if(!email_unique.has_value() || !(*email_unique)){
+        return false;
+    }
     boost::json::object new_user_data;
-    new_user_data["login"] = login;
-    new_user_data["name"] = login;
-    new_user_data["password_hash"] = password_hash;
+    new_user_data["login"] = form.login;
+    new_user_data["name"] = form.login;
+    new_user_data["email"] = form.email;
+    new_user_data["password_hash"] = form.password_hash;
     new_user_data["favourite_anime"] = boost::json::array();
     auto add_result = db->AddUser(boost::json::serialize(new_user_data));
     return (add_result.has_value() && ((*add_result) == 1));
@@ -141,8 +178,48 @@ bool delete_message(std::shared_ptr<ChatDB> db, const int64_t message_id){
     return (result.has_value() && (*result == 1));
 }
 
+auto get_messages(std::shared_ptr<ChatDB> db, const int64_t last_update_ms){
+    return db->GetNewMessages(last_update_ms);
+}
+
+//
+
 void http_worker::process_get_request(const http::request<request_body_t, http::basic_fields<alloc_t>>& req) {
-    std::cout << "Got GET request: " << req.base() << std::endl << req.body() << std::endl; 
+    std::cout << "Target: " << req.base().target() << std::endl;
+    auto endpoint = convert_endpoint(req.base().target());
+    std::string body = req.body();
+    switch (endpoint.target) {
+        case (toUType(req_targets::chat) | toUType(req_targets::msg) | toUType(req_targets::after)):
+            {
+                if(endpoint.data.has_value()){
+                    if(*endpoint.data == "undefined"){
+                        send_text_response(http::status::bad_request, "Bad request");
+                        break;
+                    }
+                    auto res = get_messages(
+                        chat_db_, 
+                        stoll(*endpoint.data)
+                    );
+                    std::cout << "Got messages result: " << res.has_value() << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res.has_value();
+                    if(res){
+                        boost::json::array messages_json(boost::json::make_shared_resource<boost::json::monotonic_resource>());
+                        for(const auto& s: *res){
+                            messages_json.emplace_back(s);
+                        }
+                        response_object["messages"] = messages_json;
+                    }
+                    std::cout << response_object << std::endl;
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        default:
+            break;
+    }
 }
 
 void http_worker::process_post_request(const http::request<request_body_t, http::basic_fields<alloc_t>>& req) {
@@ -150,15 +227,18 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
     std::cout << "Target: " << req.base().target() << std::endl;
     auto endpoint = convert_endpoint(req.base().target());
     std::string body = req.body();
-    switch (endpoint) {
+    switch (endpoint.target) {
         case (toUType(req_targets::auth) | toUType(req_targets::login)):
             {
                 auto jv = boost::json::parse(body);
                 if(jv.as_object().contains("login") && jv.as_object().contains("password_hash")){
+                    UserDataForm login_form;
+                    login_form.login = jv.at("login").as_string().c_str();
+                    login_form.password_hash = jv.at("password_hash").as_string().c_str();
+
                     auto res = login_user(
                         user_data_db_, 
-                        jv.at("login").as_string().c_str(), 
-                        jv.at("password_hash").as_string().c_str()
+                        login_form
                     );
                     std::cout << "Login result: " << res.has_value() << std::endl;
                     boost::json::object response_object;
@@ -175,13 +255,36 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
         case (toUType(req_targets::auth) | toUType(req_targets::reg)):
             {
                 auto jv = boost::json::parse(body);
-                if(jv.as_object().contains("login") && jv.as_object().contains("password_hash")){
+                if(jv.as_object().contains("login") && jv.as_object().contains("password_hash") && jv.as_object().contains("email")){
+                    UserDataForm reg_form;
+                    reg_form.login = jv.at("login").as_string().c_str();
+                    reg_form.password_hash = jv.at("password_hash").as_string().c_str();
+                    reg_form.email = jv.at("email").as_string().c_str();
                     auto res = register_user(
                         user_data_db_, 
-                        jv.at("login").as_string().c_str(), 
-                        jv.at("password_hash").as_string().c_str()
+                        reg_form
                     );
                     std::cout << "Register result: " << res << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res;
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        case (toUType(req_targets::chat) | toUType(req_targets::send)):
+            {
+                auto jv = boost::json::parse(body);
+                if(jv.as_object().contains("user_id") 
+                    && jv.as_object().contains("message") 
+                    && jv.as_object().contains("timestamp_ms"))
+                {
+                    auto res = add_message(
+                        chat_db_, 
+                        body
+                    );
+                    std::cout << "Message sending result: " << res << std::endl;
                     boost::json::object response_object;
                     response_object["success"] = res;
                     send_json_response(http::status::ok, boost::json::serialize(response_object));

@@ -69,6 +69,11 @@ std::optional<bool> UserDataDB::LoginUnique(const std::string& user_login) {
     return !search_result.has_value();
 }
 
+std::optional<bool> UserDataDB::EmailUnique(const std::string& user_email) {
+    auto search_result = GetDocument(SearchFilter("email", user_email));
+    return !search_result.has_value();
+}
+
 std::optional<std::string> UserDataDB::UserExist(const std::string& user_login, const std::string& user_password_hash) {
     auto search_result = GetDocument(SearchFilter("login", user_login));
     if(!search_result.has_value()) return std::nullopt;

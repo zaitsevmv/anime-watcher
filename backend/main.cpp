@@ -27,8 +27,8 @@ int main(int argc, char* argv[])
         // bool spin = (std::strcmp(argv[5], "spin") == 0);
 
         auto animedb = std::make_shared<AnimeDB>("test_db", "test");
-        auto user_data_db = std::make_shared<UserDataDB>("test_db", "test");
-        auto chat_db = std::make_shared<ChatDB>("test_db", "test");
+        auto user_data_db = std::make_shared<UserDataDB>("test_db", "users");
+        auto chat_db = std::make_shared<ChatDB>("test_db", "chat_test");
 
         auto const address = boost::asio::ip::make_address("0.0.0.0");
         unsigned short port = static_cast<unsigned short>(8080);
@@ -44,6 +44,7 @@ int main(int argc, char* argv[])
 
             workers.back().set_anime_db(animedb);
             workers.back().set_user_data_db(user_data_db);
+            workers.back().set_chat_db(chat_db);
 
             workers.back().start();
         }
