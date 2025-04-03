@@ -13,7 +13,7 @@ std::optional<std::string> UserDataDB::GetUser(std::string user_id) {
     return GetDocument({"_id", user_id});
 }
 
-std::optional<int32_t> UserDataDB::AddUser(const std::string& user_data_json) {
+std::optional<std::string> UserDataDB::AddUser(const std::string& user_data_json) {
     return AddDocument(user_data_json);
 }
 

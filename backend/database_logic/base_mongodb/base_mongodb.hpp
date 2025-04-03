@@ -23,7 +23,7 @@ public:
 protected:
     std::optional<std::string> GetDocument(const SearchFilter& filter);
 
-    std::optional<int32_t> AddDocument(const std::string& document_json);
+    std::optional<std::string> AddDocument(const std::string& document_json);
 
     std::optional<int32_t> DeleteDocument(const SearchFilter& filter);
 

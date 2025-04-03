@@ -9,7 +9,7 @@
 #include <bsoncxx/json.hpp>
 #include <chrono>
 
-std::optional<int32_t> ChatDB::AddMessage(const std::string& message_data) {
+std::optional<std::string> ChatDB::AddMessage(const std::string& message_data) {
     return AddDocument(message_data);
 }
 

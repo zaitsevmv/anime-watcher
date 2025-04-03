@@ -13,7 +13,7 @@
 
 class AnimeSearchDB{
 public:
-    AnimeSearchDB();
+    AnimeSearchDB(const std::string& name);
 
     std::optional<int32_t> AddAnime(int64_t anime_id, const std::string& anime_data_json);
 
@@ -31,7 +31,7 @@ private:
     };
     std::unique_ptr<CURL, CURL_deleter> curl;
 
-    std::string db_name = "anime_names";
+    std::string db_name;
     std::string anime_name_field = "anime_name";
 };
 

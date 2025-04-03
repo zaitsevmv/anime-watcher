@@ -17,7 +17,7 @@ public:
 
     std::optional<std::string> GetUser(std::string user_id);
 
-    std::optional<int32_t> AddUser(const std::string& user_data_json);
+    std::optional<std::string> AddUser(const std::string& user_data_json);
 
     std::optional<int32_t> DeleteUser(std::string user_id);
 

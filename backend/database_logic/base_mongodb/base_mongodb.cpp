@@ -49,11 +49,11 @@ std::optional<std::string> BaseMongoDB::GetDocument(const SearchFilter& filter) 
     return std::nullopt;
 }
 
-std::optional<int32_t> BaseMongoDB::AddDocument(const std::string& document_json) {
+std::optional<std::string> BaseMongoDB::AddDocument(const std::string& document_json) {
     auto bson_document = bsoncxx::from_json(document_json);
-    auto update_result = collection.insert_one(bson_document.view());
-    if(update_result){
-        return 1;  // returns the amount of added documents
+    auto add_result = collection.insert_one(bson_document.view());
+    if(add_result){
+        return add_result->inserted_id().get_oid().value.to_string();  // returns the amount of added documents
     }
     return std::nullopt;
 }

@@ -60,10 +60,10 @@ def search_anime():
         return jsonify([])  # Return empty if no search term
 
     # Call backend search API
-    response = api_request('GET', f'anime/search?q={query}')
+    response = api_request('GET', f'anime/search?query={query}')
     
     if response and response.get('success'):
-        return jsonify(response.get('anime', []))  # Return list of found anime
+        return jsonify(response.get('anime_ids', []))  # Return list of found anime
 
     return jsonify([])  # Return empty on error
 
@@ -78,7 +78,6 @@ def login():
         })
         
         if response and response.get('success'):
-            print(response)
             session['user_id'] = response['user_id']
             return redirect(url_for('index'))
     return render_template('login.html')
@@ -94,6 +93,7 @@ def register():
         })
         
         if response and response.get('success'):
+            session['user_id'] = response['user_id']
             return redirect(url_for('index'))
     return render_template('register.html')
 
@@ -115,9 +115,18 @@ def get_messages():
     response = api_request('GET', f'chat/messages?after={last_timestamp}')
     
     logging.debug(f"API response: {response}")
+    
+    def get_username(user_id):
+        """Fetch user_name from user_id using an API call."""
+        response = api_request('GET', f'users?name={user_id}')
+        if response and response.get('success'):
+            return response.get('user_name', user_id)
+        return user_id
 
     if response and response.get('success'):
-        return jsonify(response.get('messages', []))
+        messages_list = response.get('messages', [])
+        for msg in messages_list:
+            msg['user_name'] = get_username(msg['user_id'])
     return jsonify([])  # Return empty list if there’s an issue
 
 @app.route('/send_message', methods=['POST'])

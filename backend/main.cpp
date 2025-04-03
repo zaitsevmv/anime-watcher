@@ -1,5 +1,7 @@
+#include "anime_search_db/anime_search_db.hpp"
 #include "base_mongodb.hpp"
 #include "http_server/server.hpp"
+#include "user_name_db/user_name_db.hpp"
 
 #include <iostream>
 #include <list>
@@ -28,7 +30,9 @@ int main(int argc, char* argv[])
 
         auto animedb = std::make_shared<AnimeDB>("test_db", "test");
         auto user_data_db = std::make_shared<UserDataDB>("test_db", "users");
+        auto user_name_db = std::make_shared<UserNameDB>();
         auto chat_db = std::make_shared<ChatDB>("test_db", "chat_test");
+        auto anime_search_db = std::make_shared<AnimeSearchDB>("anime_names");
 
         auto const address = boost::asio::ip::make_address("0.0.0.0");
         unsigned short port = static_cast<unsigned short>(8080);
@@ -41,10 +45,12 @@ int main(int argc, char* argv[])
         std::list<http_worker> workers;
         for (int i = 0; i < num_workers; ++i) {
             workers.emplace_back(acceptor);
+            auto& cur_worker = workers.back();
 
-            workers.back().set_anime_db(animedb);
-            workers.back().set_user_data_db(user_data_db);
-            workers.back().set_chat_db(chat_db);
+            cur_worker.set_anime_db(animedb);
+            cur_worker.set_user_data_db(user_data_db);
+            cur_worker.set_chat_db(chat_db);
+            cur_worker.set_anime_search_db(anime_search_db);
 
             workers.back().start();
         }
