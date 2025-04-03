@@ -1,32 +1,109 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="video-container">
-    {% if anime_list %}
-    <h1>{{ anime_list[0].title }}</h1> {# Show the first anime's title as featured #}
-    <video width="800" controls>
-        <source src="{{ url_for('static', filename='videos/' + anime_list[0].video) }}" type="video/mp4">
-        Your browser does not support the video tag.
-    </video>
-    <div class="anime-info">
-        <img src="{{ url_for('static', filename='img/' + anime_list[0].image) }}" alt="{{ anime_list[0].title }}">
-        <p>{{ anime_list[0].description }}</p>
-    </div>
-
-    <h2>Other Favorite Anime</h2>
-    <div class="anime-list">
-        {% for anime in anime_list[1:] %}
-        <div class="anime-card">
-            <h3>{{ anime.title }}</h3>
-            <a href="{{ url_for('index', anime_id=anime.id) }}">
-                <img src="{{ url_for('static', filename='img/' + anime.image) }}" alt="{{ anime.title }}">
-            </a>
-            <p>{{ anime.description }}</p>
-        </div>
-        {% endfor %}
-    </div>
-    {% else %}
-    <p>You have no favorite anime yet!</p>
-    {% endif %}
+<div class="video-container" id="anime-details-container">
+    <!-- Anime details will be rendered here -->
 </div>
+
+<script>
+document.addEventListener("DOMContentLoaded", function () {
+    const animeIds = JSON.parse('{{ anime_ids | tojson | safe }}');
+    const container = document.getElementById("anime-details-container");
+
+    if (!animeIds || animeIds.length === 0) {
+        container.innerHTML = "<p>You have no favorite anime yet!</p>";
+        return;
+    }
+
+    // Create containers for featured and list
+    const featuredContainer = document.createElement("div");
+    featuredContainer.id = "featured-anime";
+    const animeListContainer = document.createElement("div");
+    animeListContainer.className = "anime-list";
+
+    container.appendChild(featuredContainer);
+    container.appendChild(animeListContainer);
+
+    // Flag to check if featured anime has been rendered.
+    let featuredRendered = false;
+
+    // Function to create a card for an anime
+    function createAnimeCard(anime) {
+        const card = document.createElement("div");
+        card.classList.add("anime-card");
+        card.innerHTML = `
+            <h3>${anime.title}</h3>
+            <a href="/anime_details?anime_id=${anime.id}">
+                ${anime.image ? `
+                <img src="/static/img/${anime.image}" alt="${anime.title}">
+                ` : `<img src="/static/img/default.jpg" alt="No Image Available">`}
+            </a>
+            <p>${anime.description || "No description available."}</p>
+        `;
+        return card;
+    }
+
+    // For each anime ID, fetch details and render immediately when available.
+    animeIds.forEach(animeId => {
+        fetch(`/anime_details?anime_id=${animeId}`)
+            .then(response => response.json())
+            .then(anime => {
+                // If the featured anime isn't rendered yet, use the first fetched result as featured.
+                if (!featuredRendered) {
+                    featuredRendered = true;
+                    featuredContainer.innerHTML = `
+                        <h1>${anime.title}</h1>
+                        ${anime.video ? `
+                        <video width="800" controls>
+                            <source src="/static/videos/${anime.video}" type="video/mp4">
+                            Your browser does not support the video tag.
+                        </video>
+                        ` : `<p><strong>No video available for this anime.</strong></p>`}
+                        <div class="anime-info">
+                            ${anime.image ? `
+                            <img src="/static/img/${anime.image}" alt="${anime.title}">
+                            ` : `<img src="/static/img/default.jpg" alt="No Image Available">`}
+                            <p>${anime.description || "No description available."}</p>
+                        </div>
+                        <h2>Other Favorite Anime</h2>
+                    `;
+                } else {
+                    // Create a card for this anime and append it immediately.
+                    const card = createAnimeCard(anime);
+                    animeListContainer.appendChild(card);
+                }
+            })
+            .catch(error => console.error("Error fetching anime details:", error));
+    });
+});
+</script>
+
+<style>
+    .video-container {
+        margin: 20px auto;
+        max-width: 800px;
+    }
+
+    .anime-info {
+        margin: 20px 0;
+    }
+
+    .anime-list {
+        display: flex;
+        flex-wrap: wrap;
+        gap: 10px;
+    }
+
+    .anime-card {
+        border: 1px solid #ccc;
+        padding: 10px;
+        width: 200px;
+        text-align: center;
+    }
+
+    .anime-card img {
+        max-width: 100%;
+        height: auto;
+    }
+</style>
 {% endblock %}

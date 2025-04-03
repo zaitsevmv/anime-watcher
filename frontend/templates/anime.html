@@ -7,28 +7,42 @@
 <div id="anime-results"></div>
 
 <script>
-    function searchAnime() {
+    async function searchAnime() {
         let query = document.getElementById('search-bar').value;
+        let resultsDiv = document.getElementById('anime-results');
+        resultsDiv.innerHTML = '';  // Clear previous results
 
-        fetch(`/search_anime?q=${query}`)
-            .then(response => response.json())
-            .then(animeList => {
-                let resultsDiv = document.getElementById('anime-results');
-                resultsDiv.innerHTML = '';  // Clear previous results
+        try {
+            let response = await fetch(`/search_anime?q=${query}`);
+            let animeList = await response.json();
 
-                animeList.forEach(anime => {
-                    let animeCard = `
-                        <div class="anime-card">
-                            <img src="${anime.image_url}" alt="${anime.title}">
-                            <h3>${anime}</h3>
-                            <p>${anime.description}</p>
-                        </div>
+            let animePromises = animeList.map(async (anime) => {
+                let animeDetails = await fetch(`/anime_details?anime_id=${anime.id}`);
+                return animeDetails.json();
+            });
+
+            Promise.allSettled(animePromises).then(results => {
+                results.forEach(result => {
+                    if (result.status === 'fulfilled') {
+                        let details = result.value;
+
+                        let animeCard = document.createElement('div');
+                        animeCard.classList.add('anime-card');
+                        animeCard.innerHTML = `
+                        <img src="${details.image_url}" alt="${details.title}">
+                        <h3>${details.title}</h3>
+                        <p>${details.description}</p>
                     `;
-                    resultsDiv.innerHTML += animeCard;
+
+                        resultsDiv.appendChild(animeCard);
+                    }
                 });
-            })
-            .catch(error => console.error("Error fetching anime:", error));
+            });
+        } catch (error) {
+            console.error("Error fetching anime:", error);
+        }
     }
+
 </script>
 
 <style>

@@ -25,7 +25,8 @@ enum class req_targets: uint32_t{
     name = 0x0800,
 
     after = 0x010000,
-    query = 0x020000
+    query = 0x020000,
+    anime_id = 0x030000
 
 };
 
@@ -57,23 +58,25 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
     uint32_t encoded = 0;
     for(const auto& tr: targets){
         if(tr == "auth") 
-            encoded += toUType(req_targets::auth);
+            encoded ^= toUType(req_targets::auth);
         else if(tr == "anime") 
-            encoded += toUType(req_targets::anime);
+            encoded ^= toUType(req_targets::anime);
         else if(tr == "search") 
-            encoded += toUType(req_targets::search);
+            encoded ^= toUType(req_targets::search);
         else if(tr == "chat") 
-            encoded += toUType(req_targets::chat);
+            encoded ^= toUType(req_targets::chat);
         else if(tr == "register") 
-            encoded += toUType(req_targets::reg);
+            encoded ^= toUType(req_targets::reg);
         else if(tr == "login") 
-            encoded += toUType(req_targets::login);
+            encoded ^= toUType(req_targets::login);
         else if(tr == "register") 
-            encoded += toUType(req_targets::reg);
+            encoded ^= toUType(req_targets::reg);
         else if(tr == "send") 
-            encoded += toUType(req_targets::send); 
+            encoded ^= toUType(req_targets::send); 
         else if(tr == "messages") 
-            encoded += toUType(req_targets::msg); 
+            encoded ^= toUType(req_targets::msg); 
+        else if(tr == "details")
+            encoded ^= toUType(req_targets::details);
     }
     if(targets.back().find('?') < targets.back().size()){
         auto lhs = targets.back().substr(0, targets.back().find('?'));
@@ -82,18 +85,22 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
         auto val = rhs.substr(com.size()+1u);
 
         if(lhs == "messages")
-            encoded += toUType(req_targets::msg);
+            encoded ^= toUType(req_targets::msg);
         else if(lhs == "search")
-            encoded += toUType(req_targets::search);
+            encoded ^= toUType(req_targets::search);
         else if(lhs == "users")
-            encoded += toUType(req_targets::users);
+            encoded ^= toUType(req_targets::users);
+        else if(lhs == "details")
+            encoded ^= toUType(req_targets::details);
 
         if(com == "after")
-            encoded += toUType(req_targets::after);
+            encoded ^= toUType(req_targets::after);
         else if(com == "query")
-            encoded += toUType(req_targets::query);
+            encoded ^= toUType(req_targets::query);
         else if(com == "name")
-            encoded += toUType(req_targets::name);
+            encoded ^= toUType(req_targets::name);
+        else if(com == "anime_id")
+            encoded ^= toUType(req_targets::anime_id);
 
         result.data.emplace(val);
     }
@@ -254,7 +261,6 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
             break;
         case (toUType(req_targets::anime) | toUType(req_targets::search) | toUType(req_targets::query)):
             {
-                std::cout << "here" << std::endl;
                 if(endpoint.data.has_value()){
                     auto res = search_indexed_anime(
                         anime_search_db_, 
@@ -272,6 +278,25 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
                             anime_ids_json.emplace_back(anim_id);
                         }
                         response_object["anime_ids"] = anime_ids_json;
+                    }
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        case (toUType(req_targets::anime) | toUType(req_targets::details) | toUType(req_targets::anime_id)):
+            {
+                if(endpoint.data.has_value()){
+                    auto res = get_anime(
+                        anime_db_, 
+                        *endpoint.data
+                    );
+                    std::cout << "Anime get result: " << res.has_value() << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res.has_value();
+                    if(res){
+                        response_object["anime"] = *res;
                     }
                     std::cout << response_object << std::endl;
                     send_json_response(http::status::ok, boost::json::serialize(response_object));

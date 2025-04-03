@@ -28,23 +28,16 @@ def api_request(method, endpoint, data=None, headers=None):
 
 @app.route('/')
 def index():
-    """Fetch user's favorite anime and display one as the featured anime."""
+    """Fetch user's favorite anime IDs and pass them to the template."""
     if 'user_id' not in session:
         return redirect(url_for('login'))
 
     user_id = session['user_id']
-    
-    # Step 1: Get user's favorite anime list
     fav_response = api_request('GET', f'users/favorites/{user_id}')
+    # Make sure we have a list of anime IDs; otherwise, an empty list
     favorite_anime_ids = fav_response.get('anime_ids', []) if fav_response and fav_response.get('success') else []
 
-    # Step 2: Fetch details of those anime
-    anime_list = []
-    if favorite_anime_ids:
-        details_response = api_request('POST', 'anime/details', data={'anime_ids': favorite_anime_ids})
-        anime_list = details_response.get('anime', []) if details_response and details_response.get('success') else []
-
-    return render_template('index.html', anime_list=anime_list)
+    return render_template('index.html', anime_ids=favorite_anime_ids)
 
 @app.route('/anime')
 def anime():
