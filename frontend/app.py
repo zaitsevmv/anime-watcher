@@ -118,8 +118,9 @@ def get_messages():
 
     if response and response.get('success'):
         messages_list = response.get('messages', [])
-        for msg in messages_list:
-            msg['user_name'] = get_username(msg['user_id'])
+        return jsonify(messages_list)
+        # for msg in messages_list:
+        #     msg['user_name'] = get_username(msg['user_id'])
     return jsonify([])  # Return empty list if there’s an issue
 
 @app.route('/send_message', methods=['POST'])

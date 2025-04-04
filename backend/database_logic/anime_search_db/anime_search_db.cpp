@@ -45,8 +45,8 @@ AnimeSearchDB::AnimeSearchDB(const std::string& name)
     
 }
 
-std::optional<int32_t> AnimeSearchDB::AddAnime(const int64_t anime_id, const std::string& anime_data_json) {
-    std::string url = "http://localhost:9200/" + db_name + "/_doc/" + std::to_string(anime_id);
+std::optional<int32_t> AnimeSearchDB::AddAnime(const std::string& anime_data_json) {
+    std::string url = "http://localhost:9200/" + db_name + "/_doc";
     curl_easy_setopt(curl.get(), CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, WriteCallback);
     std::string curl_buffer;
@@ -59,7 +59,6 @@ std::optional<int32_t> AnimeSearchDB::AddAnime(const int64_t anime_id, const std
     curl_easy_setopt(curl.get(), CURLOPT_POSTFIELDS, anime_data_json.c_str());
 
     auto result = curl_easy_perform(curl.get());
-    curl_easy_cleanup(curl.get());
     if(result != CURLE_OK){
         return std::nullopt;
     }
@@ -75,7 +74,6 @@ std::optional<int32_t> AnimeSearchDB::DeleteAnime(const int64_t anime_id) {
     curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &curl_buffer);
 
     auto result = curl_easy_perform(curl.get());
-    curl_easy_cleanup(curl.get());
     if(result != CURLE_OK) {
         return std::nullopt;
     }
@@ -84,7 +82,7 @@ std::optional<int32_t> AnimeSearchDB::DeleteAnime(const int64_t anime_id) {
 
 std::optional<std::string> AnimeSearchDB::SearchAnime(const std::string& search_request) {
     std::string url = "http://localhost:9200/" + db_name + "/_search?pretty";
-    std::string json_data = "{\"query\":{\"match\":{\"anime_name\":\"" + search_request + "\"}}}";
+    std::string json_data = "{\"query\":{\"match\":{\"title\":\"" + search_request + "\"}}}";
 
     struct curl_slist* headers = nullptr;
     headers = curl_slist_append(headers, "Content-Type: application/json");
@@ -122,7 +120,6 @@ std::optional<int32_t> AnimeSearchDB::UpdateAnime(const int64_t anime_id, const 
     curl_easy_setopt(curl.get(), CURLOPT_POSTFIELDS, anime_data_json.c_str());
 
     auto result = curl_easy_perform(curl.get());
-    curl_easy_cleanup(curl.get());
     if(result != CURLE_OK){
         return std::nullopt;
     }

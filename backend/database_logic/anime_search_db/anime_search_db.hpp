@@ -15,7 +15,7 @@ class AnimeSearchDB{
 public:
     AnimeSearchDB(const std::string& name);
 
-    std::optional<int32_t> AddAnime(int64_t anime_id, const std::string& anime_data_json);
+    std::optional<int32_t> AddAnime(const std::string& anime_data_json);
 
     std::optional<int32_t> DeleteAnime(int64_t anime_id);
 
