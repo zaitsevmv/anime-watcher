@@ -4,6 +4,7 @@
 #include <bsoncxx/builder/basic/document.hpp>
 #include <bsoncxx/builder/basic/kvp.hpp>
 #include <cstdint>
+#include <cstdio>
 #include <mongocxx/instance.hpp>
 #include <mongocxx/uri.hpp>
 #include <bsoncxx/json.hpp>

@@ -1,17 +1,24 @@
-from flask import Flask, render_template, request, jsonify, session, redirect, url_for
-from flask_socketio import SocketIO, send
-import requests  # For making API calls
+from flask import Flask, render_template, request, jsonify, session, redirect, url_for, send_from_directory
+import requests 
 from dotenv import load_dotenv
+from flask_session import Session
+import redis
 import os
 import time
 import logging
+import json
 
-load_dotenv()  # Load environment variables from .env file
 
-app = Flask(__name__)
+load_dotenv()
+
+app = Flask(__name__, static_folder='static')
 app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
 API_BASE_URL = os.getenv('API_BASE_URL')
-socketio = SocketIO(app)
+
+app.config['SESSION_TYPE'] = 'redis'
+app.config['SESSION_REDIS'] = redis.from_url('redis://127.0.0.1:6379')
+
+server_session = Session(app)
 
 logging.basicConfig(filename="debug.log", level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
@@ -23,36 +30,76 @@ def api_request(method, endpoint, data=None, headers=None):
         response = requests.request(method, url, json=data, headers=headers)
         return response.json()
     except Exception as e:
-        print(f"API Error: {e}")
+        logging.debug(f"API Error: {e}")
         return None
+
 
 @app.route('/')
 def index():
-    """Fetch user's favorite anime IDs and pass them to the template."""
     if 'user_id' not in session:
         return redirect(url_for('login'))
 
     user_id = session['user_id']
-    fav_response = api_request('GET', f'users/favorites/{user_id}')
-    # Make sure we have a list of anime IDs; otherwise, an empty list
+    fav_response = api_request('GET', f'users/favourites?user_id={user_id}')
     favorite_anime_ids = fav_response.get('anime_ids', []) if fav_response and fav_response.get('success') else []
 
-    return render_template('index.html', anime_ids=favorite_anime_ids)
+    return render_template('index.html', anime_ids=json.loads(favorite_anime_ids))
 
-@app.route('/anime')
+
+@app.route('/images/anime/<filename>')
+def anime_image(filename):
+    images_dir = os.path.join(app.static_folder, 'images', 'anime')
+    return send_from_directory(images_dir, filename)
+
+
+@app.route('/anime/<anime_id>')
+def anime_page(anime_id):
+    if not anime_id:
+        return
+    response = api_request('GET', f'anime/details?anime_id={anime_id}')
+    if response and response.get('success'):
+        anime_data = response.get('anime', '')
+    if anime_data == '':
+        return
+    
+    anime_data = json.loads(anime_data)
+    try:
+        oid_obj = anime_data['_id']
+        anime_data['id'] = oid_obj['$oid']
+    except (json.JSONDecodeError, KeyError, TypeError):
+        anime_data['id'] = anime_data.get('_id')
+        
+    image_path = f'/images/anime/{anime_data["id"]}'
+    default_path = "/images/anime/default.jpg"
+
+    anime_data['image_url'] = image_path if os.path.exists(image_path) else default_path    
+    return render_template("anime.html", anime=anime_data)
+
+
+@app.route('/add_favourite', methods=['POST'])
+def add_favourite():
+    logging.debug(request.json)
+    anime_id = request.json
+    response = api_request('POST', 'anime/favourites/add', {
+        'user_id': session['user_id'],
+        'anime_id': anime_id
+    })
+    if response and response.get('success'):
+        return jsonify({"success": True})
+    return jsonify({"success": False})
+
+
+@app.route('/search')
 def anime():
-    """Render the anime search page."""
-    return render_template('anime.html')
+    return render_template('search.html')
+
 
 @app.route('/search_anime')
 def search_anime():
-    """API route to search anime based on user input (live search)."""
     query = request.args.get('q', '').strip()
 
     if not query:
-        return jsonify([])  # Return empty if no search term
-
-    # Call backend search API
+        return jsonify([])
     response = api_request('GET', f'anime/search?query={query}')
     
     if response and response.get('success'):
@@ -60,7 +107,22 @@ def search_anime():
 
     return jsonify([])  # Return empty on error
 
-# Authentication routes
+
+@app.route('/anime_details')
+def anime_details():
+    query = request.args.get('anime_id', '').strip()
+    response = api_request('GET', f'anime/details?anime_id={query}')
+    logging.debug(response)
+    if response and response.get('success'):
+        data = json.loads(response.get('anime', ''))
+        image_path = f'/images/anime/{data["_id"]["$oid"]}'
+        default_path = "/images/anime/default.jpg"
+
+        data['image_url'] = image_path if os.path.exists(image_path) else default_path
+        return data
+    return {}
+
+
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if request.method == 'POST':
@@ -74,6 +136,7 @@ def login():
             session['user_id'] = response['user_id']
             return redirect(url_for('index'))
     return render_template('login.html')
+
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -90,10 +153,12 @@ def register():
             return redirect(url_for('index'))
     return render_template('register.html')
 
+
 @app.route('/logout')
 def logout():
     session.pop('user_id', None)
     return redirect(url_for('index'))
+
 
 @app.route('/chat')
 def chat():
@@ -101,31 +166,50 @@ def chat():
         return redirect(url_for('login'))
     return render_template('chat.html')
 
+
+def get_username(user_id):
+    redis_conn = redis.from_url('redis://127.0.0.1:6379')
+    username = redis_conn.get(f"user:{user_id}:name")
+    if username:
+        return username.decode('utf-8')
+
+    response = api_request('GET', f'users/details?user_id={user_id}')
+    if response and response.get('success'):
+        user_data = response.get('user')
+        if isinstance(user_data, str):
+            user_data = json.loads(user_data)
+        user_name = user_data.get('name')
+        
+        logging.debug(user_data)
+
+        redis_conn.set(f"user:{user_id}:name", user_name)
+        return user_name
+
+    return 'Anonim' 
+
+
 @app.route('/get_messages')
 def get_messages():
     """Fetch messages after a given timestamp from the backend."""
     last_timestamp = request.args.get('after', 0)  # Default to 0 if no timestamp is provided
     response = api_request('GET', f'chat/messages?after={last_timestamp}')
-    
-    logging.debug(f"API response: {response}")
-    
-    def get_username(user_id):
-        """Fetch user_name from user_id using an API call."""
-        response = api_request('GET', f'users?name={user_id}')
-        if response and response.get('success'):
-            return response.get('user_name', user_id)
-        return user_id
 
     if response and response.get('success'):
         messages_list = response.get('messages', [])
-        return jsonify(messages_list)
-        # for msg in messages_list:
-        #     msg['user_name'] = get_username(msg['user_id'])
-    return jsonify([])  # Return empty list if there’s an issue
+        updated_message_list = []
+        for msg in messages_list:
+            if isinstance(msg, str):
+                msg = json.loads(msg)
+                
+            user_name = get_username(msg['user_id'])
+            msg['user_name'] = str(user_name)
+            updated_message_list.append(msg)
+        return jsonify(updated_message_list)
+    return jsonify([])  
+
 
 @app.route('/send_message', methods=['POST'])
 def send_message():
-    """Send a new message to the backend."""
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
 

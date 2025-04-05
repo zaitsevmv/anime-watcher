@@ -3,6 +3,10 @@
 
 #include <bsoncxx/document/view.hpp>
 #include <bsoncxx/types/bson_value/value.hpp>
+#include <bsoncxx/types.hpp>
+#include <bsoncxx/oid.hpp>
+#include <bsoncxx/builder/basic/document.hpp>
+#include <bsoncxx/builder/basic/kvp.hpp>
 #include <mongocxx/collection.hpp>
 #include <mongocxx/client.hpp>
 
@@ -17,7 +21,16 @@ protected:
 
 struct SearchFilter: public Filter{   
     SearchFilter(std::string field, bsoncxx::types::bson_value::value value) {
-        bson_filter = bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp(field, value));
+        if(field == "_id"){
+            try{
+                bsoncxx::oid value_oid{value.view().get_string()};
+                bson_filter = bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp(field, value_oid));
+            } catch(...){
+                bson_filter = bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp(field, value));
+            }
+        } else{
+            bson_filter = bsoncxx::builder::basic::make_document(bsoncxx::builder::basic::kvp(field, value));
+        }
     }
 };
 

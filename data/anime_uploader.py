@@ -30,8 +30,8 @@ for a in data:
     response = api_request('POST', 'anime/add', data={
         'title': a['title'],
         'description': a['description'],
-        'videos': [0]*a['episodes']
+        'episodes': a['episodes'],
+        'videos': list(range(1, a['episodes']+1))
     })
     if response and response.get('success'):
         print(f"{a['title']} uploaded")
-    break

@@ -22,21 +22,21 @@ class VideoDatabase:
             self.root.videos = PersistentMapping()
             transaction.commit()
         
-    def add_video(self, file_path, video_hash):
+    def add_video(self, file_path, video_id):
         blob = Blob()
         with blob.open(file_path) as f:
             f.write(file_path.read())
 
-        self.root.videos[video_hash] = Video(blob)
+        self.root.videos[video_id] = Video(blob)
         transaction.commit()
     
-    def delete_video(self, video_hash):
-        if video_hash in self.root.videos:
-            del self.root.videos[video_hash]
+    def delete_video(self, video_id):
+        if video_id in self.root.videos:
+            del self.root.videos[video_id]
             transaction.commit()
     
-    def get_video(self, video_hash):
-        return self.root.videos.get(video_hash, None)
+    def get_video(self, video_id):
+        return self.root.videos.get(video_id, None)
     
     def close(self):
         self.connection.close()

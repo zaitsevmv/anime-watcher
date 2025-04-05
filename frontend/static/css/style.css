@@ -96,3 +96,63 @@ nav a {
     padding: 0.5rem;
     font-size: 1rem;
 }
+
+#search-bar {
+    width: 100%;
+    padding: 10px;
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+#anime-results {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.anime-card {
+    border: 1px solid #ccc;
+    padding: 10px;
+    width: 200px;
+    text-align: center;
+    text-decoration: none;
+    color: inherit;
+    transition: box-shadow 0.2s;
+}
+
+.anime-card:hover {
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+}
+
+.video-container {
+    margin: 20px auto;
+    max-width: 800px;
+}
+
+.search-container {
+    max-width: 800px;
+    margin: 2rem auto;
+    padding: 0 1rem;
+}
+
+.search-input-group {
+    position: relative;
+    margin: 2rem 0;
+}
+
+.search-input {
+    width: 100%;
+    padding: 1rem;
+    font-size: 1.1rem;
+}
+
+.anime-grid {
+    display: grid;
+    gap: 1.5rem;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}

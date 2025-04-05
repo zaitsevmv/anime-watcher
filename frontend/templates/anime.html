@@ -1,74 +1,37 @@
 {% extends "base.html" %}
 
-{% block content %}
-<h1>Search Anime</h1>
-<input type="text" id="search-bar" placeholder="Type to search..." onkeyup="searchAnime()">
+{% block title %}{{ anime.title }}{% endblock %}
 
-<div id="anime-results"></div>
+{% block head %}
+{% endblock %}
+
+{% block content %}
+<div class="anime-container">
+    <h1>{{ anime.title }}</h1>
+    <img src="{{ anime.image_url }}" alt="{{ anime.title }}" style="max-width:300px;" />
+    <p>{{ anime.description }}</p>
+    <p>Episodes: {{ anime.episodes }}</p>
+    {% if 'user_id' in session %}
+    <button onclick="addFavourite()">Add Favourite</button>
+    {% endif %}
+</div>
 
 <script>
-    async function searchAnime() {
-        let query = document.getElementById('search-bar').value;
-        let resultsDiv = document.getElementById('anime-results');
-        resultsDiv.innerHTML = '';  // Clear previous results
-
-        try {
-            let response = await fetch(`/search_anime?q=${query}`);
-            let animeList = await response.json();
-
-            let animePromises = animeList.map(async (anime) => {
-                let animeDetails = await fetch(`/anime_details?anime_id=${anime.id}`);
-                return animeDetails.json();
+    function addFavourite() {
+        const animeId = "{{ anime.id }}";
+        console.log(animeId)
+        fetch('/add_favourite', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(animeId)
+        }).then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert("Added to favourites!");
+                } else {
+                    alert("Error adding favourite");
+                }
             });
-
-            Promise.allSettled(animePromises).then(results => {
-                results.forEach(result => {
-                    if (result.status === 'fulfilled') {
-                        let details = result.value;
-
-                        let animeCard = document.createElement('div');
-                        animeCard.classList.add('anime-card');
-                        animeCard.innerHTML = `
-                        <img src="${details.image_url}" alt="${details.title}">
-                        <h3>${details.title}</h3>
-                        <p>${details.description}</p>
-                    `;
-
-                        resultsDiv.appendChild(animeCard);
-                    }
-                });
-            });
-        } catch (error) {
-            console.error("Error fetching anime:", error);
-        }
-    }
-
+    };
 </script>
-
-<style>
-    #search-bar {
-        width: 100%;
-        padding: 10px;
-        margin: 10px 0;
-        font-size: 16px;
-    }
-
-    #anime-results {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .anime-card {
-        border: 1px solid #ccc;
-        padding: 10px;
-        width: 200px;
-        text-align: center;
-    }
-
-    img {
-        max-width: 100%;
-        height: auto;
-    }
-</style>
 {% endblock %}

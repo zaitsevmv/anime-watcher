@@ -22,18 +22,39 @@ enum class req_targets: uint32_t{
     search = 0x0500,
     send = 0x0600,
     msg = 0x0700,
-    name = 0x0800,
-    add = 0x0900,
+    brief = 0x0800,
 
     after = 0x010000,
     query = 0x020000,
-    anime_id = 0x030000
+    anime_id = 0x030000,
+    user_id = 0x040000,
+    add = 0x050000
 
 };
 
 template<typename E>
 constexpr auto toUType(E e) noexcept {
     return static_cast<std::underlying_type_t<E>>(e);
+}
+
+std::string decode_url_string(const std::string& str) {
+    std::ostringstream decoded;
+    for (size_t i = 0; i < str.length(); ++i) {
+        if (str[i] == '%' && i + 2 < str.length()) {
+            int hexValue;
+            std::istringstream iss(str.substr(i + 1, 2));
+            if (iss >> std::hex >> hexValue)
+                decoded << static_cast<char>(hexValue);
+            else
+                decoded << '%';
+            i += 2;
+        } else if (str[i] == '+') {
+            decoded << ' ';
+        } else {
+            decoded << str[i];
+        }
+    }
+    return decoded.str();
 }
 
 struct EndpointStruct{
@@ -45,6 +66,7 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
     EndpointStruct result;
     std::vector<std::string> targets;
     std::string cur_target;
+
     for(auto c: endpoint){
         if(c != '/'){
             cur_target += c;
@@ -60,6 +82,8 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
     for(const auto& tr: targets){
         if(tr == "auth") 
             encoded ^= toUType(req_targets::auth);
+        else if(tr == "users") 
+            encoded ^= toUType(req_targets::users);
         else if(tr == "anime") 
             encoded ^= toUType(req_targets::anime);
         else if(tr == "search") 
@@ -72,6 +96,8 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
             encoded ^= toUType(req_targets::login);
         else if(tr == "register") 
             encoded ^= toUType(req_targets::reg);
+        else if(tr == "favourites") 
+            encoded ^= toUType(req_targets::fav); 
         else if(tr == "send") 
             encoded ^= toUType(req_targets::send); 
         else if(tr == "messages") 
@@ -80,6 +106,8 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
             encoded ^= toUType(req_targets::details);
         else if(tr == "add")
             encoded ^= toUType(req_targets::add);
+        else if(tr == "brief")
+            encoded ^= toUType(req_targets::brief);
     }
     if(targets.back().find('?') < targets.back().size()){
         auto lhs = targets.back().substr(0, targets.back().find('?'));
@@ -95,17 +123,23 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
             encoded ^= toUType(req_targets::users);
         else if(lhs == "details")
             encoded ^= toUType(req_targets::details);
+        else if(lhs == "brief")
+            encoded ^= toUType(req_targets::brief);
+        else if(lhs == "favourites")
+            encoded ^= toUType(req_targets::fav);
 
         if(com == "after")
             encoded ^= toUType(req_targets::after);
         else if(com == "query")
             encoded ^= toUType(req_targets::query);
-        else if(com == "name")
-            encoded ^= toUType(req_targets::name);
         else if(com == "anime_id")
             encoded ^= toUType(req_targets::anime_id);
+        else if(com == "user_id")
+            encoded ^= toUType(req_targets::user_id);
 
-        result.data.emplace(val);
+        auto decoded = decode_url_string(val);
+        result.data.emplace(decoded);
+        std::cout << decoded << std::endl;
     }
     result.target = encoded;
     return result;
@@ -143,14 +177,22 @@ std::optional<std::string> register_user(std::shared_ptr<UserDataDB> db, const U
     return add_result;
 }
 
-//User name database
-
-auto get_redis_user_name(std::shared_ptr<UserNameDB> db, const int64_t user_id){
-    return db->GetUserName(user_id);
+std::optional<std::string> get_user(std::shared_ptr<UserDataDB> db, const std::string& user_id){
+    std::cout << user_id << std::endl;
+    return db->GetUser(user_id);
 }
 
-auto set_redis_user_name(std::shared_ptr<UserNameDB> db, const int64_t user_id, const std::string& user_name){
-    return db->SetUserName(user_id, user_name);
+bool add_favourite(std::shared_ptr<UserDataDB> db, const std::string& user_id, const std::string& anime_id){
+    auto res = db->AddUserFavourite(user_id, anime_id);
+    return (res.has_value() && *res == 1);
+}
+
+std::optional<std::string> get_users_favourites(std::shared_ptr<UserDataDB> db, const std::string& user_id){
+    auto user_data = db->GetUser(user_id);
+    if(!user_data.has_value()) return std::nullopt;
+    auto jv = boost::json::parse(*user_data).as_object();
+    if(!jv.contains("favourite_anime")) return std::nullopt;
+    return boost::json::serialize(jv.at("favourite_anime"));
 }
 
 //Anime Database
@@ -213,22 +255,19 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
     auto endpoint = convert_endpoint(req.base().target());
     std::string body = req.body();
     switch (endpoint.target) {
-        case (toUType(req_targets::users) | toUType(req_targets::name)):
+        case (toUType(req_targets::users) | toUType(req_targets::details) | toUType(req_targets::user_id)):
             {
                 if(endpoint.data.has_value()){
-                    auto res = get_redis_user_name(
-                        user_name_db_, 
-                        stoll(*endpoint.data)
+                    auto res = get_user(
+                        user_data_db_, 
+                        *endpoint.data
                     );
                     boost::json::object response_object;
                     response_object["success"] = res.has_value();
                     if(res){
-                        boost::json::array messages_json(boost::json::make_shared_resource<boost::json::monotonic_resource>());
-                        for(const auto& s: *res){
-                            messages_json.emplace_back(s);
-                        }
-                        response_object["messages"] = messages_json;
+                        response_object["user"] = *res;
                     }
+                    std::cout << response_object <<std::endl;
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
                 } else{
                     send_text_response(http::status::bad_request, "Bad request");
@@ -276,9 +315,10 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
                         auto jv = boost::json::parse(*res).as_array();
                         for(const auto& anim: jv){
                             auto src = anim.as_object().at("_source");
-                            auto anim_id = boost::json::serialize(src.as_object().at("anime_id"));
+                            auto anim_id = src.as_object().at("anime_id").as_string();
                             anime_ids_json.emplace_back(anim_id);
                         }
+                        std::cout << anime_ids_json << std::endl;
                         response_object["anime_ids"] = anime_ids_json;
                     }
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
@@ -300,7 +340,25 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
                     if(res){
                         response_object["anime"] = *res;
                     }
-                    std::cout << response_object << std::endl;
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        case (toUType(req_targets::users) | toUType(req_targets::fav) | toUType(req_targets::user_id)):
+            {
+                if(endpoint.data.has_value()){
+                    auto res = get_users_favourites(
+                        user_data_db_, 
+                        *endpoint.data
+                    );
+                    std::cout << "Fav get result: " << res.has_value() << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res.has_value();
+                    if(res){
+                        response_object["anime_ids"] = *res;
+                    }
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
                 } else{
                     send_text_response(http::status::bad_request, "Bad request");
@@ -411,6 +469,26 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                     } else{
                         response_object["success"] = res.has_value();
                     }
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        case (toUType(req_targets::anime) | toUType(req_targets::fav) | toUType(req_targets::add)):
+            {
+                auto jv = boost::json::parse(body);
+                if(jv.as_object().contains("user_id") 
+                    && jv.as_object().contains("anime_id"))
+                {
+                    auto res = add_favourite(
+                        user_data_db_, 
+                        jv.at("user_id").as_string().c_str(),
+                        jv.at("anime_id").as_string().c_str()
+                    );
+                    std::cout << "Favorite add result: " << res << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res;
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
                 } else{
                     send_text_response(http::status::bad_request, "Bad request");

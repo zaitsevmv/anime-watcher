@@ -15,7 +15,7 @@ public:
     UserDataDB(const std::string& db_name, const std::string& collection_name)
         : BaseMongoDB(db_name, collection_name) {}
 
-    std::optional<std::string> GetUser(std::string user_id);
+    std::optional<std::string> GetUser(const std::string& user_id);
 
     std::optional<std::string> AddUser(const std::string& user_data_json);
 

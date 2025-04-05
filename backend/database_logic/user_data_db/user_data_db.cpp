@@ -9,8 +9,8 @@
 #include <bsoncxx/json.hpp>
 #include <optional>
 
-std::optional<std::string> UserDataDB::GetUser(std::string user_id) {
-    return GetDocument({"_id", user_id});
+std::optional<std::string> UserDataDB::GetUser(const std::string& user_id) {
+    return GetDocument(SearchFilter("_id", user_id));
 }
 
 std::optional<std::string> UserDataDB::AddUser(const std::string& user_data_json) {

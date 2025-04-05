@@ -48,6 +48,7 @@ AnimeSearchDB::AnimeSearchDB(const std::string& name)
 std::optional<int32_t> AnimeSearchDB::AddAnime(const std::string& anime_data_json) {
     std::string url = "http://localhost:9200/" + db_name + "/_doc";
     curl_easy_setopt(curl.get(), CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curl.get(), CURLOPT_CUSTOMREQUEST, "POST");
     curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, WriteCallback);
     std::string curl_buffer;
     curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &curl_buffer);
@@ -59,6 +60,7 @@ std::optional<int32_t> AnimeSearchDB::AddAnime(const std::string& anime_data_jso
     curl_easy_setopt(curl.get(), CURLOPT_POSTFIELDS, anime_data_json.c_str());
 
     auto result = curl_easy_perform(curl.get());
+    std::cout << curl_buffer << std::endl;
     if(result != CURLE_OK){
         return std::nullopt;
     }
@@ -82,7 +84,8 @@ std::optional<int32_t> AnimeSearchDB::DeleteAnime(const int64_t anime_id) {
 
 std::optional<std::string> AnimeSearchDB::SearchAnime(const std::string& search_request) {
     std::string url = "http://localhost:9200/" + db_name + "/_search?pretty";
-    std::string json_data = "{\"query\":{\"match\":{\"title\":\"" + search_request + "\"}}}";
+    std::cout << search_request << std::endl;
+    std::string json_data = "{\"query\":{\"match_phrase_prefix\":{\"title\":\"" + search_request + "\"}}}";
 
     struct curl_slist* headers = nullptr;
     headers = curl_slist_append(headers, "Content-Type: application/json");
@@ -92,7 +95,6 @@ std::optional<std::string> AnimeSearchDB::SearchAnime(const std::string& search_
     curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, WriteCallback);
     std::string curl_buffer;
     curl_easy_setopt(curl.get(), CURLOPT_CUSTOMREQUEST, "POST");
-    curl_easy_setopt(curl.get(), CURLOPT_POST, 1l);
     curl_easy_setopt(curl.get(), CURLOPT_POSTFIELDS, json_data.c_str());
     curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &curl_buffer);
 
@@ -102,6 +104,9 @@ std::optional<std::string> AnimeSearchDB::SearchAnime(const std::string& search_
         return std::nullopt;
     }
     auto jv = boost::json::parse(curl_buffer);
+    if(jv.as_object().contains("error")){
+        return std::nullopt;
+    }
     auto hits_array_json = jv.as_object().at("hits").as_object().at("hits");
     return boost::json::serialize(hits_array_json);
 }

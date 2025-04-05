@@ -11,7 +11,7 @@ class ProfileImages(Persistent):
         self.blob = blob
         
 
-class VideoDatabase:
+class ProfileImagesDatabase:
     def __init__(self, db_path='data.fs'):
         self.storage = FileStorage(db_path)
         self.db = DB(self.storage)

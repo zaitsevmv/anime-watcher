@@ -12,21 +12,20 @@
 <script>
     let lastTimestamp = 0;  // Track the last received message timestamp
 
-        function fetchMessages() {
-            fetch(`/get_messages?after=${lastTimestamp}`)
-                .then(response => response.json())
-                .then(messages => {
-                    let messagesContainer = document.getElementById('messages');
-                    if (messages.length > 0) {
-                        messages.forEach(msgStr => {
-                            let msg = JSON.parse(msgStr);
-                            messagesContainer.insertAdjacentHTML('afterbegin', `<p><b>User ${msg.user_id}:</b> ${msg.message}</p>`);
-                            lastTimestamp = msg.timestamp_ms;  // Update the last timestamp
-                        });
-                    }
-                })
-                .catch(error => console.error("Error fetching messages:", error));
-        }
+    function fetchMessages() {
+        fetch(`/get_messages?after=${lastTimestamp}`)
+            .then(response => response.json())
+            .then(messages => {
+                let messagesContainer = document.getElementById('messages');
+                if (messages.length > 0) {
+                    messages.forEach(msg => {
+                        messagesContainer.insertAdjacentHTML('afterbegin', `<p><b>${msg.user_name}:</b> ${msg.message}</p>`);
+                        lastTimestamp = msg.timestamp_ms;  // Update the last timestamp
+                    });
+                }
+            })
+            .catch(error => console.error("Error fetching messages:", error));
+    }
 
     function sendMessage() {
         let message = document.getElementById('message-input').value;

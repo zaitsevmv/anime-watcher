@@ -1,5 +1,6 @@
 import transaction
 from ZODB import DB
+from ZEO import Client
 from ZODB.FileStorage import FileStorage
 from ZODB.blob import Blob
 from persistent import Persistent
@@ -12,8 +13,8 @@ class AnimeImage(Persistent):
         
 
 class AnimeImageDatabase:
-    def __init__(self, db_path='data.fs'):
-        self.storage = FileStorage(db_path)
+    def __init__(self, zeo_address=('localhost', 8100)):
+        self.storage = Client.ClientStorage(zeo_address)
         self.db = DB(self.storage)
         self.connection = self.db.open()
         self.root = self.connection.root
@@ -22,21 +23,24 @@ class AnimeImageDatabase:
             self.root.anime_images = PersistentMapping()
             transaction.commit()
         
-    def add_anime_image(self, file_path, anime_hash):
+    def add_anime_image(self, file_path, anime_id):
         blob = Blob()
-        with blob.open(file_path) as f:
-            f.write(file_path.read())
-
-        self.root.anime_images[anime_hash] = AnimeImage(blob)
+        
+        with open(file_path, 'rb') as source:
+            with blob.open(file_path, 'w') as f:
+                f.write(source.read())
+        
+        # Using anime_id (a string) directly as the key.
+        self.root.anime_images[anime_id] = AnimeImage(blob)
         transaction.commit()
     
-    def delete_anime_image(self, anime_hash):
-        if anime_hash in self.root.anime_images:
-            del self.root.anime_images[anime_hash]
+    def delete_anime_image(self, anime_id):
+        if anime_id in self.root.anime_images:
+            del self.root.anime_images[anime_id]
             transaction.commit()
     
-    def get_anime_image(self, anime_hash):
-        return self.root.anime_images.get(anime_hash, None)
+    def get_anime_image(self, anime_id):
+        return self.root.anime_images.get(anime_id, None)
     
     def close(self):
         self.connection.close()

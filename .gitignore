@@ -11,3 +11,10 @@ build
 *__pycache__
 
 debug.log
+
+nohup.out
+
+*.fs
+*.fs.*
+
+*.jpg
