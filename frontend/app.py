@@ -43,13 +43,35 @@ def index():
     fav_response = api_request('GET', f'users/favourites?user_id={user_id}')
     favorite_anime_ids = fav_response.get('anime_ids', []) if fav_response and fav_response.get('success') else []
 
-    return render_template('index.html', anime_ids=json.loads(favorite_anime_ids))
+    return render_template('index.html', anime_ids=json.loads(favorite_anime_ids), last_watched='default.mp4')
 
 
 @app.route('/images/anime/<filename>')
 def anime_image(filename):
     images_dir = os.path.join(app.static_folder, 'images', 'anime')
     return send_from_directory(images_dir, filename)
+
+
+@app.route('/videos/<filename>')
+def anime_video(filename):
+    videos_dir = os.path.join(app.static_folder, 'videos')
+    return send_from_directory(videos_dir, filename)
+
+
+@app.route('/anime_by_video/<video_id>')
+def get_anime_by_video(video_id):
+    video_path = f'/images/anime/{video_id}' 
+    if os.path.exists(video_path):
+        anime_id, sep, episode = video_id.rpartition('_')
+        if sep:
+            response = api_request('GET', f'anime/details?anime_id={anime_id}')
+            if response and response.get('success'):
+                anime_data = response.get('anime', '')
+            else:
+                return {}
+            anime_data = json.loads(anime_data)
+            return {'title': anime_data['title'], 'episode': episode}
+    return {}
 
 
 @app.route('/anime/<anime_id>')
@@ -108,11 +130,9 @@ def search_anime():
     return jsonify([])  # Return empty on error
 
 
-@app.route('/anime_details')
-def anime_details():
-    query = request.args.get('anime_id', '').strip()
-    response = api_request('GET', f'anime/details?anime_id={query}')
-    logging.debug(response)
+@app.route('/anime_details/<anime_id>')
+def anime_details(anime_id):
+    response = api_request('GET', f'anime/details?anime_id={anime_id}')
     if response and response.get('success'):
         data = json.loads(response.get('anime', ''))
         image_path = f'/images/anime/{data["_id"]["$oid"]}'

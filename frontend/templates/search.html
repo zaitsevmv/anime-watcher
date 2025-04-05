@@ -75,7 +75,7 @@
                 statusMessage.textContent = '';
                 try {
                     for (let animeId of animeIds) {
-                        const response = await fetch(`/anime_details?anime_id=${animeId}`);
+                        const response = await fetch(`/anime_details/${animeId}`);
 
                         const anime = await response.json();
                         const animeCard = document.createElement('a');
@@ -144,5 +144,4 @@
     resultsContainer.innerHTML = '';
     statusMessage.textContent = '';
 </script>
-</style>
 {% endblock %}

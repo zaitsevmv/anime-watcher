@@ -1,69 +1,69 @@
 {% extends "base.html" %}
 
 {% block content %}
-<div class="video-container" id="anime-details-container">
-    <!-- Anime details will be rendered here -->
-</div>
+<section class="video-container">
+    <div class="video-container" id="featured-anime"></div>
+</section>
+
+<section class="search-container">
+    <div id="favourite-text" class="anime-grid"></div>
+    <div id="anime-results" class="anime-grid" role="list"></div>
+</section>
 
 <script>
 document.addEventListener("DOMContentLoaded", function () {
     const animeIds = JSON.parse('{{ anime_ids| tojson | safe}}');
-    console.log(animeIds)
-    const container = document.getElementById("anime-details-container");
+
+    const resultsContainer = document.getElementById('anime-results');
+    const featuredContainer = document.getElementById('featured-anime');
+    const favouriteTextContainer = document.getElementById('favourite-text');
 
     if (!animeIds || animeIds.length === 0) {
-        container.innerHTML = "<p>You have no favorite anime yet!</p>";
+        favouriteTextContainer.innerHTML = "<p><h2>You have no favourite anime!</h2></p>";
         return;
+    } else {
+        favouriteTextContainer.innerHTML = "<p><h2>Favourite anime</h2></p>";
     }
 
-    // Create containers for featured and list
-    const featuredContainer = document.createElement("div");
-    featuredContainer.id = "featured-anime";
-    const animeListContainer = document.createElement("div");
-    animeListContainer.className = "anime-list";
-
-    container.appendChild(featuredContainer);
-    container.appendChild(animeListContainer);
-
-    // Flag to check if featured anime has been rendered.
-    let featuredRendered = true;
+    let featuredRendered = false;
 
     const fetchAnimeDetails = async (animeIds) => {
         try {
+            const last_video = '{{ last_watched }}'
+
+            const response = await fetch(`/anime_by_video/${last_video}`);
+            const video_data = await response.json();
+
+            if (video_data.title) {
+                featuredContainer.innerHTML = `
+                    <h1>${video_data.title} - ep.${video_data.episode}</h1>
+                    <video width="1100" controls>
+                        <source src="/videos/${last_video}" type="video/mp4">
+                        Your browser does not support the video tag.
+                    </video>
+                `;
+            }
+
+            if(animeIds){
+                favouriteTextContainer.innerHTML = `
+                    <h2>Favourite anime</h2>
+                `;
+            }
+
             for (let animeId of animeIds) {
-                const response = await fetch(`/anime_details?anime_id=${animeId}`);
+                const response = await fetch(`/anime_details/${animeId}`);
                 
                 const anime = await response.json();
-                if (!featuredRendered) {
-                    featuredRendered = true;
-                    featuredContainer.innerHTML = `
-                        <h1>${anime.title}</h1>
-                        ${anime.video ? `
-                        <video width="800" controls>
-                            <source src="/static/videos/${anime.video}" type="video/mp4">
-                            Your browser does not support the video tag.
-                        </video>
-                        ` : `<p><strong>No video available for this anime.</strong></p>`}
-                        <div class="anime-info">
-                            ${anime.image ? `
-                            <img src="/static/img/${anime.image}" alt="${anime.title}">
-                            ` : `<img src="/static/img/default.jpg" alt="No Image Available">`}
-                            <p>${anime.description || "No description available."}</p>
-                        </div>
-                        <h2>Other Favorite Anime</h2>
-                    `;
-                } else {
-                    const animeCard = document.createElement('a');
-                    console.log(anime)
-                    animeCard.href = `/anime/${anime._id.$oid}`;
-                    animeCard.classList.add('anime-card');
-                    animeCard.innerHTML = `
+                const animeCard = document.createElement('a');
+                console.log(anime)
+                animeCard.href = `/anime/${anime._id.$oid}`;
+                animeCard.classList.add('anime-card');
+                animeCard.innerHTML = `
                         <img src="${anime.image_url}" alt="${anime.title}">
                         <h3>${anime.title}</h3>
                         <p>${anime.description}</p>
                     `;
-                    animeListContainer.appendChild(animeCard);
-                }
+                resultsContainer.appendChild(animeCard);
             }
             console.log('All fetch requests completed.');
         } catch (error) {
@@ -75,33 +75,4 @@ document.addEventListener("DOMContentLoaded", function () {
 
 });
 </script>
-
-<style>
-    .video-container {
-        margin: 20px auto;
-        max-width: 800px;
-    }
-
-    .anime-info {
-        margin: 20px 0;
-    }
-
-    .anime-list {
-        display: flex;
-        flex-wrap: wrap;
-        gap: 10px;
-    }
-
-    .anime-card {
-        border: 1px solid #ccc;
-        padding: 10px;
-        width: 200px;
-        text-align: center;
-    }
-
-    .anime-card img {
-        max-width: 100%;
-        height: auto;
-    }
-</style>
 {% endblock %}
