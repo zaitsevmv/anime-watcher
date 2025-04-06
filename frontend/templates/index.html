@@ -33,12 +33,13 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const response = await fetch(`/anime_by_video/${last_video}`);
             const video_data = await response.json();
+            console.log(video_data)
 
             if (video_data.title) {
                 featuredContainer.innerHTML = `
                     <h1>${video_data.title} - ep.${video_data.episode}</h1>
                     <video width="1100" controls>
-                        <source src="/videos/${last_video}" type="video/mp4">
+                        <source src="/videos/${last_video}.mp4" type="video/mp4">
                         Your browser does not support the video tag.
                     </video>
                 `;
@@ -61,7 +62,6 @@ document.addEventListener("DOMContentLoaded", function () {
                 animeCard.innerHTML = `
                         <img src="${anime.image_url}" alt="${anime.title}">
                         <h3>${anime.title}</h3>
-                        <p>${anime.description}</p>
                     `;
                 resultsContainer.appendChild(animeCard);
             }

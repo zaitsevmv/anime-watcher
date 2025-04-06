@@ -23,6 +23,10 @@ server_session = Session(app)
 logging.basicConfig(filename="debug.log", level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
 
+def check_file(path):
+    return os.path.exists(app.static_folder + path)
+
+
 def api_request(method, endpoint, data=None, headers=None):
     """Helper function for making API calls"""
     url = f"{API_BASE_URL}/{endpoint}"
@@ -41,9 +45,12 @@ def index():
 
     user_id = session['user_id']
     fav_response = api_request('GET', f'users/favourites?user_id={user_id}')
-    favorite_anime_ids = fav_response.get('anime_ids', []) if fav_response and fav_response.get('success') else []
+    favorite_anime_ids = fav_response.get('anime_ids', '[]') if fav_response and fav_response.get('success') else '[]'
+    
+    last_video_response = api_request('GET', f'users/last_video?user_id={user_id}')
+    last_video = last_video_response.get('last_video', '0') if last_video_response and last_video_response.get('success') else '0'
 
-    return render_template('index.html', anime_ids=json.loads(favorite_anime_ids), last_watched='default.mp4')
+    return render_template('index.html', anime_ids=json.loads(favorite_anime_ids), last_watched=last_video)
 
 
 @app.route('/images/anime/<filename>')
@@ -60,8 +67,9 @@ def anime_video(filename):
 
 @app.route('/anime_by_video/<video_id>')
 def get_anime_by_video(video_id):
-    video_path = f'/images/anime/{video_id}' 
-    if os.path.exists(video_path):
+    video_path = f'/videos/{video_id}.mp4' 
+    logging.debug(check_file(video_path))
+    if check_file(video_path):
         anime_id, sep, episode = video_id.rpartition('_')
         if sep:
             response = api_request('GET', f'anime/details?anime_id={anime_id}')
@@ -81,6 +89,8 @@ def anime_page(anime_id):
     response = api_request('GET', f'anime/details?anime_id={anime_id}')
     if response and response.get('success'):
         anime_data = response.get('anime', '')
+    else: 
+        return
     if anime_data == '':
         return
     
@@ -91,10 +101,10 @@ def anime_page(anime_id):
     except (json.JSONDecodeError, KeyError, TypeError):
         anime_data['id'] = anime_data.get('_id')
         
-    image_path = f'/images/anime/{anime_data["id"]}'
+    image_path = f'/images/anime/{anime_data["id"]}.jpg'
     default_path = "/images/anime/default.jpg"
 
-    anime_data['image_url'] = image_path if os.path.exists(image_path) else default_path    
+    anime_data['image_url'] = image_path if check_file(image_path) else default_path    
     return render_template("anime.html", anime=anime_data)
 
 
@@ -135,10 +145,10 @@ def anime_details(anime_id):
     response = api_request('GET', f'anime/details?anime_id={anime_id}')
     if response and response.get('success'):
         data = json.loads(response.get('anime', ''))
-        image_path = f'/images/anime/{data["_id"]["$oid"]}'
+        image_path = f'/images/anime/{data["_id"]["$oid"]}.jpg'
         default_path = "/images/anime/default.jpg"
 
-        data['image_url'] = image_path if os.path.exists(image_path) else default_path
+        data['image_url'] = image_path if check_file(image_path) else default_path
         return data
     return {}
 
@@ -193,7 +203,7 @@ def get_username(user_id):
     if username:
         return username.decode('utf-8')
 
-    response = api_request('GET', f'users/details?user_id={user_id}')
+    response = api_request('GET', f'users/name?user_id={user_id}')
     if response and response.get('success'):
         user_data = response.get('user')
         if isinstance(user_data, str):

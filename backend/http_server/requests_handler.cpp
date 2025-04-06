@@ -23,12 +23,15 @@ enum class req_targets: uint32_t{
     send = 0x0600,
     msg = 0x0700,
     brief = 0x0800,
+    name = 0x0900,
+    last_video = 0x0a00,
 
     after = 0x010000,
     query = 0x020000,
     anime_id = 0x030000,
     user_id = 0x040000,
-    add = 0x050000
+    add = 0x050000,
+    remove = 0x060000
 
 };
 
@@ -90,6 +93,8 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
             encoded ^= toUType(req_targets::search);
         else if(tr == "chat") 
             encoded ^= toUType(req_targets::chat);
+        else if(tr == "name") 
+            encoded ^= toUType(req_targets::name);
         else if(tr == "register") 
             encoded ^= toUType(req_targets::reg);
         else if(tr == "login") 
@@ -104,8 +109,12 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
             encoded ^= toUType(req_targets::msg); 
         else if(tr == "details")
             encoded ^= toUType(req_targets::details);
+        else if(tr == "last_video")
+            encoded ^= toUType(req_targets::last_video);
         else if(tr == "add")
             encoded ^= toUType(req_targets::add);
+        else if(tr == "remove")
+            encoded ^= toUType(req_targets::remove);
         else if(tr == "brief")
             encoded ^= toUType(req_targets::brief);
     }
@@ -127,6 +136,12 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
             encoded ^= toUType(req_targets::brief);
         else if(lhs == "favourites")
             encoded ^= toUType(req_targets::fav);
+        else if(lhs == "name") 
+            encoded ^= toUType(req_targets::name);
+        else if(lhs == "last_video")
+            encoded ^= toUType(req_targets::last_video);
+        else if(lhs == "remove")
+            encoded ^= toUType(req_targets::remove);
 
         if(com == "after")
             encoded ^= toUType(req_targets::after);
@@ -139,7 +154,6 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
 
         auto decoded = decode_url_string(val);
         result.data.emplace(decoded);
-        std::cout << decoded << std::endl;
     }
     result.target = encoded;
     return result;
@@ -182,17 +196,38 @@ std::optional<std::string> get_user(std::shared_ptr<UserDataDB> db, const std::s
     return db->GetUser(user_id);
 }
 
-bool add_favourite(std::shared_ptr<UserDataDB> db, const std::string& user_id, const std::string& anime_id){
+bool add_user_favourite(std::shared_ptr<UserDataDB> db, const std::string& user_id, const std::string& anime_id){
     auto res = db->AddUserFavourite(user_id, anime_id);
     return (res.has_value() && *res == 1);
 }
 
-std::optional<std::string> get_users_favourites(std::shared_ptr<UserDataDB> db, const std::string& user_id){
+bool remove_user_favourite(std::shared_ptr<UserDataDB> db, const std::string& user_id, const std::string& anime_id){
+    auto res = db->AddUserFavourite(user_id, anime_id);
+    return (res.has_value() && *res == 1);
+}
+
+std::optional<std::string> get_user_favourites(std::shared_ptr<UserDataDB> db, const std::string& user_id){
     auto user_data = db->GetUser(user_id);
     if(!user_data.has_value()) return std::nullopt;
     auto jv = boost::json::parse(*user_data).as_object();
     if(!jv.contains("favourite_anime")) return std::nullopt;
     return boost::json::serialize(jv.at("favourite_anime"));
+}
+
+std::optional<std::string> get_user_last_video(std::shared_ptr<UserDataDB> db, const std::string& user_id){
+    auto user_data = db->GetUser(user_id);
+    if(!user_data.has_value()) return std::nullopt;
+    auto jv = boost::json::parse(*user_data).as_object();
+    if(!jv.contains("last_video")) return std::nullopt;
+    return jv.at("last_video").as_string().c_str();
+}
+
+std::optional<std::string> get_user_name(std::shared_ptr<UserDataDB> db, const std::string& user_id){
+    auto user_data = db->GetUser(user_id);
+    if(!user_data.has_value()) return std::nullopt;
+    auto jv = boost::json::parse(*user_data).as_object();
+    if(!jv.contains("name")) return std::nullopt;
+    return jv.at("name").as_string().c_str();
 }
 
 //Anime Database
@@ -267,7 +302,6 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
                     if(res){
                         response_object["user"] = *res;
                     }
-                    std::cout << response_object <<std::endl;
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
                 } else{
                     send_text_response(http::status::bad_request, "Bad request");
@@ -307,7 +341,6 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
                         anime_search_db_, 
                         *endpoint.data
                     );
-                    std::cout << "Anime search result: " << res.has_value() << std::endl;
                     boost::json::object response_object;
                     response_object["success"] = res.has_value();
                     if(res){
@@ -318,7 +351,6 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
                             auto anim_id = src.as_object().at("anime_id").as_string();
                             anime_ids_json.emplace_back(anim_id);
                         }
-                        std::cout << anime_ids_json << std::endl;
                         response_object["anime_ids"] = anime_ids_json;
                     }
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
@@ -334,7 +366,6 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
                         anime_db_, 
                         *endpoint.data
                     );
-                    std::cout << "Anime get result: " << res.has_value() << std::endl;
                     boost::json::object response_object;
                     response_object["success"] = res.has_value();
                     if(res){
@@ -349,7 +380,7 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
         case (toUType(req_targets::users) | toUType(req_targets::fav) | toUType(req_targets::user_id)):
             {
                 if(endpoint.data.has_value()){
-                    auto res = get_users_favourites(
+                    auto res = get_user_favourites(
                         user_data_db_, 
                         *endpoint.data
                     );
@@ -358,6 +389,43 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
                     response_object["success"] = res.has_value();
                     if(res){
                         response_object["anime_ids"] = *res;
+                    }
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        case (toUType(req_targets::users) | toUType(req_targets::last_video) | toUType(req_targets::user_id)):
+            {
+                if(endpoint.data.has_value()){
+                    auto res = get_user_last_video(
+                        user_data_db_, 
+                        *endpoint.data
+                    );
+                    boost::json::object response_object;
+                    response_object["success"] = res.has_value();
+                    if(res){
+                        response_object["last_video"] = *res;
+                    }
+                    std::cout << response_object << std::endl;
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        case (toUType(req_targets::users) | toUType(req_targets::name) | toUType(req_targets::user_id)):
+            {
+                if(endpoint.data.has_value()){
+                    auto res = get_user_name(
+                        user_data_db_, 
+                        *endpoint.data
+                    );
+                    boost::json::object response_object;
+                    response_object["success"] = res.has_value();
+                    if(res){
+                        response_object["name"] = *res;
                     }
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
                 } else{
@@ -388,7 +456,6 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                         user_data_db_, 
                         login_form
                     );
-                    std::cout << "Login result: " << res.has_value() << std::endl;
                     boost::json::object response_object;
                     response_object["success"] = res.has_value();
                     if(res){
@@ -412,7 +479,6 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                         user_data_db_, 
                         reg_form
                     );
-                    std::cout << "Register result: " << res.has_value() << std::endl;
                     boost::json::object response_object;
                     response_object["success"] = res.has_value();
                     if(res){
@@ -481,7 +547,27 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                 if(jv.as_object().contains("user_id") 
                     && jv.as_object().contains("anime_id"))
                 {
-                    auto res = add_favourite(
+                    auto res = add_user_favourite(
+                        user_data_db_, 
+                        jv.at("user_id").as_string().c_str(),
+                        jv.at("anime_id").as_string().c_str()
+                    );
+                    std::cout << "Favorite add result: " << res << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res;
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        case (toUType(req_targets::anime) | toUType(req_targets::fav) | toUType(req_targets::remove)):
+            {
+                auto jv = boost::json::parse(body);
+                if(jv.as_object().contains("user_id") 
+                    && jv.as_object().contains("anime_id"))
+                {
+                    auto res = remove_user_favourite(
                         user_data_db_, 
                         jv.at("user_id").as_string().c_str(),
                         jv.at("anime_id").as_string().c_str()
