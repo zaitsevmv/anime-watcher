@@ -29085,3 +29085,449 @@ json.decoder.JSONDecodeError: Expecting value: line 1 column 1 (char 0)
 2025-04-06 13:20:24,657 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f6619 HTTP/1.1" 200 468
 2025-04-06 13:20:24,694 - DEBUG - Starting new HTTP connection (1): localhost:8080
 2025-04-06 13:20:24,697 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f65f8 HTTP/1.1" 200 429
+2025-04-06 13:24:14,081 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:24:14,090 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 148
+2025-04-06 13:24:14,091 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:24:14,097 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 58
+2025-04-06 13:24:14,583 - DEBUG - True
+2025-04-06 13:24:14,584 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:24:14,588 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f661f HTTP/1.1" 200 441
+2025-04-06 13:24:14,637 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:24:14,645 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 13:24:14,956 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:24:14,959 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660d HTTP/1.1" 200 452
+2025-04-06 13:24:14,994 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:24:15,017 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f661f HTTP/1.1" 200 441
+2025-04-06 13:24:15,043 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:24:15,045 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660a HTTP/1.1" 200 452
+2025-04-06 13:24:21,130 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:24:21,133 - DEBUG - http://localhost:8080 "GET /chat/messages?after=0 HTTP/1.1" 200 7006
+2025-04-06 13:24:23,211 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:24:23,214 - DEBUG - http://localhost:8080 "GET /chat/messages?after=1743891472988 HTTP/1.1" 200 30
+2025-04-06 13:24:25,262 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:24:25,265 - DEBUG - http://localhost:8080 "GET /chat/messages?after=1743891472988 HTTP/1.1" 200 30
+2025-04-06 13:24:27,291 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:24:27,294 - DEBUG - http://localhost:8080 "GET /chat/messages?after=1743891472988 HTTP/1.1" 200 30
+2025-04-06 13:27:33,926 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:27:33,934 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 148
+2025-04-06 13:27:33,937 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:27:33,956 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 58
+2025-04-06 13:27:34,112 - DEBUG - True
+2025-04-06 13:27:34,113 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:27:34,116 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f661f HTTP/1.1" 200 441
+2025-04-06 13:27:34,588 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:27:34,590 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 13:27:34,624 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:27:34,627 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660d HTTP/1.1" 200 452
+2025-04-06 13:27:34,709 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:27:34,712 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f661f HTTP/1.1" 200 441
+2025-04-06 13:27:34,844 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:27:34,846 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660a HTTP/1.1" 200 452
+2025-04-06 13:27:35,570 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:27:35,577 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 13:27:40,672 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:27:40,682 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 13:29:16,279 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:29:16,292 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f624c3feba9a0f65d5 HTTP/1.1" 200 418
+2025-04-06 13:29:35,171 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:29:35,174 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 13:29:44,514 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:29:44,520 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 148
+2025-04-06 13:29:44,522 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:29:44,526 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 58
+2025-04-06 13:29:44,866 - DEBUG - True
+2025-04-06 13:29:44,867 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:29:44,870 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f661f HTTP/1.1" 200 441
+2025-04-06 13:29:44,922 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:29:44,925 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 13:29:44,996 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:29:44,999 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660d HTTP/1.1" 200 452
+2025-04-06 13:29:45,059 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:29:45,063 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f661f HTTP/1.1" 200 441
+2025-04-06 13:29:45,117 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:29:45,120 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660a HTTP/1.1" 200 452
+2025-04-06 13:29:55,169 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:29:55,179 - DEBUG - http://localhost:8080 "GET /anime/search?query=%D0%B0%D1%82%D0%B0 HTTP/1.1" 200 57
+2025-04-06 13:29:55,291 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:29:55,305 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:29:57,864 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:29:57,888 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:35:15,066 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:35:15,080 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:36:57,204 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:36:57,222 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:37:17,096 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:37:17,124 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:52:51,224 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:52:51,253 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:53:31,897 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:53:31,901 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:56:14,531 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:14,541 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:56:14,795 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:14,800 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 148
+2025-04-06 13:56:16,646 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:16,649 - DEBUG - http://localhost:8080 "POST /anime/favourites/add HTTP/1.1" 200 16
+2025-04-06 13:56:20,782 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:20,791 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:56:20,986 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:21,004 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 13:56:23,674 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:23,681 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 13:56:23,683 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:23,692 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 58
+2025-04-06 13:56:24,270 - DEBUG - True
+2025-04-06 13:56:24,271 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:24,290 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f661f HTTP/1.1" 200 441
+2025-04-06 13:56:24,391 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:24,418 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 13:56:24,495 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:24,501 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660d HTTP/1.1" 200 452
+2025-04-06 13:56:24,570 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:24,588 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f661f HTTP/1.1" 200 441
+2025-04-06 13:56:24,649 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:24,653 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660a HTTP/1.1" 200 452
+2025-04-06 13:56:24,741 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:24,751 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:56:28,219 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:28,230 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:56:28,378 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:28,383 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 13:56:44,826 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:44,831 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:56:45,259 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:56:45,262 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 13:58:51,995 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:58:51,998 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:58:52,189 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:58:52,217 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 13:58:52,217 - ERROR - Exception on /is_favourite/67f116f524c3feba9a0f65c7 [GET]
+Traceback (most recent call last):
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1249, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The return type must be a string, dict, list, tuple with headers or status, Response instance, or WSGI callable, but it was a bool.
+2025-04-06 13:59:10,752 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:59:10,773 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:59:10,994 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:59:11,007 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 13:59:11,008 - ERROR - Exception on /is_favourite/67f116f524c3feba9a0f65c7 [GET]
+Traceback (most recent call last):
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1249, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The return type must be a string, dict, list, tuple with headers or status, Response instance, or WSGI callable, but it was a bool.
+2025-04-06 13:59:20,491 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:59:20,495 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 13:59:20,683 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 13:59:20,693 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 13:59:20,694 - ERROR - Exception on /is_favourite/67f116f524c3feba9a0f65c7 [GET]
+Traceback (most recent call last):
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1249, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The return type must be a string, dict, list, tuple with headers or status, Response instance, or WSGI callable, but it was a bool.
+2025-04-06 14:00:01,007 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:01,028 - DEBUG - http://localhost:8080 "GET /anime/search?query=%D0%B0 HTTP/1.1" 200 300
+2025-04-06 14:00:01,083 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:01,101 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:00:01,166 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:01,170 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 14:00:01,214 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:01,231 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f624c3feba9a0f65ed HTTP/1.1" 200 403
+2025-04-06 14:00:01,269 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:01,276 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f624c3feba9a0f65eb HTTP/1.1" 200 427
+2025-04-06 14:00:01,357 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:01,372 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f65f7 HTTP/1.1" 200 467
+2025-04-06 14:00:01,423 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:01,433 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f6622 HTTP/1.1" 200 593
+2025-04-06 14:00:01,489 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:01,493 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c9 HTTP/1.1" 200 500
+2025-04-06 14:00:01,787 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:01,793 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6613 HTTP/1.1" 200 425
+2025-04-06 14:00:01,853 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:01,869 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f6619 HTTP/1.1" 200 468
+2025-04-06 14:00:01,908 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:01,911 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f65f8 HTTP/1.1" 200 429
+2025-04-06 14:00:03,887 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:03,913 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6613 HTTP/1.1" 200 425
+2025-04-06 14:00:04,147 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:04,185 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 14:00:04,186 - ERROR - Exception on /is_favourite/67f116f724c3feba9a0f6613 [GET]
+Traceback (most recent call last):
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1249, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The return type must be a string, dict, list, tuple with headers or status, Response instance, or WSGI callable, but it was a bool.
+2025-04-06 14:00:52,029 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:52,033 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6613 HTTP/1.1" 200 425
+2025-04-06 14:00:52,245 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:00:52,251 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 14:00:52,251 - ERROR - Exception on /is_favourite/67f116f724c3feba9a0f6613 [GET]
+Traceback (most recent call last):
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1249, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The return type must be a string, dict, list, tuple with headers or status, Response instance, or WSGI callable, but it was a bool.
+2025-04-06 14:01:37,401 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:01:37,411 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6613 HTTP/1.1" 200 425
+2025-04-06 14:01:37,615 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:01:37,620 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 14:02:10,518 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:02:10,526 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6613 HTTP/1.1" 200 425
+2025-04-06 14:02:10,742 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:02:10,746 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 14:03:44,965 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:03:44,990 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6613 HTTP/1.1" 200 425
+2025-04-06 14:03:45,172 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:03:45,181 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 14:03:45,182 - ERROR - Exception on /is_favourite/67f116f724c3feba9a0f6613 [GET]
+Traceback (most recent call last):
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 920, in full_dispatch_request
+    return self.finalize_request(rv)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 939, in finalize_request
+    response = self.make_response(rv)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1249, in make_response
+    raise TypeError(
+TypeError: The view function did not return a valid response. The return type must be a string, dict, list, tuple with headers or status, Response instance, or WSGI callable, but it was a bool.
+2025-04-06 14:04:05,177 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:05,189 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6613 HTTP/1.1" 200 425
+2025-04-06 14:04:05,422 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:05,434 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 14:04:10,211 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:10,214 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 14:04:10,216 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:10,232 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 58
+2025-04-06 14:04:10,470 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:10,473 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 14:04:10,475 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:10,478 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 58
+2025-04-06 14:04:10,654 - DEBUG - True
+2025-04-06 14:04:10,656 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:10,659 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f661f HTTP/1.1" 200 441
+2025-04-06 14:04:10,793 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:10,796 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:04:11,006 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:11,009 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660d HTTP/1.1" 200 452
+2025-04-06 14:04:11,482 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:11,490 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f661f HTTP/1.1" 200 441
+2025-04-06 14:04:11,543 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:11,546 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660a HTTP/1.1" 200 452
+2025-04-06 14:04:11,583 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:11,586 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 14:04:12,187 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:12,207 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660d HTTP/1.1" 200 452
+2025-04-06 14:04:12,403 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:12,407 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 14:04:28,042 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:28,062 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660d HTTP/1.1" 200 452
+2025-04-06 14:04:28,291 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:04:28,322 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f1172824c3feba9a0f6629 HTTP/1.1" 200 177
+2025-04-06 14:07:17,846 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:07:17,861 - DEBUG - http://localhost:8080 "GET /chat/messages?after=0 HTTP/1.1" 200 7006
+2025-04-06 14:07:19,807 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:07:19,815 - DEBUG - http://localhost:8080 "GET /chat/messages?after=1743891472988 HTTP/1.1" 200 30
+2025-04-06 14:09:40,439 - ERROR - Exception on / [GET]
+Traceback (most recent call last):
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/anime-watcher/frontend/app.py", line 54, in index
+    user_id = session['user_id']
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask_session/base.py", line 80, in __getitem__
+    return super().__getitem__(key)
+KeyError: 'user_id'
+2025-04-06 14:13:03,467 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:03,471 - DEBUG - http://localhost:8080 "POST /auth/login HTTP/1.1" 200 53
+2025-04-06 14:13:03,758 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:03,765 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 33
+2025-04-06 14:13:03,769 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:03,779 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 17
+2025-04-06 14:13:08,168 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:08,188 - DEBUG - http://localhost:8080 "GET /anime/search?query=%D0%B0 HTTP/1.1" 200 300
+2025-04-06 14:13:08,264 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:08,277 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:13:08,532 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:08,550 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 14:13:08,582 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:08,585 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f624c3feba9a0f65ed HTTP/1.1" 200 403
+2025-04-06 14:13:08,629 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:08,635 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f624c3feba9a0f65eb HTTP/1.1" 200 427
+2025-04-06 14:13:08,669 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:08,680 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f65f7 HTTP/1.1" 200 467
+2025-04-06 14:13:08,721 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:08,739 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f6622 HTTP/1.1" 200 593
+2025-04-06 14:13:08,767 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:08,774 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c9 HTTP/1.1" 200 500
+2025-04-06 14:13:08,816 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:08,823 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6613 HTTP/1.1" 200 425
+2025-04-06 14:13:08,861 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:08,863 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f6619 HTTP/1.1" 200 468
+2025-04-06 14:13:08,902 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:08,906 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f65f8 HTTP/1.1" 200 429
+2025-04-06 14:13:09,630 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:09,633 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:13:10,144 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:10,147 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 33
+2025-04-06 14:13:11,475 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:11,489 - DEBUG - http://localhost:8080 "POST /anime/favourites/add HTTP/1.1" 200 16
+2025-04-06 14:13:13,757 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:13,761 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:13:13,937 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:13,952 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 61
+2025-04-06 14:13:18,975 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:18,983 - DEBUG - http://localhost:8080 "GET /anime/search?query=%D0%B0 HTTP/1.1" 200 300
+2025-04-06 14:13:19,040 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:19,047 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:13:19,079 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:19,086 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 14:13:19,120 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:19,130 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f624c3feba9a0f65ed HTTP/1.1" 200 403
+2025-04-06 14:13:19,163 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:19,173 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f624c3feba9a0f65eb HTTP/1.1" 200 427
+2025-04-06 14:13:19,670 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:19,686 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 61
+2025-04-06 14:13:19,687 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:19,697 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 17
+2025-04-06 14:13:19,844 - DEBUG - False
+2025-04-06 14:13:19,883 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:19,905 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:13:20,483 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:20,486 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:13:20,605 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:20,633 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 61
+2025-04-06 14:13:26,896 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:26,908 - DEBUG - http://localhost:8080 "GET /anime/search?query=%D0%BD%D0%B5 HTTP/1.1" 200 300
+2025-04-06 14:13:26,950 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:26,953 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f6622 HTTP/1.1" 200 593
+2025-04-06 14:13:26,985 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:26,988 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f624c3feba9a0f65d5 HTTP/1.1" 200 418
+2025-04-06 14:13:27,019 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:27,025 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f65f4 HTTP/1.1" 200 428
+2025-04-06 14:13:27,066 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:27,072 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6600 HTTP/1.1" 200 392
+2025-04-06 14:13:27,099 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:27,106 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f6625 HTTP/1.1" 200 373
+2025-04-06 14:13:27,135 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:27,138 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f65ff HTTP/1.1" 200 501
+2025-04-06 14:13:27,175 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:27,181 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660c HTTP/1.1" 200 383
+2025-04-06 14:13:27,205 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:27,210 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6601 HTTP/1.1" 200 492
+2025-04-06 14:13:27,252 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:27,262 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f660d HTTP/1.1" 200 452
+2025-04-06 14:13:27,289 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:27,292 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f624c3feba9a0f65e6 HTTP/1.1" 200 476
+2025-04-06 14:13:29,994 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:30,013 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6600 HTTP/1.1" 200 392
+2025-04-06 14:13:30,417 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:30,424 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 61
+2025-04-06 14:13:33,151 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:33,157 - DEBUG - http://localhost:8080 "POST /anime/favourites/add HTTP/1.1" 200 16
+2025-04-06 14:13:36,236 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:36,241 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 90
+2025-04-06 14:13:36,246 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:36,259 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 17
+2025-04-06 14:13:36,403 - DEBUG - False
+2025-04-06 14:13:36,495 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:36,505 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:13:36,559 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:36,565 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6600 HTTP/1.1" 200 392
+2025-04-06 14:13:53,106 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:53,110 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:13:53,221 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:53,225 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 90
+2025-04-06 14:13:58,840 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:13:58,845 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:14:49,374 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:14:49,390 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:14:57,172 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:14:57,182 - DEBUG - http://localhost:8080 "POST /auth/login HTTP/1.1" 200 53
+2025-04-06 14:14:57,235 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:14:57,248 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 90
+2025-04-06 14:14:57,250 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:14:57,275 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 17
+2025-04-06 14:14:57,804 - DEBUG - False
+2025-04-06 14:14:58,066 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:14:58,070 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:14:58,116 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:14:58,118 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6600 HTTP/1.1" 200 392
+2025-04-06 14:14:59,039 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:14:59,057 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:14:59,327 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:14:59,336 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 90
+2025-04-06 14:53:04,796 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:53:04,817 - DEBUG - http://localhost:8080 "GET /chat/messages?after=0 HTTP/1.1" 200 7006
+2025-04-06 14:53:47,332 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:53:47,364 - DEBUG - http://localhost:8080 "GET /anime/search?query=%D0%B0 HTTP/1.1" 200 300
+2025-04-06 14:53:47,395 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:53:47,442 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:53:47,470 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:53:47,476 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 14:53:47,508 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:53:47,524 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f624c3feba9a0f65ed HTTP/1.1" 200 403
+2025-04-06 14:53:47,555 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:53:47,558 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f624c3feba9a0f65eb HTTP/1.1" 200 427
+2025-04-06 14:53:47,580 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:53:47,592 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f65f7 HTTP/1.1" 200 467
+2025-04-06 14:53:47,626 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:53:47,629 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f6622 HTTP/1.1" 200 593
+2025-04-06 14:53:47,662 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:53:47,675 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c9 HTTP/1.1" 200 500
+2025-04-06 14:53:47,708 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:53:47,711 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6613 HTTP/1.1" 200 425
+2025-04-06 14:53:47,768 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:53:47,783 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f824c3feba9a0f6619 HTTP/1.1" 200 468
+2025-04-06 14:53:47,817 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:53:47,829 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f65f8 HTTP/1.1" 200 429
+2025-04-06 14:53:48,239 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:53:48,255 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f524c3feba9a0f65c7 HTTP/1.1" 200 461
+2025-04-06 14:54:10,106 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:54:10,116 - DEBUG - http://localhost:8080 "POST /auth/login HTTP/1.1" 200 53
+2025-04-06 14:54:10,138 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:54:10,155 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 90
+2025-04-06 14:54:10,156 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:54:10,164 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 17
+2025-04-06 14:54:10,338 - DEBUG - False
+2025-04-06 14:54:10,382 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:54:10,390 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:54:10,447 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:54:10,468 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6600 HTTP/1.1" 200 392
+2025-04-06 14:54:12,512 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:54:12,519 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f116f724c3feba9a0f6607 HTTP/1.1" 200 375
+2025-04-06 14:54:12,903 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:54:12,908 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 90
+2025-04-06 14:54:17,870 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-06 14:54:17,873 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f19a96145708277d0f2e93 HTTP/1.1" 200 90

@@ -12,14 +12,31 @@
     <p>{{ anime.description }}</p>
     <p>Episodes: {{ anime.episodes }}</p>
     {% if 'user_id' in session %}
-    <button onclick="addFavourite()">Add Favourite</button>
+    <button id="fav-button" onclick="addFavourite()">Add Favourite</button>
     {% endif %}
 </div>
 
+{% if 'user_id' in session %}
 <script>
+    const favButton = document.getElementById('fav-button');
+    const animeId = "{{ anime.id }}";
+
+    const fetchUserData = async () => {
+        try {
+            const response = await fetch(`/is_favourite/${animeId}`);
+            const isFavourite = await response.json();
+
+            if (isFavourite) {
+                favButton.textContent = "Remove from favourite"
+                favButton.onclick = "removeFavourite()"
+            }
+
+        } catch (error) {
+            console.error('Error fetching anime details:', error);
+        }
+    };
+
     function addFavourite() {
-        const animeId = "{{ anime.id }}";
-        console.log(animeId)
         fetch('/add_favourite', {
             method: 'POST',
             headers: { 'Content-Type': 'application/json' },
@@ -27,11 +44,27 @@
         }).then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert("Added to favourites!");
-                } else {
-                    alert("Error adding favourite");
+                    favButton.textContent = "Remove from favourite"
+                    favButton.onclick = "removeFavourite()"
                 }
             });
     };
+
+    function removeFavourite() {
+        fetch('/remove_favourite', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify(animeId)
+        }).then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    favButton.textContent = "Add Favourite"
+                    favButton.onclick = "addFavourite()"
+                }
+            });
+    };
+
+    fetchUserData();
 </script>
+{% endif %}
 {% endblock %}

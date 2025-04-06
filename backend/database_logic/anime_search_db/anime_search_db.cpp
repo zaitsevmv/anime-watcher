@@ -4,8 +4,8 @@
 #include <boost/json/serialize.hpp>
 #include <curl/curl.h>
 #include <curl/easy.h>
-#include <iostream>
 #include <memory>
+#include <iostream>
 
 size_t WriteCallback(void* contents, size_t size, size_t nmemb, std::string* s) {
     size_t newLength = size * nmemb;
@@ -35,7 +35,7 @@ AnimeSearchDB::AnimeSearchDB(const std::string& name)
         if(boost::json::serialize(
             jv.as_object().at("error")
             .as_object().at("root_cause").as_array().front()
-            .as_object().at("type")) == "\"resource_already_exists_exception\"")
+            .as_object().at("type")) != "\"resource_already_exists_exception\"")
         {
             std::cout << "Elastic exists" << std::endl;
         } else{
@@ -60,7 +60,6 @@ std::optional<int32_t> AnimeSearchDB::AddAnime(const std::string& anime_data_jso
     curl_easy_setopt(curl.get(), CURLOPT_POSTFIELDS, anime_data_json.c_str());
 
     auto result = curl_easy_perform(curl.get());
-    std::cout << curl_buffer << std::endl;
     if(result != CURLE_OK){
         return std::nullopt;
     }
@@ -84,7 +83,6 @@ std::optional<int32_t> AnimeSearchDB::DeleteAnime(const int64_t anime_id) {
 
 std::optional<std::string> AnimeSearchDB::SearchAnime(const std::string& search_request) {
     std::string url = "http://localhost:9200/" + db_name + "/_search?pretty";
-    std::cout << search_request << std::endl;
     std::string json_data = "{\"query\":{\"match_phrase_prefix\":{\"title\":\"" + search_request + "\"}}}";
 
     struct curl_slist* headers = nullptr;
@@ -99,7 +97,6 @@ std::optional<std::string> AnimeSearchDB::SearchAnime(const std::string& search_
     curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &curl_buffer);
 
     auto result = curl_easy_perform(curl.get());
-    std::cout << curl_buffer << std::endl;
     if(result != CURLE_OK) {
         return std::nullopt;
     }

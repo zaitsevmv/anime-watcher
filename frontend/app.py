@@ -1,5 +1,6 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, send_from_directory
 import requests 
+from functools import wraps
 from dotenv import load_dotenv
 from flask_session import Session
 import redis
@@ -23,6 +24,15 @@ server_session = Session(app)
 logging.basicConfig(filename="debug.log", level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
 
+def login_required(f):
+    @wraps(f)
+    def decorated_function(*args, **kwargs):
+        if 'user_id' not in session:  # Or your custom session check
+            return redirect(url_for('login'))
+        return f(*args, **kwargs)
+    return decorated_function
+
+
 def check_file(path):
     return os.path.exists(app.static_folder + path)
 
@@ -39,10 +49,8 @@ def api_request(method, endpoint, data=None, headers=None):
 
 
 @app.route('/')
+@login_required
 def index():
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
-
     user_id = session['user_id']
     fav_response = api_request('GET', f'users/favourites?user_id={user_id}')
     favorite_anime_ids = fav_response.get('anime_ids', '[]') if fav_response and fav_response.get('success') else '[]'
@@ -108,11 +116,50 @@ def anime_page(anime_id):
     return render_template("anime.html", anime=anime_data)
 
 
+@app.route('/get_favourite')
+def get_favourite():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    user_id = session['user_id']
+    fav_response = api_request('GET', f'users/favourites?user_id={user_id}')
+    favorite_anime_ids = fav_response.get('anime_ids', '[]') if fav_response and fav_response.get('success') else '[]'
+    
+    data = json.loads(favorite_anime_ids)
+    return data
+
+
+@app.route('/is_favourite/<anime_id>')
+def is_favourite(anime_id):
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    user_id = session['user_id']
+    fav_response = api_request('GET', f'users/favourites?user_id={user_id}')
+    favorite_anime_ids = fav_response.get('anime_ids', '[]') if fav_response and fav_response.get('success') else '[]'
+    
+    data = json.loads(favorite_anime_ids)
+    return jsonify(anime_id in data)
+
+
 @app.route('/add_favourite', methods=['POST'])
 def add_favourite():
-    logging.debug(request.json)
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
     anime_id = request.json
     response = api_request('POST', 'anime/favourites/add', {
+        'user_id': session['user_id'],
+        'anime_id': anime_id
+    })
+    if response and response.get('success'):
+        return jsonify({"success": True})
+    return jsonify({"success": False})
+
+
+@app.route('/remove_favourite', methods=['POST'])
+def remove_favourite():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    anime_id = request.json
+    response = api_request('POST', 'anime/favourites/remove', {
         'user_id': session['user_id'],
         'anime_id': anime_id
     })
@@ -135,9 +182,9 @@ def search_anime():
     response = api_request('GET', f'anime/search?query={query}')
     
     if response and response.get('success'):
-        return jsonify(response.get('anime_ids', []))  # Return list of found anime
+        return jsonify(response.get('anime_ids', [])) 
 
-    return jsonify([])  # Return empty on error
+    return jsonify([]) 
 
 
 @app.route('/anime_details/<anime_id>')
@@ -155,6 +202,8 @@ def anime_details(anime_id):
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
+    if 'user_id' in session:
+        return render_template('index.html')
     if request.method == 'POST':
         # API call to backend for authentication
         response = api_request('POST', 'auth/login', {
@@ -170,6 +219,8 @@ def login():
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
+    if 'user_id' in session:
+        return render_template('index.html')
     if request.method == 'POST':
         # API call to backend for user registration
         response = api_request('POST', 'auth/register', {
@@ -185,19 +236,21 @@ def register():
 
 
 @app.route('/logout')
+@login_required
 def logout():
     session.pop('user_id', None)
-    return redirect(url_for('index'))
+    return redirect(url_for('login'))
 
 
 @app.route('/chat')
+@login_required
 def chat():
-    if 'user_id' not in session:
-        return redirect(url_for('login'))
     return render_template('chat.html')
 
 
 def get_username(user_id):
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
     redis_conn = redis.from_url('redis://127.0.0.1:6379')
     username = redis_conn.get(f"user:{user_id}:name")
     if username:
@@ -220,8 +273,10 @@ def get_username(user_id):
 
 @app.route('/get_messages')
 def get_messages():
-    """Fetch messages after a given timestamp from the backend."""
-    last_timestamp = request.args.get('after', 0)  # Default to 0 if no timestamp is provided
+    if 'user_id' not in session:
+        return jsonify([]) 
+    
+    last_timestamp = request.args.get('after', 0) 
     response = api_request('GET', f'chat/messages?after={last_timestamp}')
 
     if response and response.get('success'):
