@@ -61,19 +61,19 @@ def index():
     return render_template('index.html', anime_ids=json.loads(favorite_anime_ids), last_watched=last_video)
 
 
-@app.route('/images/anime/<filename>')
+@app.route('/images/anime/<filename>', methods=['GET'])
 def anime_image(filename):
     images_dir = os.path.join(app.static_folder, 'images', 'anime')
     return send_from_directory(images_dir, filename)
 
 
-@app.route('/videos/<filename>')
+@app.route('/videos/<filename>', methods=['GET'])
 def anime_video(filename):
     videos_dir = os.path.join(app.static_folder, 'videos')
     return send_from_directory(videos_dir, filename)
 
 
-@app.route('/anime_by_video/<video_id>')
+@app.route('/anime_by_video/<video_id>', methods=['GET'])
 def get_anime_by_video(video_id):
     video_path = f'/videos/{video_id}.mp4' 
     logging.debug(check_file(video_path))
@@ -113,10 +113,74 @@ def anime_page(anime_id):
     default_path = "/images/anime/default.jpg"
 
     anime_data['image_url'] = image_path if check_file(image_path) else default_path    
-    return render_template("anime.html", anime=anime_data)
+    
+    if 'user_id' in session:
+        user_id = session['user_id']  # Your function to get user details
+        status_response = api_request('GET', f'users/status?user_id={user_id}')
+        status = status_response.get('status', 0) if status_response and status_response.get('success') else 0
+        
+        is_fav = is_favourite(anime_id)
+    else:
+        status = 0
+        is_fav = False
+        
+    return render_template("anime.html", anime=anime_data, user_status=status, is_favourite=is_fav)
 
 
-@app.route('/get_favourite')
+@app.route('/anime/<anime_id>/edit')
+@login_required
+def anime_edit_page(anime_id):
+    user_id = session['user_id']  # Your function to get user details
+    status_response = api_request('GET', f'users/status?user_id={user_id}')
+    status = status_response.get('status', 0) if status_response and status_response.get('success') else 0
+    if status <= 1:
+        return jsonify({'success': False, 'error': 'Insufficient privileges'})
+    
+    if not anime_id:
+        return
+    response = api_request('GET', f'anime/details?anime_id={anime_id}')
+    if response and response.get('success'):
+        anime_data = response.get('anime', '')
+    else: 
+        return
+    if anime_data == '':
+        return
+    
+    anime_data = json.loads(anime_data)
+    try:
+        oid_obj = anime_data['_id']
+        anime_data['id'] = oid_obj['$oid']
+    except (json.JSONDecodeError, KeyError, TypeError):
+        anime_data['id'] = anime_data.get('_id')
+        
+    image_path = f'/images/anime/{anime_data["id"]}.jpg'
+    default_path = "/images/anime/default.jpg"
+
+    anime_data['image_url'] = image_path if check_file(image_path) else default_path    
+        
+    return render_template("anime_edit.html", anime=anime_data, user_status=status)
+
+
+@app.route('/update_anime', methods=['POST'])
+def update_anime():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    
+    user_id = session['user_id']  # Your function to get user details
+    status_response = api_request('GET', f'users/status?user_id={user_id}')
+    status = status_response.get('status', 0) if status_response and status_response.get('success') else 0
+    if status <= 1:
+        return jsonify({'success': False, 'error': 'Insufficient privileges'})
+    
+    data = request.get_json()
+    
+    update_response = api_request('POST', 'anime/update', data)
+    if update_response and update_response.get('success'):
+        return jsonify({"success": True})
+    return jsonify({"success": False})
+
+
+@app.route('/get_favourite', methods=['GET'])
 def get_favourite():
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
@@ -128,7 +192,6 @@ def get_favourite():
     return data
 
 
-@app.route('/is_favourite/<anime_id>')
 def is_favourite(anime_id):
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
@@ -137,7 +200,7 @@ def is_favourite(anime_id):
     favorite_anime_ids = fav_response.get('anime_ids', '[]') if fav_response and fav_response.get('success') else '[]'
     
     data = json.loads(favorite_anime_ids)
-    return jsonify(anime_id in data)
+    return anime_id in data
 
 
 @app.route('/add_favourite', methods=['POST'])
@@ -173,7 +236,7 @@ def anime():
     return render_template('search.html')
 
 
-@app.route('/search_anime')
+@app.route('/search_anime', methods=['GET'])
 def search_anime():
     query = request.args.get('q', '').strip()
 
@@ -198,6 +261,25 @@ def anime_details(anime_id):
         data['image_url'] = image_path if check_file(image_path) else default_path
         return data
     return {}
+
+
+@app.route('/delete_anime', methods=['POST'])
+def delete_anime():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    
+    user_id = session['user_id']
+    status_response = api_request('GET', f'users/status?user_id={user_id}')
+    status = status_response.get('status', 0) if status_response and status_response.get('success') else 0
+    if status <= 2:
+        return jsonify({'success': False, 'error': 'Insufficient privileges'})
+    
+    data = request.get_json()
+    
+    update_response = api_request('POST', 'anime/delete', data)
+    if update_response and update_response.get('success'):
+        return jsonify({"success": True})
+    return jsonify({"success": False})
 
 
 @app.route('/login', methods=['GET', 'POST'])
@@ -258,17 +340,24 @@ def get_username(user_id):
 
     response = api_request('GET', f'users/name?user_id={user_id}')
     if response and response.get('success'):
-        user_data = response.get('user')
-        if isinstance(user_data, str):
-            user_data = json.loads(user_data)
-        user_name = user_data.get('name')
-        
-        logging.debug(user_data)
+        user_name = response.get('name')
 
         redis_conn.set(f"user:{user_id}:name", user_name)
         return user_name
 
     return 'Anonim' 
+
+
+def is_banned(user_id):
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    user_id = session['user_id']
+    banned_response = api_request('GET', f'users/banned?user_id={user_id}')
+    if banned_response and banned_response.get('success'):
+        result = banned_response.get('banned', False)
+        return result
+    else:
+        return False
 
 
 @app.route('/get_messages')
@@ -297,6 +386,8 @@ def get_messages():
 def send_message():
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    if is_banned(session['user_id']):
+        return jsonify({'success': False, 'error': 'User banned from chat'}), 403
 
     message_text = request.json.get('message')
     if not message_text:

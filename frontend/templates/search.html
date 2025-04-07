@@ -64,8 +64,6 @@
             if (!searchResponse.ok) throw new Error('Search request failed');
             const animeIds = await searchResponse.json();
 
-            console.log(animeIds)
-
             if (!animeIds.length) {
                 statusMessage.textContent = 'Nothing found';
                 return;
@@ -78,15 +76,16 @@
                         const response = await fetch(`/anime_details/${animeId}`);
 
                         const anime = await response.json();
-                        const animeCard = document.createElement('a');
-                        console.log(anime)
-                        animeCard.href = `/anime/${anime._id.$oid}`;
-                        animeCard.classList.add('anime-card');
-                        animeCard.innerHTML = `
-                            <img src="${anime.image_url}" alt="${anime.title}">
-                            <h3>${anime.title}</h3>
-                        `;
-                        resultsContainer.appendChild(animeCard);
+                        if(anime._id){
+                            const animeCard = document.createElement('a');
+                            animeCard.href = `/anime/${anime._id.$oid}`;
+                            animeCard.classList.add('anime-card');
+                            animeCard.innerHTML = `
+                                <img src="${anime.image_url}" alt="${anime.title}">
+                                <h3>${anime.title}</h3>
+                            `;
+                            resultsContainer.appendChild(animeCard);
+                        }
                     }
                     console.log('All fetch requests completed.');
                 } catch (error) {

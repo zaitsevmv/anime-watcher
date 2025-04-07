@@ -1,0 +1,134 @@
+{% extends "base.html" %}
+{% block title %}{{ anime.title }}{% endblock %}
+
+{% block head %}
+<style>
+    .editable {
+        border: 1px solid #ddd;
+        padding: 5px;
+        margin: 5px 0;
+    }
+
+    .editable:focus {
+        border-color: #4CAF50;
+        outline: none;
+    }
+
+    .save-btn {
+        background-color: #4CAF50;
+        color: white;
+        padding: 10px 15px;
+        border: none;
+        border-radius: 4px;
+        cursor: pointer;
+        margin-top: 10px;
+    }
+
+    .save-btn:hover {
+        background-color: #45a049;
+    }
+</style>
+{% endblock %}
+
+{% block content %}
+<div class="anime-container">
+    <h1>
+        {% if 'user_id' in session and user_status > 1 %}
+        <input type="text" id="title" class="editable" value="{{ anime.title }}" style="font-size: 2em; width: 80%;">
+        {% else %}
+        {{ anime.title }}
+        {% endif %}
+    </h1>
+
+    <img src="{{ anime.image_url }}" alt="{{ anime.title }}" style="max-width:300px;">
+
+    <p>
+        {% if 'user_id' in session and user_status > 1 %}
+        <textarea id="description" class="editable"
+            style="width: 100%; min-height: 100px;">{{ anime.description }}</textarea>
+        {% else %}
+        {{ anime.description }}
+        {% endif %}
+    </p>
+
+    <p>Episodes:
+        {% if 'user_id' in session and user_status > 1 %}
+        <input type="number" id="episodes" class="editable" value="{{ anime.episodes }}" style="width: 60px;">
+        {% else %}
+        {{ anime.episodes }}
+        {% endif %}
+    </p>
+
+    {% if 'user_id' in session and user_status > 1 %}
+    <button id="save-btn" class="save-btn">Save Changes</button>
+    {% endif %}
+    {% if 'user_id' in session and user_status > 2 %}
+    <button id="delete-btn" class="bad-button">Delete anime</button>
+    {% endif %}
+</div>
+
+{% if 'user_id' in session and user_status > 1 %}
+<script>
+    document.getElementById('save-btn').addEventListener('click', function () {
+        const updatedData = {
+            id: "{{ anime.id }}",
+            title: document.getElementById('title').value,
+            description: document.getElementById('description').value,
+            videos: "{{ anime.videos }}",
+            episodes: document.getElementById('episodes').value
+        };
+
+        fetch('/update_anime', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(updatedData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Anime updated successfully!');
+                    window.location.replace('/anime/{{ anime.id }}');
+                } else {
+                    alert('Error updating anime: ' + (data.error || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error updating anime');
+            });
+    });
+</script>
+{% endif %}
+{% if 'user_id' in session and user_status > 2 %}
+<script>
+    document.getElementById('delete-btn').addEventListener('click', function () {
+        const animeData = {
+            id: "{{ anime.id }}"
+        };
+
+        fetch('/delete_anime', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+            },
+            body: JSON.stringify(animeData)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert('Anime deleted successfully!');
+                    window.location.replace('/search');
+                } else {
+                    alert('Error deleting anime: ' + (data.error || 'Unknown error'));
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                alert('Error updating anime');
+            });
+    });
+</script>
+{% endif %}
+{% endblock %}

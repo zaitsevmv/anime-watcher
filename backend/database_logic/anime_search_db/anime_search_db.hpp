@@ -17,11 +17,12 @@ public:
 
     std::optional<int32_t> AddAnime(const std::string& anime_data_json);
 
-    std::optional<int32_t> DeleteAnime(int64_t anime_id);
+    std::optional<int32_t> DeleteAnime(const std::string& anime_id);
 
     std::optional<std::string> SearchAnime(const std::string& search_request);
+    std::optional<std::string> SearchAnimeId(const std::string& search_request);
 
-    std::optional<int32_t> UpdateAnime(int64_t anime_id, const std::string& anime_data_json);
+    std::optional<int32_t> UpdateAnime(const std::string& anime_id, const std::string& anime_data_json);
 private:
     struct CURL_deleter{
         void operator()(CURL* pCURL) const {

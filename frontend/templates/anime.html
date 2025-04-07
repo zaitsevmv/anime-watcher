@@ -12,59 +12,60 @@
     <p>{{ anime.description }}</p>
     <p>Episodes: {{ anime.episodes }}</p>
     {% if 'user_id' in session %}
-    <button id="fav-button" onclick="addFavourite()">Add Favourite</button>
+    <button id='fav-button' class='good-button' onclick="addOrRemoveFavourite()">
+        Add to Favourite
+    </button>
+    {% endif %}
+    {% if 'user_id' in session and user_status > 1 %}
+    <a href="/anime/{{ anime.id }}/edit" class="edit-button">Edit</a>
     {% endif %}
 </div>
 
 {% if 'user_id' in session %}
 <script>
+    let isFavorited = "{{ is_favourite }}" === "True"; 
+
     const favButton = document.getElementById('fav-button');
     const animeId = "{{ anime.id }}";
 
-    const fetchUserData = async () => {
-        try {
-            const response = await fetch(`/is_favourite/${animeId}`);
-            const isFavourite = await response.json();
-
-            if (isFavourite) {
-                favButton.textContent = "Remove from favourite"
-                favButton.onclick = "removeFavourite()"
-            }
-
-        } catch (error) {
-            console.error('Error fetching anime details:', error);
+    function addOrRemoveFavourite() {
+        if(isFavorited){
+            fetch('/remove_favourite', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(animeId)
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        isFavorited = !isFavorited
+                    }
+            });
+        } else{
+            fetch('/add_favourite', {
+                method: 'POST',
+                headers: { 'Content-Type': 'application/json' },
+                body: JSON.stringify(animeId)
+            }).then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        isFavorited = !isFavorited
+                        updateButton()
+                    }
+            });
         }
     };
 
-    function addFavourite() {
-        fetch('/add_favourite', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(animeId)
-        }).then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    favButton.textContent = "Remove from favourite"
-                    favButton.onclick = "removeFavourite()"
-                }
-            });
-    };
+    function updateButton() {
+        if (isFavorited) {
+            favButton.textContent = "Remove from Favourite";
+            favButton.className = "bad-button";
+        } else {
+            favButton.textContent = "Add to Favourite";
+            favButton.className = "good-button";
+        }
+    }
 
-    function removeFavourite() {
-        fetch('/remove_favourite', {
-            method: 'POST',
-            headers: { 'Content-Type': 'application/json' },
-            body: JSON.stringify(animeId)
-        }).then(response => response.json())
-            .then(data => {
-                if (data.success) {
-                    favButton.textContent = "Add Favourite"
-                    favButton.onclick = "addFavourite()"
-                }
-            });
-    };
-
-    fetchUserData();
+    updateButton();
 </script>
 {% endif %}
 {% endblock %}
