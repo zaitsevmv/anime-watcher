@@ -4,6 +4,7 @@ from functools import wraps
 from dotenv import load_dotenv
 from flask_session import Session
 import redis
+import bcrypt
 import os
 import time
 import logging
@@ -22,6 +23,12 @@ app.config['SESSION_REDIS'] = redis.from_url('redis://127.0.0.1:6379')
 server_session = Session(app)
 
 logging.basicConfig(filename="debug.log", level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
+
+
+def hash_password(password):
+    salt = bcrypt.gensalt()
+    hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
+    return hashed_password.decode('utf-8')
 
 
 def login_required(f):
@@ -308,7 +315,7 @@ def register():
         response = api_request('POST', 'auth/register', {
             'login': request.form['login'],
             'email': request.form['email'],
-            'password_hash': request.form['password']
+            'password_hash': hash_password(request.form['password'])
         })
         
         if response and response.get('success'):

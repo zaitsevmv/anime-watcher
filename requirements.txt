@@ -5,3 +5,5 @@ dotenv
 zodb
 persistent
 redis
+bs4
+bcrypt

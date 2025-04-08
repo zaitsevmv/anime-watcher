@@ -623,6 +623,7 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                             boost::json::serialize(anime_brief)
                         );
                         response_object["success"] = idx_result.has_value();
+                        response_object["db_id"] = *res;
                     } else{
                         response_object["success"] = false;
                     }

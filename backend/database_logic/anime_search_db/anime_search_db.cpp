@@ -93,7 +93,7 @@ std::optional<int32_t> AnimeSearchDB::DeleteAnime(const std::string& anime_id) {
 
 std::optional<std::string> AnimeSearchDB::SearchAnime(const std::string& search_request) {
     std::string url = "http://localhost:9200/" + db_name + "/_search?pretty";
-    std::string json_data = "{\"query\":{\"match_phrase_prefix\":{\"title\":\"" + search_request + "\"}}}";
+    std::string json_data = "{\"query\":{\"match_phrase_prefix\":{\"title\":\"" + search_request + "\"}}, \"size\": 20}";
 
     struct curl_slist* headers = nullptr;
     headers = curl_slist_append(headers, "Content-Type: application/json");
