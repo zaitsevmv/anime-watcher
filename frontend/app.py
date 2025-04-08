@@ -355,6 +355,28 @@ def get_username(user_id):
     return 'Anonim' 
 
 
+@app.route('/ban_user', methods=['POST'])
+def ban_user():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    
+    user_id = session['user_id']
+    status_response = api_request('GET', f'users/status?user_id={user_id}')
+    status = status_response.get('status', 0) if status_response and status_response.get('success') else 0
+    if status <= 2:
+        return jsonify({'success': False, 'error': 'Insufficient privileges'})
+    
+    target_user_id = request.json.get('user_id','')
+    target_flag = request.json.get('flag', False)
+    ban_response = api_request('POST', f'users/ban', data={
+        'user_id': target_user_id,
+        'flag': target_flag
+    })
+    if ban_response and ban_response.get('success'):
+        return jsonify({'success': True})
+    return jsonify({'success': False, 'error': 'Failed to ban user'}), 500
+
+
 def is_banned(user_id):
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403

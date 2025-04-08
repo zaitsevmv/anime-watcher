@@ -16,7 +16,11 @@ public:
         : BaseMongoDB(db_name, collection_name) {}
 
     std::optional<std::string> AddMessage(const std::string& message_data);
-    std::optional<int32_t> DeleteMessage(const int64_t message_id);
+
+    std::optional<int32_t> DeleteMessage(const std::string& message_id);
+
+    std::optional<int32_t> DeleteUserMessages(const std::string& user_id);
+    
     std::optional<std::vector<std::string>> GetNewMessages(const int64_t last_update_ms);
 };
 

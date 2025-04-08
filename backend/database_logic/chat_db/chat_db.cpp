@@ -13,7 +13,11 @@ std::optional<std::string> ChatDB::AddMessage(const std::string& message_data) {
     return AddDocument(message_data);
 }
 
-std::optional<int32_t> ChatDB::DeleteMessage(const int64_t message_id) {
+std::optional<int32_t> ChatDB::DeleteUserMessages(const std::string& user_id) {
+    return DeleteAll(SearchFilter("user_id", user_id));
+}
+
+std::optional<int32_t> ChatDB::DeleteMessage(const std::string& message_id) {
     return DeleteDocument(SearchFilter("_id", message_id));
 }
 

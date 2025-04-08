@@ -27,6 +27,8 @@ protected:
 
     std::optional<int32_t> DeleteDocument(const SearchFilter& filter);
 
+    std::optional<int32_t> DeleteAll(const SearchFilter& filter);
+
     std::optional<std::string> UpdateDocument(const SearchFilter& filter, const std::string& new_data_json);
 
     static mongocxx::instance instance;

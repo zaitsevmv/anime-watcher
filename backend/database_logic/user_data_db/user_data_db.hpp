@@ -19,15 +19,17 @@ public:
 
     std::optional<std::string> AddUser(const std::string& user_data_json);
 
-    std::optional<int32_t> DeleteUser(std::string user_id);
+    std::optional<int32_t> DeleteUser(const std::string& user_id);
 
-    std::optional<int32_t> ChangeUserPassword(std::string user_id, const std::string& new_password_hash);
+    std::optional<int32_t> ChangeUserPassword(const std::string& user_id, const std::string& new_password_hash);
 
-    std::optional<int32_t> ChangeUserLogin(std::string user_id,  const std::string& new_user_login);
+    std::optional<int32_t> ChangeUserLogin(const std::string& user_id,  const std::string& new_user_login);
 
-    std::optional<int32_t> AddUserFavourite(std::string user_id, const std::string& anime_hash);
+    std::optional<int32_t> AddUserFavourite(const std::string& user_id, const std::string& anime_id);
 
-    std::optional<int32_t> RemoveUserFavourite(std::string user_id, const std::string& anime_hash);
+    std::optional<int32_t> RemoveUserFavourite(const std::string&user_id, const std::string& anime_id);
+
+    std::optional<int32_t> FlagBanUser(const std::string&user_id, bool flag);
 
     std::optional<bool> LoginUnique(const std::string& user_login);
     std::optional<bool> EmailUnique(const std::string& user_email);

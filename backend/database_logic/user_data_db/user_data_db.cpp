@@ -17,11 +17,22 @@ std::optional<std::string> UserDataDB::AddUser(const std::string& user_data_json
     return AddDocument(user_data_json);
 }
 
-std::optional<int32_t> UserDataDB::DeleteUser(std::string user_id) {
+std::optional<int32_t> UserDataDB::FlagBanUser(const std::string& user_id, bool flag) {
+    auto result = collection.update_one(
+        SearchFilter("_id", user_id).get(), 
+        SetFieldFilter("banned", flag).get()
+    );
+    if(result){
+        return (*result).modified_count();
+    }
+    return std::nullopt;
+}
+
+std::optional<int32_t> UserDataDB::DeleteUser(const std::string& user_id) {
     return DeleteDocument({"_id", user_id});
 }
 
-std::optional<int32_t> UserDataDB::ChangeUserPassword(std::string user_id, const std::string& new_password_hash) {
+std::optional<int32_t> UserDataDB::ChangeUserPassword(const std::string& user_id, const std::string& new_password_hash) {
     auto result = collection.update_one(
         SearchFilter("_id", user_id).get(), 
         SetFieldFilter("password_hash", new_password_hash).get()
@@ -32,7 +43,7 @@ std::optional<int32_t> UserDataDB::ChangeUserPassword(std::string user_id, const
     return std::nullopt;
 }
 
-std::optional<int32_t> UserDataDB::ChangeUserLogin(std::string user_id,  const std::string& new_user_login) {
+std::optional<int32_t> UserDataDB::ChangeUserLogin(const std::string& user_id,  const std::string& new_user_login) {
     auto result = collection.update_one(
         SearchFilter("_id", user_id).get(), 
         SetFieldFilter("login", new_user_login).get()
@@ -43,10 +54,10 @@ std::optional<int32_t> UserDataDB::ChangeUserLogin(std::string user_id,  const s
     return std::nullopt;
 }
 
-std::optional<int32_t> UserDataDB::AddUserFavourite(std::string user_id, const std::string& anime_hash) {
+std::optional<int32_t> UserDataDB::AddUserFavourite(const std::string& user_id, const std::string& anime_id) {
     auto result = collection.update_one(
         SearchFilter("_id", user_id).get(), 
-        AddToSetFilter("favourite_anime", anime_hash).get()
+        AddToSetFilter("favourite_anime", anime_id).get()
     );
     if(result){
         return (*result).modified_count();
@@ -54,10 +65,10 @@ std::optional<int32_t> UserDataDB::AddUserFavourite(std::string user_id, const s
     return std::nullopt;
 }
 
-std::optional<int32_t> UserDataDB::RemoveUserFavourite(std::string user_id, const std::string& anime_hash) {
+std::optional<int32_t> UserDataDB::RemoveUserFavourite(const std::string& user_id, const std::string& anime_id) {
     auto result = collection.update_one(
         SearchFilter("_id", user_id).get(), 
-        RemoveFromSetFilter("favourite_anime", anime_hash).get()
+        RemoveFromSetFilter("favourite_anime", anime_id).get()
     );
     if(result){
         return (*result).modified_count();

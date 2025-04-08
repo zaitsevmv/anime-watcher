@@ -67,6 +67,14 @@ std::optional<int32_t> BaseMongoDB::DeleteDocument(const SearchFilter& filter) {
     return std::nullopt;
 }
 
+std::optional<int32_t> BaseMongoDB::DeleteAll(const SearchFilter& filter) {
+    auto deletion_result = collection.delete_many(filter.get());
+    if(deletion_result){
+        return deletion_result->deleted_count();
+    }
+    return std::nullopt;
+}
+
 std::optional<std::string> BaseMongoDB::UpdateDocument(const SearchFilter& filter, const std::string& new_data_json) {
     auto bson_document = bsoncxx::from_json(new_data_json);
     auto update_result = collection.find_one_and_update(filter.get(), bson_document.view());

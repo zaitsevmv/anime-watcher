@@ -1,3 +1,4 @@
+#include "chat_db/chat_db.hpp"
 #include "server.hpp"
 
 #include <boost/json/array.hpp>
@@ -29,6 +30,7 @@ enum class req_targets: uint32_t{
     update = 0x0c00,
     banned = 0x0d00,
     del = 0x0e00,
+    ban = 0x0f00,
 
     after = 0x010000,
     query = 0x020000,
@@ -107,6 +109,8 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
             encoded ^= toUType(req_targets::login);
         else if(tr == "register") 
             encoded ^= toUType(req_targets::reg);
+        else if(tr == "ban") 
+            encoded ^= toUType(req_targets::ban);
         else if(tr == "delete") 
             encoded ^= toUType(req_targets::del);
         else if(tr == "favourites") 
@@ -218,18 +222,18 @@ bool add_user_favourite(std::shared_ptr<UserDataDB> db, const std::string& user_
 }
 
 bool remove_user_favourite(std::shared_ptr<UserDataDB> db, const std::string& user_id, const std::string& anime_id){
-    auto res = db->AddUserFavourite(user_id, anime_id);
+    auto res = db->RemoveUserFavourite(user_id, anime_id);
     return (res.has_value() && *res == 1);
 }
 
-bool ban_user(std::shared_ptr<UserDataDB> db, const std::string& user_id, const std::string& anime_id){
-    auto res = db->AddUserFavourite(user_id, anime_id);
-    return (res.has_value() && *res == 1);
-}
-
-bool unban_user(std::shared_ptr<UserDataDB> db, const std::string& user_id, const std::string& anime_id){
-    auto res = db->AddUserFavourite(user_id, anime_id);
-    return (res.has_value() && *res == 1);
+bool set_ban_flag_user(std::shared_ptr<UserDataDB> user_db, std::shared_ptr<ChatDB> chat_db, const std::string& user_id, const bool flag){
+    auto ban_res = user_db->FlagBanUser(user_id, flag);
+    if(!ban_res.has_value()) return false;
+    if(flag){
+        auto res = chat_db->DeleteUserMessages(user_id);
+        return res.has_value();
+    }
+    return true;
 }
 
 std::optional<std::string> get_user_favourites(std::shared_ptr<UserDataDB> db, const std::string& user_id){
@@ -327,7 +331,7 @@ bool add_message(std::shared_ptr<ChatDB> db, const std::string& message_data_jso
     return result.has_value();
 }
 
-bool delete_message(std::shared_ptr<ChatDB> db, const int64_t message_id){
+bool delete_message(std::shared_ptr<ChatDB> db, const std::string& message_id){
     auto result = db->DeleteMessage(message_id);
     return (result.has_value() && (*result == 1));
 }
@@ -627,6 +631,27 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                     } else{
                         response_object["success"] = false;
                     }
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        case (toUType(req_targets::users) | toUType(req_targets::ban)):
+            {
+                auto jv = boost::json::parse(body);
+                if(jv.as_object().contains("user_id") 
+                    && jv.as_object().contains("flag"))
+                {
+                    auto res = set_ban_flag_user(
+                        user_data_db_, 
+                        chat_db_,
+                        jv.at("user_id").as_string().c_str(),
+                        jv.at("flag").as_bool()
+                    );
+                    std::cout << "User flag ban result: " << res << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res;
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
                 } else{
                     send_text_response(http::status::bad_request, "Bad request");
