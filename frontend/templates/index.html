@@ -1,6 +1,10 @@
 {% extends "base.html" %}
 
 {% block content %}
+<div id="welcome-text" class="anime-grid">
+    <p><h1>Welcome, {{ user_name }}!</h1></p>
+</div>
+
 <section class="video-container">
     <div class="video-container" id="featured-anime"></div>
 </section>
@@ -10,7 +14,70 @@
     <div id="anime-results" class="anime-grid" role="list"></div>
 </section>
 
+<div id="name-edit" class="anime-grid">
+    <div id="name-display" style="color: #0d6ac7;cursor: pointer;">Change name</div>
+    <form id="name-edit-form" style="display: none;">
+        <input type="text" id="name-input">
+        <button class="good-button" id="save-edit">Save</button>
+        <button class="neutral-button" id="cancel-edit">Cancel</button>
+    </form>
+</div>
+
 <script>
+    const nameDisplay = document.getElementById('name-display');
+    const welcomeDisplay = document.getElementById('welcome-text');
+    const nameEditForm = document.getElementById('name-edit-form');
+    const nameInput = document.getElementById('name-input');
+    const saveButton = document.getElementById('save-edit');
+    const cancelButton = document.getElementById('cancel-edit');
+
+    // Click name to show edit form
+    nameDisplay.addEventListener('click', function () {
+        nameDisplay.style.display = 'none';
+        nameEditForm.style.display = 'block';
+        nameInput.value = "{{ user_name }}";
+        nameInput.focus();
+    });
+
+    const changeUserName = async (newName) => {
+        try {
+            const response = await fetch('/update_name', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: "{{ user_id }}",
+                    name: newName
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                welcomeDisplay.innerHTML = `<p><h1>Welcome, ${newName}!</h1></p>`;
+                nameDisplay.style.display = 'block';
+                nameEditForm.style.display = 'none';
+                alert('Name changed successfully!');
+            } else{
+                alert('Error occured!');
+            }
+        } catch (error) {
+            console.error('Error changing name:', error);
+        }
+    }
+
+    saveButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        const newName = nameInput.value.trim();
+        changeUserName(newName);
+    });
+
+    cancelButton.addEventListener('click', function () {
+        nameDisplay.style.display = 'block';
+        nameEditForm.style.display = 'none';
+    });
+
 document.addEventListener("DOMContentLoaded", function () {
     const animeIds = JSON.parse('{{ anime_ids| tojson | safe}}');
 
@@ -33,7 +100,6 @@ document.addEventListener("DOMContentLoaded", function () {
 
             const response = await fetch(`/anime_by_video/${last_video}`);
             const video_data = await response.json();
-            console.log(video_data)
 
             if (video_data.title) {
                 featuredContainer.innerHTML = `
@@ -72,7 +138,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     fetchAnimeDetails(animeIds);
-
+    
 });
 </script>
 {% endblock %}

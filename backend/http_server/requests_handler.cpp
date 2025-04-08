@@ -37,7 +37,8 @@ enum class req_targets: uint32_t{
     anime_id = 0x030000,
     user_id = 0x040000,
     add = 0x050000,
-    remove = 0x060000
+    remove = 0x060000,
+    set = 0x070000
 
 };
 
@@ -133,6 +134,8 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
             encoded ^= toUType(req_targets::remove);
         else if(tr == "brief")
             encoded ^= toUType(req_targets::brief);
+        else if(tr == "set") 
+            encoded ^= toUType(req_targets::set);
     }
     if(targets.back().find('?') < targets.back().size()){
         auto lhs = targets.back().substr(0, targets.back().find('?'));
@@ -258,6 +261,11 @@ std::optional<std::string> get_user_name(std::shared_ptr<UserDataDB> db, const s
     auto jv = boost::json::parse(*user_data).as_object();
     if(!jv.contains("name")) return std::nullopt;
     return jv.at("name").as_string().c_str();
+}
+
+bool set_user_name(std::shared_ptr<UserDataDB> db, const std::string& user_id, const std::string& user_name){
+    auto res = db->ChangeUserName(user_id, user_name);
+    return (res.has_value() && *res == 1);
 }
 
 std::optional<bool> get_user_banned(std::shared_ptr<UserDataDB> db, const std::string& user_id){
@@ -670,6 +678,26 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                         jv.at("anime_id").as_string().c_str()
                     );
                     std::cout << "Favorite add result: " << res << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res;
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        case (toUType(req_targets::users) | toUType(req_targets::name) | toUType(req_targets::set)):
+            {
+                auto jv = boost::json::parse(body);
+                if(jv.as_object().contains("user_id") 
+                    && jv.as_object().contains("name"))
+                {
+                    auto res = set_user_name(
+                        user_data_db_, 
+                        jv.at("user_id").as_string().c_str(),
+                        jv.at("name").as_string().c_str()
+                    );
+                    std::cout << "User name change result: " << res << std::endl;
                     boost::json::object response_object;
                     response_object["success"] = res;
                     send_json_response(http::status::ok, boost::json::serialize(response_object));

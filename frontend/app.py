@@ -65,7 +65,26 @@ def index():
     last_video_response = api_request('GET', f'users/last_video?user_id={user_id}')
     last_video = last_video_response.get('last_video', '0') if last_video_response and last_video_response.get('success') else '0'
 
-    return render_template('index.html', anime_ids=json.loads(favorite_anime_ids), last_watched=last_video)
+    return render_template('index.html', anime_ids=json.loads(favorite_anime_ids), last_watched=last_video, user_name=get_username(user_id), user_id=user_id)
+
+
+@app.route('/update_name', methods=['POST'])
+def update_name():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    
+    data = request.get_json()
+    response = api_request('POST', 'users/name/set', data={
+        'user_id': data.get('user_id', ''),
+        'name': data.get('name', '')
+    })
+    if response and response.get('success'):
+        user_name = data.get('name', '')
+        user_id = data.get('user_id', '')
+        redis_conn = redis.from_url('redis://127.0.0.1:6379')
+        redis_conn.set(f"user:{user_id}:name", user_name)
+        return jsonify({"success": True})
+    return jsonify({"success": False})
 
 
 @app.route('/images/anime/<filename>', methods=['GET'])
@@ -162,7 +181,7 @@ def anime_edit_page(anime_id):
 
     anime_data['image_url'] = image_path if check_file(image_path) else default_path    
         
-    return render_template("anime_edit.html", anime=anime_data, user_status=status)
+    return render_template("anime_edit.html", anime=anime_data, user_status=get_user_status(session['user_id']))
 
 
 @app.route('/update_anime', methods=['POST'])
