@@ -35,6 +35,8 @@ public:
     std::optional<bool> EmailUnique(const std::string& user_email);
 
     std::optional<std::string> UserExist(const std::string& user_login, const std::string& user_password_hash);
+
+    std::optional<std::pair<std::string, std::string>> GetPasswordAndId(const std::string& user_login);
 };
 
 #endif

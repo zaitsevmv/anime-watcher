@@ -37,7 +37,8 @@
             }).then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        isFavorited = !isFavorited
+                        isFavorited = !isFavorited;
+                        updateButton();
                     }
             });
         } else{
@@ -48,8 +49,8 @@
             }).then(response => response.json())
                 .then(data => {
                     if (data.success) {
-                        isFavorited = !isFavorited
-                        updateButton()
+                        isFavorited = !isFavorited;
+                        updateButton();
                     }
             });
         }

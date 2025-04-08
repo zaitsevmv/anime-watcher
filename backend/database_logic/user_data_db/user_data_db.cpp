@@ -85,14 +85,22 @@ std::optional<bool> UserDataDB::EmailUnique(const std::string& user_email) {
     return !search_result.has_value();
 }
 
+std::optional<std::pair<std::string, std::string>> UserDataDB::GetPasswordAndId(const std::string& user_login) {
+    auto search_result = GetDocument(SearchFilter("login", user_login));
+    if(!search_result.has_value()) return std::nullopt;
+    auto bson_document = bsoncxx::from_json(*search_result);
+    auto found_password_hash = bson_document["password_hash"].get_string();
+    std::string user_id = bson_document["_id"].get_oid().value.to_string();
+    return std::make_pair(std::string(found_password_hash.value), user_id);
+}
+
 std::optional<std::string> UserDataDB::UserExist(const std::string& user_login, const std::string& user_password_hash) {
     auto search_result = GetDocument(SearchFilter("login", user_login));
     if(!search_result.has_value()) return std::nullopt;
     auto bson_document = bsoncxx::from_json(*search_result);
     auto found_password_hash = bson_document["password_hash"];
     if(found_password_hash.get_string().value == user_password_hash){
-        auto bson_data = bsoncxx::from_json(*search_result);
-        std::string user_id = bson_data["_id"].get_oid().value.to_string();
+        std::string user_id = bson_document["_id"].get_oid().value.to_string();
         return user_id;
     }
     return std::nullopt;

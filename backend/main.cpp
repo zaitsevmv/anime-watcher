@@ -29,7 +29,7 @@ int main(int argc, char* argv[])
 
         auto animedb = std::make_shared<AnimeDB>("test1_db", "anime");
         auto user_data_db = std::make_shared<UserDataDB>("test1_db", "users2");
-        auto chat_db = std::make_shared<ChatDB>("test1_db", "chat_test2");
+        auto chat_db = std::make_shared<ChatDB>("test1_db", "chat_test3");
         auto anime_search_db = std::make_shared<AnimeSearchDB>("anime_test_en11");
 
         auto const address = boost::asio::ip::make_address("0.0.0.0");

@@ -137,11 +137,8 @@ def anime_page(anime_id):
 @app.route('/anime/<anime_id>/edit')
 @login_required
 def anime_edit_page(anime_id):
-    user_id = session['user_id']  # Your function to get user details
-    status_response = api_request('GET', f'users/status?user_id={user_id}')
-    status = status_response.get('status', 0) if status_response and status_response.get('success') else 0
-    if status <= 1:
-        return jsonify({'success': False, 'error': 'Insufficient privileges'})
+    if get_user_status(session['user_id']) <= 1:
+        return render_template("login.html")
     
     if not anime_id:
         return
@@ -173,11 +170,8 @@ def update_anime():
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
     
-    user_id = session['user_id']  # Your function to get user details
-    status_response = api_request('GET', f'users/status?user_id={user_id}')
-    status = status_response.get('status', 0) if status_response and status_response.get('success') else 0
-    if status <= 1:
-        return jsonify({'success': False, 'error': 'Insufficient privileges'})
+    if get_user_status(session['user_id']) <= 1:
+        return jsonify({'success': False, 'error': 'Insufficient privileges'}), 403
     
     data = request.get_json()
     
@@ -200,8 +194,6 @@ def get_favourite():
 
 
 def is_favourite(anime_id):
-    if 'user_id' not in session:
-        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
     user_id = session['user_id']
     fav_response = api_request('GET', f'users/favourites?user_id={user_id}')
     favorite_anime_ids = fav_response.get('anime_ids', '[]') if fav_response and fav_response.get('success') else '[]'
@@ -275,11 +267,8 @@ def delete_anime():
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
     
-    user_id = session['user_id']
-    status_response = api_request('GET', f'users/status?user_id={user_id}')
-    status = status_response.get('status', 0) if status_response and status_response.get('success') else 0
-    if status <= 2:
-        return jsonify({'success': False, 'error': 'Insufficient privileges'})
+    if get_user_status(session['user_id']) <= 2:
+        return jsonify({'success': False, 'error': 'Insufficient privileges'}), 403
     
     data = request.get_json()
     
@@ -297,12 +286,14 @@ def login():
         # API call to backend for authentication
         response = api_request('POST', 'auth/login', {
             'login': request.form['login'],
-            'password_hash': request.form['password']
+            'password_hash': hash_password(request.form['password'])
         })
         
         if response and response.get('success'):
-            session['user_id'] = response['user_id']
-            return redirect(url_for('index'))
+            pwd = response.get('hashed_password', '')
+            if bcrypt.checkpw(request.form['password'].encode('utf-8'), pwd.encode('utf-8')):
+                session['user_id'] = response['user_id']
+                return redirect(url_for('index'))
     return render_template('login.html')
 
 
@@ -334,7 +325,7 @@ def logout():
 @app.route('/chat')
 @login_required
 def chat():
-    return render_template('chat.html')
+    return render_template('chat.html', user_banned=is_banned(session['user_id']), user_status=get_user_status(session['user_id']))
 
 
 def get_username(user_id):
@@ -360,11 +351,8 @@ def ban_user():
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
     
-    user_id = session['user_id']
-    status_response = api_request('GET', f'users/status?user_id={user_id}')
-    status = status_response.get('status', 0) if status_response and status_response.get('success') else 0
-    if status <= 2:
-        return jsonify({'success': False, 'error': 'Insufficient privileges'})
+    if get_user_status(session['user_id']) <= 2:
+        return jsonify({'success': False, 'error': 'Insufficient privileges'}), 403
     
     target_user_id = request.json.get('user_id','')
     target_flag = request.json.get('flag', False)
@@ -377,6 +365,23 @@ def ban_user():
     return jsonify({'success': False, 'error': 'Failed to ban user'}), 500
 
 
+@app.route('/delete_message', methods=['POST'])
+def delete_message():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    
+    if get_user_status(session['user_id']) <= 2:
+        return jsonify({'success': False, 'error': 'Insufficient privileges'}), 403
+    
+    message_id = request.json.get('message_id','')
+    ban_response = api_request('POST', f'chat/messages/remove', data={
+        'message_id': message_id
+    })
+    if ban_response and ban_response.get('success'):
+        return jsonify({'success': True})
+    return jsonify({'success': False, 'error': 'Failed to delete message'}), 500
+
+
 def is_banned(user_id):
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
@@ -387,6 +392,12 @@ def is_banned(user_id):
         return result
     else:
         return False
+    
+    
+def get_user_status(user_id):
+    status_response = api_request('GET', f'users/status?user_id={user_id}')
+    status = status_response.get('status', 0) if status_response and status_response.get('success') else 0
+    return status
 
 
 @app.route('/get_messages')

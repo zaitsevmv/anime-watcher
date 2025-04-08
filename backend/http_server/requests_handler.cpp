@@ -188,8 +188,8 @@ struct UserDataForm{
     std::string password_hash;
 };
 
-std::optional<std::string> login_user(std::shared_ptr<UserDataDB> db, const UserDataForm& form){
-    return db->UserExist(form.login, form.password_hash);
+auto user_password_and_id(std::shared_ptr<UserDataDB> db, const UserDataForm& form){
+    return db->GetPasswordAndId(form.login);
 }
 
 std::optional<std::string> register_user(std::shared_ptr<UserDataDB> db, const UserDataForm& form){
@@ -541,19 +541,19 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
         case (toUType(req_targets::auth) | toUType(req_targets::login)):
             {
                 auto jv = boost::json::parse(body);
-                if(jv.as_object().contains("login") && jv.as_object().contains("password_hash")){
+                if(jv.as_object().contains("login")){
                     UserDataForm login_form;
                     login_form.login = jv.at("login").as_string().c_str();
-                    login_form.password_hash = jv.at("password_hash").as_string().c_str();
 
-                    auto res = login_user(
+                    auto res = user_password_and_id(
                         user_data_db_, 
                         login_form
                     );
                     boost::json::object response_object;
                     response_object["success"] = res.has_value();
                     if(res){
-                        response_object["user_id"] = *res;
+                        response_object["hashed_password"] = (*res).first;
+                        response_object["user_id"] = (*res).second;
                     }
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
                 } else{
@@ -689,7 +689,7 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                         jv.at("user_id").as_string().c_str(),
                         jv.at("anime_id").as_string().c_str()
                     );
-                    std::cout << "Favorite add result: " << res << std::endl;
+                    std::cout << "Favorite remove result: " << res << std::endl;
                     boost::json::object response_object;
                     response_object["success"] = res;
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
@@ -776,6 +776,25 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                     } else{
                         response_object["success"] = false;
                     }
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        case (toUType(req_targets::chat) | toUType(req_targets::msg) | toUType(req_targets::remove)):
+            {
+                auto jv = boost::json::parse(body);
+                if(jv.as_object().contains("message_id"))
+                {
+                    auto message_id = jv.as_object().at("message_id").as_string();
+                    auto res = delete_message(
+                        chat_db_, 
+                        message_id.c_str()
+                    );
+                    std::cout << "Message delete result: " << res << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res;
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
                 } else{
                     send_text_response(http::status::bad_request, "Bad request");

@@ -3,12 +3,190 @@
 {% block content %}
 <div class="chat-container">
     <div class="chat-messages" id="messages"></div>
+
+    {% if user_banned == False %}
     <div class="chat-input">
         <input type="text" id="message-input" placeholder="Type your message...">
         <button onclick="sendMessage()">Send</button>
     </div>
+    {% else %}
+    <div class="chat-input blocked">
+        <input type="text" id="message-input" placeholder="You are banned from this chat" disabled>
+    </div>
+    {% endif %}
+
+    {% if user_status > 2 %}
+    <div id="moderation-menu" class="moderation-menu" style="display: none;">
+        <button class="bad-button" onclick="banUser()">Ban User</button>
+        <button class="bad-button" onclick="deleteMessage()">Delete Message</button>
+        <button class="neutral-button" onclick="closeModMenu()">Cancel</button>
+    </div>
+    {% endif %}
 </div>
 
+{% if user_status > 2 %}
+<script>
+    let lastTimestamp = 0;
+    let selectedMessage = null;
+
+    function fetchMessages() {
+        fetch(`/get_messages?after=${lastTimestamp}`)
+            .then(response => response.json())
+            .then(messages => {
+                let messagesContainer = document.getElementById('messages');
+                if (messages.length > 0) {
+                    messages.forEach(msg => {
+                        if (msg.timestamp_ms > lastTimestamp) {
+                            const messageBlock = document.createElement('div');
+                            messageBlock.className = 'message-block';
+                            messageBlock.dataset.messageId = msg._id.$oid;
+                            messageBlock.dataset.userId = msg.user_id;
+
+                            const messageContent = document.createElement('div');
+                            messageContent.className = 'message-content';
+                            messageContent.innerHTML = `<p><b>${msg.user_name}:</b> ${msg.message}</p>`;
+
+                            messageBlock.addEventListener('click', function (e) {
+                                e.stopPropagation(); // Prevent event bubbling
+                                selectMessage(this, msg._id.$oid, msg.user_id);
+                            });
+
+                            messageBlock.appendChild(messageContent);
+                            messagesContainer.insertAdjacentElement('afterbegin', messageBlock);
+                            lastTimestamp = msg.timestamp_ms;
+                        }
+                    });
+                }
+            })
+            .catch(error => console.error("Error fetching messages:", error));
+    }
+
+    function sendMessage() {
+        let message = document.getElementById('message-input').value;
+        fetch('/send_message', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message })
+        }).then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    document.getElementById('message-input').value = '';
+                    fetchMessages();
+                } else {
+                    alert("Message not sent: " + data.error);
+                }
+            });
+    }
+
+    fetchMessages();
+    setInterval(fetchMessages, 2000);
+
+    function selectMessage(element, messageId, userId) {
+        // Clear previous selection
+        document.querySelectorAll('.message-block.selected').forEach(el => {
+            el.classList.remove('selected');
+        });
+
+        // Select new message
+        element.classList.add('selected');
+        selectedMessage = {
+            element: element,
+            messageId: messageId,
+            userId: userId
+        };
+
+        // Position and show moderation menu
+        const menu = document.getElementById('moderation-menu');
+        const rect = element.getBoundingClientRect();
+
+        // Calculate position relative to viewport
+        menu.style.position = 'fixed';
+        menu.style.top = `${rect.top + window.scrollY}px`;
+        menu.style.left = `${rect.left + window.scrollX + rect.width + 10}px`;
+        menu.style.display = 'block';
+    }
+
+    function closeModMenu() {
+        document.getElementById('moderation-menu').style.display = 'none';
+        if (selectedMessage) {
+            selectedMessage.element.classList.remove('selected');
+            selectedMessage = null;
+        }
+    }
+
+    function banUser() {
+        if (!selectedMessage) return;
+
+        fetch('/ban_user', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ user_id: selectedMessage.userId, flag: true })
+        }).then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    alert(`User banned successfully`);
+                    lastTimestamp = 0;
+                    fetchMessages();
+                    closeModMenu();
+                } else {
+                    alert("Ban failed: " + data.error);
+                }
+            });
+    }
+
+    function deleteMessage() {
+        if (!selectedMessage) return;
+
+        fetch('/delete_message', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json' },
+            body: JSON.stringify({ message_id: selectedMessage.messageId })
+        }).then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    selectedMessage.element.remove();
+                    closeModMenu();
+                } else {
+                    alert("Delete failed: " + data.error);
+                }
+            });
+    }
+
+    // Close menu when clicking outside
+    document.addEventListener('click', function (e) {
+        const menu = document.getElementById('moderation-menu');
+        if (menu.style.display !== 'none' && !menu.contains(e.target) &&
+            !(selectedMessage && selectedMessage.element.contains(e.target))) {
+            closeModMenu();
+        }
+    });
+
+    document.getElementById("message-input").addEventListener("keydown", function (event) {
+        if (event.key === "Enter") {
+            event.preventDefault();
+            sendMessage();
+        }
+    });
+
+    fetchMessages();
+    setInterval(fetchMessages, 2000);
+</script>
+
+<style>
+.message-block {
+    cursor: pointer;
+    position: relative;
+}
+
+.message-block:hover {
+    background-color: #e0e0e0;
+}
+
+.message-block.selected {
+    background-color: #d0e0ff;
+}
+</style>
+{% else %}
 <script>
     let lastTimestamp = 0;  // Track the last received message timestamp
 
@@ -62,4 +240,5 @@
     fetchMessages()
     setInterval(fetchMessages, 2000);
 </script>
+{% endif %}
 {% endblock %}

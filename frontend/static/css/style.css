@@ -59,6 +59,7 @@ nav a {
 .chat-container {
     max-width: 800px;
     margin: 0 auto;
+    border: 1px solid #ddd;
     padding: 20px;
 }
 
@@ -75,7 +76,6 @@ nav a {
     border-radius: 5px;
     background-color: #f9f9f9;
     user-select: text;
-    cursor: text;
     word-wrap: break-word;
     overflow-wrap: break-word;
     max-width: 100%;
@@ -205,10 +205,36 @@ button:hover {
     background-color: #45a049;
 }
 
+.neutral-button {
+    background-color: #b9b9b9;
+}
+
+.neutral-button:hover {
+    background-color: #ababab;
+}
+
 .bad-button {
     background-color: #af4c4c;
 }
 
 .bad-button:hover {
     background-color: #a04646;
+}
+
+.moderation-menu {
+    position: fixed;
+    background: white;
+    border: 1px solid #ccc;
+    border-radius: 4px;
+    padding: 8px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    z-index: 1000;
+}
+
+.moderation-menu button {
+    display: block;
+    margin: 4px 0;
+    padding: 4px 8px;
+    width: 100%;
+    cursor: pointer;
 }
