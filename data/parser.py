@@ -74,7 +74,7 @@ def save_to_csv(data, filename='anime_data.csv'):
 
 def main(num):
     base_url = 'https://anidb.net'
-    anime_list_url = 'https://anidb.net/anime/?h=1&noalias=1&orderby.average=0.2&orderby.name=2.1&orderby.rating=1.2&view=list&page=4'
+    anime_list_url = 'https://anidb.net/anime/?h=1&noalias=1&orderby.average=0.2&orderby.name=2.1&orderby.rating=1.2&view=list&page=10'
 
     headers = {
         'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/91.0.4472.124 Safari/537.36'
@@ -109,4 +109,4 @@ def main(num):
 
 
 if __name__ == '__main__':
-    main(30)
+    main(1)

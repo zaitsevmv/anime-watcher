@@ -1,34 +1,7 @@
 {% extends "base.html" %}
 {% block title %}{{ anime.title }}{% endblock %}
 
-{% block head %}
-<style>
-    .editable {
-        border: 1px solid #ddd;
-        padding: 5px;
-        margin: 5px 0;
-    }
-
-    .editable:focus {
-        border-color: #4CAF50;
-        outline: none;
-    }
-
-    .save-btn {
-        background-color: #4CAF50;
-        color: white;
-        padding: 10px 15px;
-        border: none;
-        border-radius: 4px;
-        cursor: pointer;
-        margin-top: 10px;
-    }
-
-    .save-btn:hover {
-        background-color: #45a049;
-    }
-</style>
-{% endblock %}
+{% block head %}{% endblock %}
 
 {% block content %}
 <div class="anime-container">
@@ -40,7 +13,15 @@
         {% endif %}
     </h1>
 
-    <img src="{{ anime.image_url }}" alt="{{ anime.title }}" style="max-width:300px;">
+    <div class="image-container">
+        <img id="anime-image" src="{{ anime.image_url }}" alt="{{ anime.title }}" style="max-width:300px;">
+        {% if 'user_id' in session and user_status > 2 %}
+        <div>
+            <input type="file" id="image-upload" accept="image/jpeg, image/jpg">
+            <button id="change-image-btn" class="good-button">Save</button>
+        </div>
+        {% endif %}
+    </div>
 
     <p>
         {% if 'user_id' in session and user_status > 1 %}
@@ -61,21 +42,26 @@
 
     {% if 'user_id' in session and user_status > 1 %}
     <button id="save-btn" class="save-btn">Save Changes</button>
+    <button id="cancel-btn" class="neutral-button">Cancel</button>
     {% endif %}
-    {% if 'user_id' in session and user_status > 2 %}
+    {% if 'user_id' in session and user_status > 2 and anime.id != 'new' %}
     <button id="delete-btn" class="bad-button">Delete anime</button>
     {% endif %}
 </div>
 
 {% if 'user_id' in session and user_status > 1 %}
 <script>
+    const newAnime = "{{ anime.id }}" == 'new';
+    let imageUrl = '';
+
     document.getElementById('save-btn').addEventListener('click', function () {
         const updatedData = {
             id: "{{ anime.id }}",
             title: document.getElementById('title').value,
             description: document.getElementById('description').value,
             videos: "{{ anime.videos }}",
-            episodes: document.getElementById('episodes').value
+            episodes: document.getElementById('episodes').value,
+            image_url: imageUrl
         };
 
         fetch('/update_anime', {
@@ -88,8 +74,13 @@
             .then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert('Anime updated successfully!');
-                    window.location.replace('/anime/{{ anime.id }}');
+                    if (newAnime) {
+                        alert('Anime added successfully!');
+                        window.location.replace(`/anime/${data.id}`);
+                    } else {
+                        alert('Anime updated successfully!');
+                        window.location.replace('/anime/{{ anime.id }}');
+                    }
                 } else {
                     alert('Error updating anime: ' + (data.error || 'Unknown error'));
                 }
@@ -99,9 +90,17 @@
                 alert('Error updating anime');
             });
     });
+
+    document.getElementById('cancel-btn').addEventListener('click', function () {
+        if (newAnime) {
+            window.location.replace('/anime/search');
+        } else {
+            window.location.replace('/anime/{{ anime.id }}');
+        }
+    });
 </script>
 {% endif %}
-{% if 'user_id' in session and user_status > 2 %}
+{% if 'user_id' in session and user_status > 2 and anime.id != 'new' %}
 <script>
     document.getElementById('delete-btn').addEventListener('click', function () {
         const animeData = {
@@ -119,7 +118,7 @@
             .then(data => {
                 if (data.success) {
                     alert('Anime deleted successfully!');
-                    window.location.replace('/search');
+                    window.location.replace('/anime/search');
                 } else {
                     alert('Error deleting anime: ' + (data.error || 'Unknown error'));
                 }
@@ -128,6 +127,41 @@
                 console.error('Error:', error);
                 alert('Error updating anime');
             });
+    });
+</script>
+{% endif %}
+{% if 'user_id' in session and user_status > 2%}
+<script>
+    document.getElementById('change-image-btn').addEventListener('click', function () {
+        const fileInput = document.getElementById('image-upload');
+        console.log(fileInput)
+
+        if (fileInput.files && fileInput.files[0]) {
+            const file = fileInput.files[0];
+            const validTypes = ['image/jpeg', 'image/jpg'];
+
+            if (!validTypes.includes(file.type)) {
+                alert('Please upload only JPG/JPEG images');
+                return;
+            }
+
+            const formData = new FormData();
+            formData.append('image', fileInput.files[0]);
+
+            fetch(`/images/anime/upload_image`, {
+                method: 'POST',
+                body: formData
+            })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.success) {
+                        document.getElementById('anime-image').src = data.imageUrl;
+                        imageUrl = data.imageUrl;
+                    } else {
+                        alert('Error uploading image: ' + (data.error || 'Unknown error'));
+                    }
+                });
+        }
     });
 </script>
 {% endif %}

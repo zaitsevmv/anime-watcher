@@ -18,66 +18,12 @@
     <div id="name-display" style="color: #0d6ac7;cursor: pointer;">Change name</div>
     <form id="name-edit-form" style="display: none;">
         <input type="text" id="name-input">
-        <button class="good-button" id="save-edit">Save</button>
-        <button class="neutral-button" id="cancel-edit">Cancel</button>
+        <button type="button" class="good-button" id="save-edit">Save</button>
+        <button type="button" class="neutral-button" id="cancel-edit">Cancel</button>
     </form>
 </div>
 
 <script>
-    const nameDisplay = document.getElementById('name-display');
-    const welcomeDisplay = document.getElementById('welcome-text');
-    const nameEditForm = document.getElementById('name-edit-form');
-    const nameInput = document.getElementById('name-input');
-    const saveButton = document.getElementById('save-edit');
-    const cancelButton = document.getElementById('cancel-edit');
-
-    // Click name to show edit form
-    nameDisplay.addEventListener('click', function () {
-        nameDisplay.style.display = 'none';
-        nameEditForm.style.display = 'block';
-        nameInput.value = "{{ user_name }}";
-        nameInput.focus();
-    });
-
-    const changeUserName = async (newName) => {
-        try {
-            const response = await fetch('/update_name', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({
-                    user_id: "{{ user_id }}",
-                    name: newName
-                })
-            });
-
-            const data = await response.json();
-
-            if (data.success) {
-                welcomeDisplay.innerHTML = `<p><h1>Welcome, ${newName}!</h1></p>`;
-                nameDisplay.style.display = 'block';
-                nameEditForm.style.display = 'none';
-                alert('Name changed successfully!');
-            } else{
-                alert('Error occured!');
-            }
-        } catch (error) {
-            console.error('Error changing name:', error);
-        }
-    }
-
-    saveButton.addEventListener('click', function (e) {
-        e.preventDefault();
-        const newName = nameInput.value.trim();
-        changeUserName(newName);
-    });
-
-    cancelButton.addEventListener('click', function () {
-        nameDisplay.style.display = 'block';
-        nameEditForm.style.display = 'none';
-    });
-
 document.addEventListener("DOMContentLoaded", function () {
     const animeIds = JSON.parse('{{ anime_ids| tojson | safe}}');
 
@@ -122,7 +68,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 
                 const anime = await response.json();
                 const animeCard = document.createElement('a');
-                console.log(anime)
+
                 animeCard.href = `/anime/${anime._id.$oid}`;
                 animeCard.classList.add('anime-card');
                 animeCard.innerHTML = `
@@ -131,13 +77,65 @@ document.addEventListener("DOMContentLoaded", function () {
                     `;
                 resultsContainer.appendChild(animeCard);
             }
-            console.log('All fetch requests completed.');
         } catch (error) {
             console.error('Error fetching anime details:', error);
         }
     };
 
     fetchAnimeDetails(animeIds);
+
+    const nameDisplay = document.getElementById('name-display');
+    const welcomeDisplay = document.getElementById('welcome-text');
+    const nameEditForm = document.getElementById('name-edit-form');
+    const nameInput = document.getElementById('name-input');
+    const saveButton = document.getElementById('save-edit');
+    const cancelButton = document.getElementById('cancel-edit');
+
+    nameDisplay.addEventListener('click', function () {
+        nameDisplay.style.display = 'none';
+        nameEditForm.style.display = 'block';
+        nameInput.value = "{{ user_name }}";
+        nameInput.focus();
+    });
+
+    const changeUserName = async (newName) => {
+        try {
+            const response = await fetch('/update_name', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json'
+                },
+                body: JSON.stringify({
+                    user_id: "{{ user_id }}",
+                    name: newName
+                })
+            });
+
+            const data = await response.json();
+
+            if (data.success) {
+                welcomeDisplay.innerHTML = `<p><h1>Welcome, ${newName}!</h1></p>`;
+                nameDisplay.style.display = 'block';
+                nameEditForm.style.display = 'none';
+                alert('Name changed successfully!');
+            } else {
+                alert('Error occured!');
+            }
+        } catch (error) {
+            console.error('Error changing name:', error);
+        }
+    }
+
+    saveButton.addEventListener('click', function (e) {
+        e.preventDefault();
+        const newName = nameInput.value.trim();
+        changeUserName(newName);
+    });
+
+    cancelButton.addEventListener('click', function () {
+        nameDisplay.style.display = 'block';
+        nameEditForm.style.display = 'none';
+    });
     
 });
 </script>

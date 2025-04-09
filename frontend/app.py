@@ -1,8 +1,10 @@
 from flask import Flask, render_template, request, jsonify, session, redirect, url_for, send_from_directory
 import requests 
+import shutil
 from functools import wraps
 from dotenv import load_dotenv
 from flask_session import Session
+from werkzeug.utils import secure_filename
 import redis
 import bcrypt
 import os
@@ -93,6 +95,38 @@ def anime_image(filename):
     return send_from_directory(images_dir, filename)
 
 
+ALLOWED_EXTENSIONS = {'jpg', 'jpeg'}
+
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+
+
+@app.route('/images/anime/upload_image', methods=['POST'])
+def upload_anime_image():
+    if 'image' not in request.files:
+        return jsonify({'success': False, 'error': 'No file uploaded'})
+    
+    file = request.files['image']
+    if file.filename == '':
+        return jsonify({'success': False, 'error': 'No selected file'})
+    
+    if file and allowed_file(file.filename):
+        filename = secure_filename(file.filename)
+        if filename.rsplit('.', 1)[1].lower() == 'jpeg':
+            filename = f"{filename.rsplit('.', 1)[0]}.jpg"
+
+        filepath = os.path.join(app.static_folder, 'images', 'anime', 'uploads', filename)
+        file.save(filepath)
+        
+        return jsonify({
+            'success': True,
+            'imageUrl': url_for('static', filename=f'images/anime/uploads/{filename}')
+        })
+    
+    return jsonify({'success': False, 'error': 'Only JPG/JPEG files are allowed'})
+
+
 @app.route('/videos/<filename>', methods=['GET'])
 def anime_video(filename):
     videos_dir = os.path.join(app.static_folder, 'videos')
@@ -141,7 +175,7 @@ def anime_page(anime_id):
     anime_data['image_url'] = image_path if check_file(image_path) else default_path    
     
     if 'user_id' in session:
-        user_id = session['user_id']  # Your function to get user details
+        user_id = session['user_id'] 
         status_response = api_request('GET', f'users/status?user_id={user_id}')
         status = status_response.get('status', 0) if status_response and status_response.get('success') else 0
         
@@ -161,6 +195,12 @@ def anime_edit_page(anime_id):
     
     if not anime_id:
         return
+    
+    if anime_id == 'new':
+        default_path = "/images/anime/default.jpg"
+        anime_data = {'id': anime_id, 'title': 'title', 'description': 'description', 'episodes': 1, 'image_url': default_path}
+        return render_template("anime_edit.html", anime=anime_data, user_status=get_user_status(session['user_id']))
+    
     response = api_request('GET', f'anime/details?anime_id={anime_id}')
     if response and response.get('success'):
         anime_data = response.get('anime', '')
@@ -170,11 +210,7 @@ def anime_edit_page(anime_id):
         return
     
     anime_data = json.loads(anime_data)
-    try:
-        oid_obj = anime_data['_id']
-        anime_data['id'] = oid_obj['$oid']
-    except (json.JSONDecodeError, KeyError, TypeError):
-        anime_data['id'] = anime_data.get('_id')
+    anime_data['id'] = anime_id
         
     image_path = f'/images/anime/{anime_data["id"]}.jpg'
     default_path = "/images/anime/default.jpg"
@@ -193,10 +229,36 @@ def update_anime():
         return jsonify({'success': False, 'error': 'Insufficient privileges'}), 403
     
     data = request.get_json()
-    
-    update_response = api_request('POST', 'anime/update', data)
-    if update_response and update_response.get('success'):
-        return jsonify({"success": True})
+    anime_id = data.get('id', '')
+    if anime_id == 'new':
+        add_response = api_request('POST', 'anime/add', data)
+        if add_response and add_response.get('success'):
+            image_url = data.get('image_url', '')
+            filename = os.path.basename(image_url)
+            src_path = os.path.join(app.static_folder, 'images', 'anime', 'uploads', filename)
+            logging.debug(src_path)
+            logging.debug(os.path.exists(src_path))
+            if os.path.exists(src_path):
+                new_filename = f"{add_response.get('db_id','blank')}.jpg"
+                dest_path = os.path.join(app.static_folder, 'images', 'anime', new_filename)
+                
+                shutil.move(src_path, dest_path)
+            return jsonify({"success": True, "id": add_response.get('db_id', 'search')})
+        return jsonify({"success": False})
+    else:
+        update_response = api_request('POST', 'anime/update', data)
+        if update_response and update_response.get('success'):
+            image_url = data.get('image_url', '')
+            filename = os.path.basename(image_url)
+            src_path = os.path.join(app.static_folder, 'images', 'anime', 'uploads', filename)
+            logging.debug(src_path)
+            logging.debug(os.path.exists(src_path))
+            if os.path.exists(src_path):
+                new_filename = f"{anime_id}.jpg"
+                dest_path = os.path.join(app.static_folder, 'images', 'anime', new_filename)
+                
+                shutil.move(src_path, dest_path)
+            return jsonify({"success": True})
     return jsonify({"success": False})
 
 
@@ -226,7 +288,7 @@ def add_favourite():
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
     anime_id = request.json
-    response = api_request('POST', 'anime/favourites/add', {
+    response = api_request('POST', 'users/favourites/add', {
         'user_id': session['user_id'],
         'anime_id': anime_id
     })
@@ -240,7 +302,7 @@ def remove_favourite():
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
     anime_id = request.json
-    response = api_request('POST', 'anime/favourites/remove', {
+    response = api_request('POST', 'users/favourites/remove', {
         'user_id': session['user_id'],
         'anime_id': anime_id
     })
@@ -249,7 +311,7 @@ def remove_favourite():
     return jsonify({"success": False})
 
 
-@app.route('/search')
+@app.route('/anime/search')
 def anime():
     return render_template('search.html')
 

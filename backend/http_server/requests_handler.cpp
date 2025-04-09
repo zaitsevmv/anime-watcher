@@ -620,9 +620,14 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                     && jv.as_object().contains("videos")
                     && jv.as_object().contains("episodes"))
                 {
+                    boost::json::object anime_data;
+                    anime_data["title"] = jv.as_object().at("title"); 
+                    anime_data["description"] = jv.as_object().at("description"); 
+                    anime_data["videos"] = jv.as_object().at("videos"); 
+                    anime_data["episodes"] = jv.as_object().at("episodes"); 
                     auto res = add_anime(
                         anime_db_, 
-                        body
+                        boost::json::serialize(anime_data)
                     );
                     std::cout << "Anime add result: " << res.has_value() << std::endl;
                     boost::json::object response_object;
@@ -666,7 +671,7 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                 }
             }
             break;
-        case (toUType(req_targets::anime) | toUType(req_targets::fav) | toUType(req_targets::add)):
+        case (toUType(req_targets::users) | toUType(req_targets::fav) | toUType(req_targets::add)):
             {
                 auto jv = boost::json::parse(body);
                 if(jv.as_object().contains("user_id") 
@@ -706,7 +711,7 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                 }
             }
             break;
-        case (toUType(req_targets::anime) | toUType(req_targets::fav) | toUType(req_targets::remove)):
+        case (toUType(req_targets::users) | toUType(req_targets::fav) | toUType(req_targets::remove)):
             {
                 auto jv = boost::json::parse(body);
                 if(jv.as_object().contains("user_id") 
@@ -739,10 +744,15 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                     if(!anime_id.has_value()){
                         send_text_response(http::status::bad_request, "Bad request");
                     }
+                    boost::json::object anime_data;
+                    anime_data["title"] = jv.as_object().at("title"); 
+                    anime_data["description"] = jv.as_object().at("description"); 
+                    anime_data["videos"] = jv.as_object().at("videos"); 
+                    anime_data["episodes"] = jv.as_object().at("episodes"); 
                     auto res = update_anime(
                         anime_db_, 
                         anime_id->c_str(),
-                        body
+                        boost::json::serialize(anime_data)
                     );
                     std::cout << "Anime update result: " << res.has_value() << std::endl;
                     boost::json::object response_object;
