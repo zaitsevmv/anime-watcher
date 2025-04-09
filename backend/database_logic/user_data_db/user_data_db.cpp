@@ -65,6 +65,17 @@ std::optional<int32_t> UserDataDB::ChangeUserName(const std::string& user_id,  c
     return std::nullopt;
 }
 
+std::optional<int32_t> UserDataDB::ChangeLastVideo(const std::string& user_id,  const std::string& video_id) {
+    auto result = collection.update_one(
+        SearchFilter("_id", user_id).get(), 
+        SetFieldFilter("last_video", video_id).get()
+    );
+    if(result){
+        return (*result).modified_count();
+    }
+    return std::nullopt;
+}
+
 std::optional<int32_t> UserDataDB::AddUserFavourite(const std::string& user_id, const std::string& anime_id) {
     auto result = collection.update_one(
         SearchFilter("_id", user_id).get(), 

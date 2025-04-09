@@ -89,6 +89,21 @@ def update_name():
     return jsonify({"success": False})
 
 
+@app.route('/update_last_video', methods=['POST'])
+def update_last_video():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    
+    data = request.get_json()
+    response = api_request('POST', 'users/last_video/set', data={
+        'user_id': data.get('user_id', ''),
+        'video_id': data.get('video_id', '')
+    })
+    if response and response.get('success'):
+        return jsonify({"success": True})
+    return jsonify({"success": False})
+
+
 @app.route('/images/anime/<filename>', methods=['GET'])
 def anime_image(filename):
     images_dir = os.path.join(app.static_folder, 'images', 'anime')
@@ -100,10 +115,16 @@ ALLOWED_EXTENSIONS = {'jpg', 'jpeg'}
 def allowed_file(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+           
 
-
-@app.route('/images/anime/upload_image', methods=['POST'])
+@app.route('/upload_image', methods=['POST'])
 def upload_anime_image():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    
+    if get_user_status(session['user_id']) <= 2:
+        return jsonify({'success': False, 'error': 'Insufficient privileges'}), 403
+    
     if 'image' not in request.files:
         return jsonify({'success': False, 'error': 'No file uploaded'})
     
@@ -127,6 +148,76 @@ def upload_anime_image():
     return jsonify({'success': False, 'error': 'Only JPG/JPEG files are allowed'})
 
 
+ALLOWED_EXTENSIONS_VIDEO = {'mp4'}
+
+def allowed_file_video(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS_VIDEO
+
+
+@app.route('/upload_video', methods=['POST'])
+def upload_anime_video():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    
+    if get_user_status(session['user_id']) <= 2:
+        return jsonify({'success': False, 'error': 'Insufficient privileges'}), 403
+    
+    if 'video' not in request.files:
+        return jsonify({'success': False, 'error': 'No file uploaded'})
+    
+    file = request.files['video']
+    anime_id = request.form.get('anime_id', '')
+    episode = request.form.get('episode', '')
+    if anime_id == '' or episode == '':
+        return jsonify({'success': False, 'error': 'No anime_id or episode'})
+    if file.filename == '':
+        return jsonify({'success': False, 'error': 'No selected file'})
+    
+    if file and allowed_file_video(file.filename):
+        video_id = f'{anime_id}_{episode}'
+        filename = f'{video_id}.mp4'
+
+        filepath = os.path.join(app.static_folder, 'videos', filename)
+        file.save(filepath)
+        
+        response = api_request('POST', 'anime/video/add', {
+            'anime_id': anime_id,
+            'video_id': episode
+        })
+        if response and response.get('success'):
+            return jsonify({"success": True})
+        
+        return jsonify({'success': False})
+    
+    return jsonify({'success': False, 'error': 'Only MP4 files are allowed'})
+
+
+@app.route('/delete_video', methods=['POST'])
+def delete_anime_video():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    
+    if get_user_status(session['user_id']) <= 2:
+        return jsonify({'success': False, 'error': 'Insufficient privileges'}), 403
+
+    anime_id = request.json.get('anime_id', '')
+    episode = request.json.get('video_id', '')
+    if anime_id == '' or episode == '':
+        return jsonify({'success': False, 'error': 'No anime_id or episode'})
+    
+    video_id = f'{anime_id}_{episode}'
+    
+    response = api_request('POST', 'anime/video/remove', {
+        'anime_id': anime_id,
+        'video_id': episode
+    })
+    if response and response.get('success'):
+        return jsonify({"success": True})
+    
+    return jsonify({'success': False})
+
+
 @app.route('/videos/<filename>', methods=['GET'])
 def anime_video(filename):
     videos_dir = os.path.join(app.static_folder, 'videos')
@@ -146,7 +237,7 @@ def get_anime_by_video(video_id):
             else:
                 return {}
             anime_data = json.loads(anime_data)
-            return {'title': anime_data['title'], 'episode': episode}
+            return {'title': anime_data['title'], 'episode': episode, 'anime_id': anime_id}
     return {}
 
 
@@ -174,6 +265,7 @@ def anime_page(anime_id):
 
     anime_data['image_url'] = image_path if check_file(image_path) else default_path    
     
+    user_id = ''
     if 'user_id' in session:
         user_id = session['user_id'] 
         status_response = api_request('GET', f'users/status?user_id={user_id}')
@@ -184,7 +276,9 @@ def anime_page(anime_id):
         status = 0
         is_fav = False
         
-    return render_template("anime.html", anime=anime_data, user_status=status, is_favourite=is_fav)
+    logging.debug(anime_data)
+        
+    return render_template("anime.html", anime=anime_data, user_status=status, is_favourite=is_fav, user_id=user_id)
 
 
 @app.route('/anime/<anime_id>/edit')
@@ -198,7 +292,7 @@ def anime_edit_page(anime_id):
     
     if anime_id == 'new':
         default_path = "/images/anime/default.jpg"
-        anime_data = {'id': anime_id, 'title': 'title', 'description': 'description', 'episodes': 1, 'image_url': default_path}
+        anime_data = {'id': anime_id, 'title': 'title', 'description': 'description', 'episodes': 1, 'videos': [], 'image_url': default_path}
         return render_template("anime_edit.html", anime=anime_data, user_status=get_user_status(session['user_id']))
     
     response = api_request('GET', f'anime/details?anime_id={anime_id}')

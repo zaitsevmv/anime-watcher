@@ -21,6 +21,10 @@ public:
     std::optional<int32_t> DeleteAnime(const std::string& anime_id);
 
     std::optional<std::string> UpdateAnime(const std::string& anime_id, const std::string& anime_data_json);
+
+    std::optional<int32_t> AddAnimeVideo(const std::string& anime_id, const std::string& video_id);
+
+    std::optional<int32_t> RemoveAnimeVideo(const std::string& anime_id, const std::string& video_id);
 };
 
 #endif

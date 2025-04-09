@@ -2657,3 +2657,998 @@ PermissionError: [Errno 13] Permission denied: '/home/anime-watcher/frontend/sta
 2025-04-09 15:41:55,739 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f66a0ac4f426c59204eee5 HTTP/1.1" 200 183
 2025-04-09 15:41:55,822 - DEBUG - Starting new HTTP connection (1): localhost:8080
 2025-04-09 15:41:55,825 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f66a62c4f426c59204eee6 HTTP/1.1" 200 183
+2025-04-09 16:14:15,644 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:14:15,647 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f66956c4f426c59204eee3 HTTP/1.1" 200 183
+2025-04-09 16:14:15,648 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:14:15,651 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 16:14:15,652 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:14:15,655 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 16:14:27,487 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:14:27,490 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f66956c4f426c59204eee3 HTTP/1.1" 200 183
+2025-04-09 16:14:27,492 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:14:27,494 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 16:14:27,496 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:14:27,498 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 16:14:57,365 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:14:57,369 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f66956c4f426c59204eee3 HTTP/1.1" 200 183
+2025-04-09 16:14:57,370 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:14:57,373 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 16:14:57,375 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:14:57,377 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 16:15:16,109 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,116 - DEBUG - http://localhost:8080 "GET /anime/search?query=f HTTP/1.1" 200 570
+2025-04-09 16:15:16,200 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,203 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 16:15:16,239 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,241 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 16:15:16,269 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,271 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fabf9f681b82790f6f1a HTTP/1.1" 200 1034
+2025-04-09 16:15:16,347 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,349 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 16:15:16,477 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,479 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc598273007dcd03d7f5 HTTP/1.1" 200 1976
+2025-04-09 16:15:16,537 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,539 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f44 HTTP/1.1" 200 639
+2025-04-09 16:15:16,597 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,600 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc608273007dcd03d80e HTTP/1.1" 200 923
+2025-04-09 16:15:16,683 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,685 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc2c8273007dcd03d7e5 HTTP/1.1" 200 546
+2025-04-09 16:15:16,718 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,720 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 16:15:16,752 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,755 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb209f681b82790f6f43 HTTP/1.1" 200 1099
+2025-04-09 16:15:16,811 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,813 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab99f681b82790f6f06 HTTP/1.1" 200 859
+2025-04-09 16:15:16,865 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,867 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f4e HTTP/1.1" 200 358
+2025-04-09 16:15:16,912 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,915 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac19f681b82790f6f20 HTTP/1.1" 200 472
+2025-04-09 16:15:16,994 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:16,997 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 16:15:16,999 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:17,002 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 16:15:17,003 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:15:17,005 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 16:16:38,177 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:16:38,182 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 16:16:38,183 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:16:38,186 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 16:16:38,187 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:16:38,189 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 16:16:40,446 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:16:40,448 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 16:16:40,450 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:16:40,452 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 16:16:40,453 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:16:40,455 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 16:21:45,205 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:21:45,209 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 16:21:45,212 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:21:45,216 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 16:21:45,217 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:21:45,220 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 16:21:45,235 - ERROR - Exception on /anime/67f4fae99f681b82790f6f2d [GET]
+Traceback (most recent call last):
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/anime-watcher/frontend/app.py", line 187, in anime_page
+    return render_template("anime.html", anime=anime_data, user_status=status, is_favourite=is_fav)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/anime-watcher/frontend/templates/anime.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/anime-watcher/frontend/templates/base.html", line 26, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/anime-watcher/frontend/templates/anime.html", line 28, in block 'content'
+    {% for video in anime_data.videos %}
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/jinja2/environment.py", line 490, in getattr
+    return getattr(obj, attribute)
+jinja2.exceptions.UndefinedError: 'anime_data' is undefined
+2025-04-09 16:22:24,252 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:22:24,255 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 16:22:24,257 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:22:24,259 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 16:22:24,261 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:22:24,263 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 16:22:35,567 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:22:35,570 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 16:22:35,572 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:22:35,575 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 16:22:35,576 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:22:35,578 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 16:23:24,214 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:24,218 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 16:23:24,219 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:24,222 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 16:23:24,224 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:24,226 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 16:23:27,026 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:27,029 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 16:23:27,030 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:27,033 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 17
+2025-04-09 16:23:27,167 - DEBUG - False
+2025-04-09 16:23:27,199 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:27,201 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 16:23:27,263 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:27,267 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 16:23:27,310 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:27,316 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f44 HTTP/1.1" 200 639
+2025-04-09 16:23:27,401 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:27,403 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faed9f681b82790f6f3c HTTP/1.1" 200 737
+2025-04-09 16:23:27,459 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:27,470 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f46 HTTP/1.1" 200 209
+2025-04-09 16:23:27,517 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:27,521 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f4e HTTP/1.1" 200 358
+2025-04-09 16:23:27,568 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:27,570 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb269f681b82790f6f56 HTTP/1.1" 200 382
+2025-04-09 16:23:32,972 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:32,979 - DEBUG - http://localhost:8080 "GET /anime/search?query=h HTTP/1.1" 200 570
+2025-04-09 16:23:33,004 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,007 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc2b8273007dcd03d7e0 HTTP/1.1" 200 850
+2025-04-09 16:23:33,031 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,033 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faeb9f681b82790f6f32 HTTP/1.1" 200 656
+2025-04-09 16:23:33,058 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,061 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb209f681b82790f6f40 HTTP/1.1" 200 756
+2025-04-09 16:23:33,101 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,104 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fabe9f681b82790f6f15 HTTP/1.1" 200 597
+2025-04-09 16:23:33,145 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,147 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc288273007dcd03d7d5 HTTP/1.1" 200 1036
+2025-04-09 16:23:33,186 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,189 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc5b8273007dcd03d7fc HTTP/1.1" 200 718
+2025-04-09 16:23:33,232 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,234 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb269f681b82790f6f57 HTTP/1.1" 200 1088
+2025-04-09 16:23:33,290 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,293 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc2d8273007dcd03d7e6 HTTP/1.1" 200 468
+2025-04-09 16:23:33,338 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,340 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc5b8273007dcd03d7fd HTTP/1.1" 200 699
+2025-04-09 16:23:33,397 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,400 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f50 HTTP/1.1" 200 798
+2025-04-09 16:23:33,580 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,582 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb259f681b82790f6f53 HTTP/1.1" 200 1194
+2025-04-09 16:23:33,638 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,641 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb269f681b82790f6f56 HTTP/1.1" 200 382
+2025-04-09 16:23:33,674 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,677 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb279f681b82790f6f5c HTTP/1.1" 200 549
+2025-04-09 16:23:33,705 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,707 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faba9f681b82790f6f07 HTTP/1.1" 200 1581
+2025-04-09 16:23:33,741 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,744 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb259f681b82790f6f55 HTTP/1.1" 200 533
+2025-04-09 16:23:33,772 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,775 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faea9f681b82790f6f2e HTTP/1.1" 200 617
+2025-04-09 16:23:33,804 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,806 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fabc9f681b82790f6f10 HTTP/1.1" 200 1071
+2025-04-09 16:23:33,893 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,895 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f51 HTTP/1.1" 200 1142
+2025-04-09 16:23:33,928 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,931 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc2a8273007dcd03d7dc HTTP/1.1" 200 679
+2025-04-09 16:23:33,958 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:33,960 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc2e8273007dcd03d7eb HTTP/1.1" 200 526
+2025-04-09 16:23:34,886 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:34,890 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faeb9f681b82790f6f32 HTTP/1.1" 200 656
+2025-04-09 16:23:34,891 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:34,894 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 16:23:34,895 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 16:23:34,897 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 18:37:14,685 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:37:14,688 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:37:14,690 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:37:14,692 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faeb9f681b82790f6f32 HTTP/1.1" 200 656
+2025-04-09 18:37:14,694 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:37:14,696 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:39:31,075 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:39:31,079 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:39:31,080 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:39:31,082 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faeb9f681b82790f6f32 HTTP/1.1" 200 656
+2025-04-09 18:39:31,084 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:39:31,085 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:40:00,354 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:00,357 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faeb9f681b82790f6f32 HTTP/1.1" 200 656
+2025-04-09 18:40:00,358 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:00,361 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:40:00,362 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:00,364 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 18:40:04,370 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:04,377 - DEBUG - http://localhost:8080 "GET /anime/search?query=gh HTTP/1.1" 200 165
+2025-04-09 18:40:04,408 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:04,411 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f4f HTTP/1.1" 200 593
+2025-04-09 18:40:04,437 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:04,442 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1e HTTP/1.1" 200 1126
+2025-04-09 18:40:04,474 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:04,479 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fabd9f681b82790f6f12 HTTP/1.1" 200 895
+2025-04-09 18:40:04,506 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:04,509 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb259f681b82790f6f54 HTTP/1.1" 200 1442
+2025-04-09 18:40:04,556 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:04,569 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc2c8273007dcd03d7e4 HTTP/1.1" 200 980
+2025-04-09 18:40:06,069 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:06,071 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1e HTTP/1.1" 200 1126
+2025-04-09 18:40:06,073 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:06,075 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:40:06,077 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:06,079 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 18:40:08,116 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:08,119 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:40:08,120 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:08,122 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1e HTTP/1.1" 200 1126
+2025-04-09 18:40:08,124 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:40:08,126 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:41:33,291 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:41:33,294 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:41:33,295 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:41:33,297 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1e HTTP/1.1" 200 1126
+2025-04-09 18:41:33,298 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:41:33,299 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:42:02,264 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:42:02,267 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:42:02,269 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:42:02,273 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1e HTTP/1.1" 200 1126
+2025-04-09 18:42:02,274 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:42:02,277 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:42:12,452 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:42:12,455 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:42:12,456 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:42:12,458 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1e HTTP/1.1" 200 1126
+2025-04-09 18:42:12,460 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:42:12,462 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:42:20,677 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:42:20,681 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:42:20,682 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:42:20,685 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1e HTTP/1.1" 200 1126
+2025-04-09 18:42:20,686 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:42:20,688 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:43:04,330 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:43:04,333 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:43:04,334 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:43:04,337 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1e HTTP/1.1" 200 1126
+2025-04-09 18:43:04,338 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:43:04,341 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:44:03,732 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:44:03,735 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:44:03,737 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:44:03,739 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1e HTTP/1.1" 200 1126
+2025-04-09 18:44:03,741 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:44:03,743 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:44:40,314 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:44:40,317 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:44:40,318 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:44:40,326 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1e HTTP/1.1" 200 1126
+2025-04-09 18:44:40,327 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:44:40,329 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:44:55,818 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:44:55,820 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:44:55,821 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:44:55,825 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1e HTTP/1.1" 200 1126
+2025-04-09 18:44:55,826 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:44:55,828 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:44:55,842 - ERROR - Exception on /anime/67f4fac09f681b82790f6f1e/edit [GET]
+Traceback (most recent call last):
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/anime-watcher/frontend/app.py", line 41, in decorated_function
+    return f(*args, **kwargs)
+  File "/home/anime-watcher/frontend/app.py", line 312, in anime_edit_page
+    return render_template("anime_edit.html", anime=anime_data, user_status=get_user_status(session['user_id']))
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/templating.py", line 150, in render_template
+    return _render(app, template, context)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/templating.py", line 131, in _render
+    rv = template.render(context)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/jinja2/environment.py", line 1295, in render
+    self.environment.handle_exception()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/jinja2/environment.py", line 942, in handle_exception
+    raise rewrite_traceback_stack(source=source)
+  File "/home/anime-watcher/frontend/templates/anime_edit.html", line 1, in top-level template code
+    {% extends "base.html" %}
+  File "/home/anime-watcher/frontend/templates/base.html", line 26, in top-level template code
+    {% block content %}{% endblock %}
+  File "/home/anime-watcher/frontend/templates/anime_edit.html", line 46, in block 'content'
+    {% if len(anime.videos) == 0 %}
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/jinja2/utils.py", line 92, in from_obj
+    if hasattr(obj, "jinja_pass_arg"):
+jinja2.exceptions.UndefinedError: 'len' is undefined
+2025-04-09 18:45:04,312 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:45:04,317 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:45:04,319 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:45:04,322 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1e HTTP/1.1" 200 1126
+2025-04-09 18:45:04,323 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:45:04,331 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:45:44,470 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:45:44,474 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:45:44,475 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:45:44,478 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1e HTTP/1.1" 200 1126
+2025-04-09 18:45:44,480 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:45:44,491 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:47:26,105 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:26,109 - DEBUG - http://localhost:8080 "POST /auth/login HTTP/1.1" 200 134
+2025-04-09 18:47:26,490 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:26,493 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 18:47:26,494 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:26,496 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 17
+2025-04-09 18:47:26,498 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:26,501 - DEBUG - http://localhost:8080 "GET /users/name?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 29
+2025-04-09 18:47:26,635 - DEBUG - False
+2025-04-09 18:47:26,679 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:26,682 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 18:47:26,710 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:26,712 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 18:47:26,759 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:26,765 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f44 HTTP/1.1" 200 639
+2025-04-09 18:47:26,802 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:26,804 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faed9f681b82790f6f3c HTTP/1.1" 200 737
+2025-04-09 18:47:26,861 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:26,863 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f46 HTTP/1.1" 200 209
+2025-04-09 18:47:26,903 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:26,905 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f4e HTTP/1.1" 200 358
+2025-04-09 18:47:26,944 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:26,946 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb269f681b82790f6f56 HTTP/1.1" 200 382
+2025-04-09 18:47:28,823 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:28,826 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 18:47:28,827 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:28,829 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:47:28,830 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:28,832 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 18:47:30,450 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:30,453 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:47:30,454 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:30,456 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 18:47:30,456 - DEBUG - {'_id': {'$oid': '67f4fb1f9f681b82790f6f3f'}, 'title': 'Fruits Basket the Final Season', 'description': "* Based on a fantasy romantic shoujo manga drawn by Takaya Natsuki. It was serialized in Hakusensha's Hana to Yume from 1998 to 2006 with 23 volumes.\n\nAfter last revelations, the Souma family moves forward, but the emotional chains that bind them are not easily broken. Unable to admit why she wants the cure, Tooru wrestles with the truth, aware that time is running out for someone close. And a secret still lurks that could break another's heart. But hope is not lost—a clue to the curse is found. Could their imprisonment's end be near?", 'episodes': 13, 'videos': [], 'id': '67f4fb1f9f681b82790f6f3f', 'image_url': '/images/anime/67f4fb1f9f681b82790f6f3f.jpg'}
+2025-04-09 18:47:30,457 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:47:30,458 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:48:12,739 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:48:12,742 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:48:12,744 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:48:12,746 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 18:48:12,747 - DEBUG - {'_id': {'$oid': '67f4fb1f9f681b82790f6f3f'}, 'title': 'Fruits Basket the Final Season', 'description': "* Based on a fantasy romantic shoujo manga drawn by Takaya Natsuki. It was serialized in Hakusensha's Hana to Yume from 1998 to 2006 with 23 volumes.\n\nAfter last revelations, the Souma family moves forward, but the emotional chains that bind them are not easily broken. Unable to admit why she wants the cure, Tooru wrestles with the truth, aware that time is running out for someone close. And a secret still lurks that could break another's heart. But hope is not lost—a clue to the curse is found. Could their imprisonment's end be near?", 'episodes': 13, 'videos': [], 'id': '67f4fb1f9f681b82790f6f3f', 'image_url': '/images/anime/67f4fb1f9f681b82790f6f3f.jpg'}
+2025-04-09 18:48:12,747 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:48:12,750 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:50:27,046 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:50:27,049 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:50:27,050 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:50:27,053 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 18:50:27,053 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 18:50:27,054 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:50:27,056 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:50:39,709 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:50:39,712 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:50:39,714 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:50:39,716 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 919
+2025-04-09 18:50:39,717 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [1], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 18:50:39,718 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:50:39,720 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:51:11,378 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:51:11,381 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:51:11,382 - ERROR - Exception on /delete_video [POST]
+Traceback (most recent call last):
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/anime-watcher/frontend/app.py", line 204, in delete_anime_video
+    anime_id = request.get('anime_id', '')
+AttributeError: 'Request' object has no attribute 'get'
+2025-04-09 18:52:46,350 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:52:46,353 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:52:46,355 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:52:46,357 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 919
+2025-04-09 18:52:46,358 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [1], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 18:52:46,359 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:52:46,361 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:52:47,996 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:52:48,015 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:53:18,774 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:53:18,777 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:53:18,778 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:53:18,780 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 919
+2025-04-09 18:53:18,781 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [1], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 18:53:18,782 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:53:18,784 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:53:20,360 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:53:20,363 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:53:20,365 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:53:20,366 - DEBUG - API Error: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2025-04-09 18:54:49,093 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:54:49,096 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:54:49,097 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:54:49,099 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 919
+2025-04-09 18:54:49,099 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [1], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 18:54:49,100 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:54:49,108 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:54:53,118 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:54:53,120 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:54:53,122 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:54:53,124 - DEBUG - http://localhost:8080 "POST /anime/video/remove HTTP/1.1" 200 17
+2025-04-09 18:55:48,689 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:55:48,692 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:55:48,694 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:55:48,697 - DEBUG - http://localhost:8080 "POST /anime/video/remove HTTP/1.1" 200 17
+2025-04-09 18:56:05,622 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:56:05,625 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:56:05,626 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:56:05,629 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 18:56:05,629 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': ['1'], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 18:56:05,630 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:56:05,632 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:56:07,876 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:56:07,878 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:56:07,880 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:56:07,882 - DEBUG - http://localhost:8080 "POST /anime/video/remove HTTP/1.1" 200 16
+2025-04-09 18:56:09,147 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:56:09,149 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:56:09,151 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:56:09,153 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 18:56:09,153 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 18:56:09,155 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:56:09,157 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:59:28,056 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:28,059 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:59:28,060 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:28,062 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 18:59:28,062 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 18:59:28,063 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:28,065 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:59:35,703 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:35,706 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:59:35,707 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:35,709 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 18:59:35,710 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': ['1'], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 18:59:35,710 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:35,712 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:59:37,373 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:37,375 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:59:37,377 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:37,379 - DEBUG - http://localhost:8080 "POST /anime/video/remove HTTP/1.1" 200 16
+2025-04-09 18:59:38,610 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:38,612 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:59:38,614 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:38,616 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 18:59:38,616 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 18:59:38,617 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:38,618 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:59:55,798 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:55,801 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:59:55,802 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:55,805 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 18:59:55,805 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': ['1'], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 18:59:55,806 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:55,808 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:59:58,864 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:58,867 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:59:58,868 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:58,870 - DEBUG - http://localhost:8080 "POST /anime/video/remove HTTP/1.1" 200 16
+2025-04-09 18:59:59,789 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:59,792 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 18:59:59,793 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:59,795 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 18:59:59,795 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 18:59:59,796 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 18:59:59,798 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:01:37,687 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:01:37,690 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:01:37,691 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:01:37,694 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 19:01:37,694 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:01:37,695 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:01:37,697 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:02:34,347 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:02:34,350 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:02:34,352 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:02:34,354 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 19:02:34,355 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:02:34,356 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:02:34,358 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:03:11,254 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:03:11,257 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:03:11,258 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:03:11,261 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 19:03:11,262 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:03:11,262 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:03:11,264 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:05:10,648 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:05:10,651 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:05:10,652 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:05:10,655 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 19:05:10,656 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:05:10,657 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:05:10,659 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:05:13,327 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:05:13,332 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:05:13,339 - ERROR - Exception on /upload_video [POST]
+Traceback (most recent call last):
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/anime-watcher/frontend/app.py", line 170, in upload_anime_video
+    anime_id = request.get('anime_id', '')
+AttributeError: 'Request' object has no attribute 'get'
+2025-04-09 19:06:22,486 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:06:22,489 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:06:22,490 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:06:22,493 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 19:06:22,494 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:06:22,495 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:06:22,497 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:06:24,288 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:06:24,304 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:07:02,654 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:02,657 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:07:02,658 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:02,661 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 19:07:02,661 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:07:02,662 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:02,664 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:07:04,607 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:04,610 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:07:04,617 - ERROR - Exception on /upload_video [POST]
+Traceback (most recent call last):
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 1511, in wsgi_app
+    response = self.full_dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 919, in full_dispatch_request
+    rv = self.handle_user_exception(e)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 917, in full_dispatch_request
+    rv = self.dispatch_request()
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/flask/app.py", line 902, in dispatch_request
+    return self.ensure_sync(self.view_functions[rule.endpoint])(**view_args)  # type: ignore[no-any-return]
+  File "/home/anime-watcher/frontend/app.py", line 182, in upload_anime_video
+    file.save(filepath)
+  File "/home/anime-watcher/.venv/lib/python3.10/site-packages/werkzeug/datastructures/file_storage.py", line 129, in save
+    dst = open(dst, "wb")
+PermissionError: [Errno 13] Permission denied: '/home/anime-watcher/frontend/static/videos/67f4fab89f681b82790f6f03_1.mp4'
+2025-04-09 19:07:41,649 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:41,651 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:07:41,660 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:41,668 - DEBUG - http://localhost:8080 "POST /anime/video/add HTTP/1.1" 200 16
+2025-04-09 19:07:42,961 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:42,963 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:07:42,965 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:42,968 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:07:42,968 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': ['1'], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:07:42,969 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:42,972 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:07:48,928 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:48,937 - DEBUG - http://localhost:8080 "GET /anime/search?query=f HTTP/1.1" 200 570
+2025-04-09 19:07:48,972 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:48,974 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 19:07:49,018 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:49,020 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 19:07:49,106 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:49,108 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fabf9f681b82790f6f1a HTTP/1.1" 200 1034
+2025-04-09 19:07:49,152 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:49,155 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:07:49,206 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:49,208 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc598273007dcd03d7f5 HTTP/1.1" 200 1976
+2025-04-09 19:07:49,275 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:49,278 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f44 HTTP/1.1" 200 639
+2025-04-09 19:07:49,329 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:49,331 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc608273007dcd03d80e HTTP/1.1" 200 923
+2025-04-09 19:07:49,591 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:49,597 - DEBUG - http://localhost:8080 "GET /anime/search?query=ful HTTP/1.1" 200 138
+2025-04-09 19:07:49,639 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:49,641 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:07:49,709 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:49,711 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:07:49,781 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:49,783 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 19:07:49,857 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:49,857 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:49,858 - DEBUG - API Error: ('Connection aborted.', RemoteDisconnected('Remote end closed connection without response'))
+2025-04-09 19:07:49,858 - DEBUG - API Error: ('Connection aborted.', ConnectionResetError(104, 'Connection reset by peer'))
+2025-04-09 19:07:49,966 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:49,969 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:07:50,000 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:50,003 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb209f681b82790f6f43 HTTP/1.1" 200 1099
+2025-04-09 19:07:50,052 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:50,054 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab99f681b82790f6f06 HTTP/1.1" 200 859
+2025-04-09 19:07:50,122 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:50,125 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f4e HTTP/1.1" 200 358
+2025-04-09 19:07:50,295 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:50,297 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac19f681b82790f6f20 HTTP/1.1" 200 472
+2025-04-09 19:07:50,410 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:50,412 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc5c8273007dcd03d7fe HTTP/1.1" 200 1948
+2025-04-09 19:07:50,527 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:50,530 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:07:50,531 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:50,537 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:07:50,538 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:07:50,540 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:08:21,195 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:08:21,198 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:09:24,416 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:09:24,418 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:09:24,420 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:09:24,422 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:09:24,422 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:09:24,424 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:10:14,078 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:10:14,081 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:10:14,083 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:10:14,085 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:10:14,086 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:10:14,088 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:10:45,437 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:10:45,440 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:10:45,442 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:10:45,444 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:10:45,446 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:10:45,448 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:11:30,424 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:11:30,427 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:11:30,428 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:11:30,430 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:11:30,431 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:11:30,434 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:11:48,125 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:11:48,129 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:11:48,130 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:11:48,132 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:11:48,134 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:11:48,136 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:11:55,812 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:11:55,815 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:11:55,816 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:11:55,818 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:11:55,820 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:11:55,822 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:13:14,839 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:13:14,842 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:13:14,843 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:13:14,846 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:13:14,848 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:13:14,850 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:13:14,851 - DEBUG - {'_id': {'$oid': '67f4fac09f681b82790f6f1f'}, 'title': 'Fullmetal Alchemist', 'description': "There exist those with special abilities to manipulate objects and transform them into other objects called the Alchemists. However, this manipulation process comes at a price, since the basic alchemy rules state that something with equivalent value is needed to perform the manipulation.\n\nThe renowned alchemist Edward Elric loses his little brother Alphonse in an accident. Edward manages to contain his brother's soul in a large piece of armour suit, but by doing so Edward loses his arm and leg. And so the brothers set out on a perilous journey to regain their original bodies.", 'episodes': 51, 'videos': [], 'id': '67f4fac09f681b82790f6f1f', 'image_url': '/images/anime/67f4fac09f681b82790f6f1f.jpg'}
+2025-04-09 19:14:33,513 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:14:33,523 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:14:33,525 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:14:33,528 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:14:33,529 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:14:33,531 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:14:33,531 - DEBUG - {'_id': {'$oid': '67f4fac09f681b82790f6f1f'}, 'title': 'Fullmetal Alchemist', 'description': "There exist those with special abilities to manipulate objects and transform them into other objects called the Alchemists. However, this manipulation process comes at a price, since the basic alchemy rules state that something with equivalent value is needed to perform the manipulation.\n\nThe renowned alchemist Edward Elric loses his little brother Alphonse in an accident. Edward manages to contain his brother's soul in a large piece of armour suit, but by doing so Edward loses his arm and leg. And so the brothers set out on a perilous journey to regain their original bodies.", 'episodes': 51, 'videos': [], 'id': '67f4fac09f681b82790f6f1f', 'image_url': '/images/anime/67f4fac09f681b82790f6f1f.jpg'}
+2025-04-09 19:15:34,519 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:15:34,522 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:15:34,524 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:15:34,526 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:15:34,527 - DEBUG - {'_id': {'$oid': '67f4fac09f681b82790f6f1f'}, 'title': 'Fullmetal Alchemist', 'description': "There exist those with special abilities to manipulate objects and transform them into other objects called the Alchemists. However, this manipulation process comes at a price, since the basic alchemy rules state that something with equivalent value is needed to perform the manipulation.\n\nThe renowned alchemist Edward Elric loses his little brother Alphonse in an accident. Edward manages to contain his brother's soul in a large piece of armour suit, but by doing so Edward loses his arm and leg. And so the brothers set out on a perilous journey to regain their original bodies.", 'episodes': 51, 'videos': [], 'id': '67f4fac09f681b82790f6f1f', 'image_url': '/images/anime/67f4fac09f681b82790f6f1f.jpg'}
+2025-04-09 19:15:34,528 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:15:34,530 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:15:56,520 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:15:56,527 - DEBUG - http://localhost:8080 "GET /anime/search?query=ful HTTP/1.1" 200 138
+2025-04-09 19:15:56,601 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:15:56,604 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:15:56,653 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:15:56,656 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:15:56,693 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:15:56,696 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 19:15:56,742 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:15:56,744 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faed9f681b82790f6f3c HTTP/1.1" 200 737
+2025-04-09 19:15:57,734 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:15:57,736 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:15:57,737 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:15:57,739 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:15:57,741 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:15:57,743 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:15:57,744 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': ['1'], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:16:07,074 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:07,077 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:16:07,078 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:07,080 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:16:07,080 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': ['1'], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:16:07,081 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:07,083 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:16:11,560 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:11,563 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:16:11,564 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:11,567 - DEBUG - http://localhost:8080 "POST /anime/video/remove HTTP/1.1" 200 16
+2025-04-09 19:16:12,801 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:12,803 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:16:12,804 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:12,806 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 19:16:12,806 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:16:12,807 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:12,809 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:16:15,806 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:15,809 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 19:16:15,810 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:15,813 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:16:15,814 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:15,816 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:16:15,816 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:16:19,200 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:19,202 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:16:19,203 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:19,205 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 918
+2025-04-09 19:16:19,205 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': [], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:16:19,206 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:19,207 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:16:25,522 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:25,525 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:16:25,534 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:25,536 - DEBUG - http://localhost:8080 "POST /anime/video/add HTTP/1.1" 200 16
+2025-04-09 19:16:26,710 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:26,712 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:16:26,714 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:26,716 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:16:26,716 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': ['1'], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:16:26,717 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:26,719 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:16:29,954 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:29,956 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:16:29,957 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:29,959 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:16:29,960 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:29,961 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:16:29,962 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': ['1'], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:16:45,128 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:45,132 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:16:45,133 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:45,135 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 17
+2025-04-09 19:16:45,268 - DEBUG - False
+2025-04-09 19:16:45,309 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:45,311 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 19:16:45,353 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:45,356 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:16:45,457 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:45,459 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f44 HTTP/1.1" 200 639
+2025-04-09 19:16:45,528 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:45,531 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faed9f681b82790f6f3c HTTP/1.1" 200 737
+2025-04-09 19:16:45,629 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:45,631 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f46 HTTP/1.1" 200 209
+2025-04-09 19:16:45,667 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:45,671 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f4e HTTP/1.1" 200 358
+2025-04-09 19:16:45,761 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:45,764 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb269f681b82790f6f56 HTTP/1.1" 200 382
+2025-04-09 19:16:51,348 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:51,355 - DEBUG - http://localhost:8080 "GET /anime/search?query=f HTTP/1.1" 200 570
+2025-04-09 19:16:51,391 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:51,394 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 19:16:51,421 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:51,424 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 19:16:51,468 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:51,470 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fabf9f681b82790f6f1a HTTP/1.1" 200 1034
+2025-04-09 19:16:51,498 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:51,501 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:16:51,753 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:51,756 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc598273007dcd03d7f5 HTTP/1.1" 200 1976
+2025-04-09 19:16:51,792 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:51,794 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f44 HTTP/1.1" 200 639
+2025-04-09 19:16:51,847 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:51,850 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc608273007dcd03d80e HTTP/1.1" 200 923
+2025-04-09 19:16:51,924 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:51,927 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc2c8273007dcd03d7e5 HTTP/1.1" 200 546
+2025-04-09 19:16:51,967 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:51,969 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:16:52,016 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,018 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb209f681b82790f6f43 HTTP/1.1" 200 1099
+2025-04-09 19:16:52,048 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,051 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab99f681b82790f6f06 HTTP/1.1" 200 859
+2025-04-09 19:16:52,074 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,077 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f4e HTTP/1.1" 200 358
+2025-04-09 19:16:52,119 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,121 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac19f681b82790f6f20 HTTP/1.1" 200 472
+2025-04-09 19:16:52,157 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,160 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,164 - DEBUG - http://localhost:8080 "GET /anime/search?query=fu HTTP/1.1" 200 138
+2025-04-09 19:16:52,165 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc5c8273007dcd03d7fe HTTP/1.1" 200 1948
+2025-04-09 19:16:52,207 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,208 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,210 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 19:16:52,211 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faed9f681b82790f6f3c HTTP/1.1" 200 737
+2025-04-09 19:16:52,252 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,253 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,255 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:16:52,255 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f46 HTTP/1.1" 200 209
+2025-04-09 19:16:52,309 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,309 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,311 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:16:52,312 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb269f681b82790f6f56 HTTP/1.1" 200 382
+2025-04-09 19:16:52,359 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,360 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,361 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faed9f681b82790f6f3c HTTP/1.1" 200 737
+2025-04-09 19:16:52,362 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fc2e8273007dcd03d7eb HTTP/1.1" 200 526
+2025-04-09 19:16:52,401 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,404 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fabe9f681b82790f6f18 HTTP/1.1" 200 470
+2025-04-09 19:16:52,436 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,439 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fabc9f681b82790f6f0e HTTP/1.1" 200 858
+2025-04-09 19:16:52,472 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,478 - DEBUG - http://localhost:8080 "GET /anime/search?query=ful HTTP/1.1" 200 138
+2025-04-09 19:16:52,506 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,509 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:16:52,533 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,536 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:16:52,559 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,562 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 19:16:52,585 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:52,587 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faed9f681b82790f6f3c HTTP/1.1" 200 737
+2025-04-09 19:16:53,633 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:53,635 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:16:53,637 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:53,639 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:16:53,640 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:16:53,642 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:16:53,643 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': ['1'], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:17:02,499 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:17:02,502 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:17:02,502 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': ['1'], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:17:27,431 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:17:27,434 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:17:27,435 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:17:27,437 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:17:27,438 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:17:27,440 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:17:27,440 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': ['1'], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:17:29,380 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:17:29,382 - DEBUG - http://localhost:8080 "POST /users/last_video/set HTTP/1.1" 200 16
+2025-04-09 19:17:33,387 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:17:33,389 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:17:33,391 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:17:33,393 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 32
+2025-04-09 19:20:02,121 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:02,145 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:20:02,146 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:02,150 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 32
+2025-04-09 19:20:05,842 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:05,850 - DEBUG - http://localhost:8080 "GET /anime/search?query=fu HTTP/1.1" 200 138
+2025-04-09 19:20:06,131 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:06,134 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fae99f681b82790f6f2d HTTP/1.1" 200 737
+2025-04-09 19:20:06,174 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:06,177 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:20:06,229 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:06,232 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:20:06,278 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:06,281 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faed9f681b82790f6f3c HTTP/1.1" 200 737
+2025-04-09 19:20:07,552 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:07,554 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:20:07,556 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:07,559 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:20:07,560 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:07,562 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:20:07,563 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': ['1'], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}
+2025-04-09 19:20:09,356 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:09,359 - DEBUG - http://localhost:8080 "POST /users/last_video/set HTTP/1.1" 200 16
+2025-04-09 19:20:13,656 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:13,658 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:20:13,660 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:13,662 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 58
+2025-04-09 19:20:13,974 - DEBUG - True
+2025-04-09 19:20:13,974 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:13,977 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:20:14,058 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:14,060 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 19:20:14,130 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:14,132 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:20:14,291 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:14,293 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f44 HTTP/1.1" 200 639
+2025-04-09 19:20:14,371 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:14,373 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faed9f681b82790f6f3c HTTP/1.1" 200 737
+2025-04-09 19:20:14,423 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:14,426 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f46 HTTP/1.1" 200 209
+2025-04-09 19:20:14,481 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:14,483 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f4e HTTP/1.1" 200 358
+2025-04-09 19:20:14,516 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:20:14,518 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb269f681b82790f6f56 HTTP/1.1" 200 382
+2025-04-09 19:23:17,326 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:17,329 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:23:17,330 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:17,332 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 58
+2025-04-09 19:23:17,472 - DEBUG - True
+2025-04-09 19:23:17,474 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:17,477 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:23:17,612 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:17,621 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 19:23:17,672 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:17,675 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:23:17,729 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:17,731 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f44 HTTP/1.1" 200 639
+2025-04-09 19:23:17,773 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:17,775 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faed9f681b82790f6f3c HTTP/1.1" 200 737
+2025-04-09 19:23:17,845 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:17,847 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f46 HTTP/1.1" 200 209
+2025-04-09 19:23:18,092 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:18,095 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f4e HTTP/1.1" 200 358
+2025-04-09 19:23:18,142 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:18,144 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb269f681b82790f6f56 HTTP/1.1" 200 382
+2025-04-09 19:23:45,354 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:45,357 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:23:45,359 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:45,361 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 58
+2025-04-09 19:23:45,521 - DEBUG - True
+2025-04-09 19:23:45,522 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:45,525 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:23:45,587 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:45,589 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 19:23:45,622 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:45,625 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:23:45,671 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:45,673 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f44 HTTP/1.1" 200 639
+2025-04-09 19:23:45,763 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:45,765 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faed9f681b82790f6f3c HTTP/1.1" 200 737
+2025-04-09 19:23:45,811 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:45,813 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f46 HTTP/1.1" 200 209
+2025-04-09 19:23:45,851 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:45,854 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f4e HTTP/1.1" 200 358
+2025-04-09 19:23:45,896 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:23:45,898 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb269f681b82790f6f56 HTTP/1.1" 200 382
+2025-04-09 19:25:57,673 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:25:57,676 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:25:57,677 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:25:57,679 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 58
+2025-04-09 19:25:57,819 - DEBUG - True
+2025-04-09 19:25:57,821 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:25:57,824 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:25:57,876 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:25:57,878 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 19:25:57,924 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:25:57,927 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:25:58,258 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:25:58,260 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f44 HTTP/1.1" 200 639
+2025-04-09 19:25:58,293 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:25:58,295 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faed9f681b82790f6f3c HTTP/1.1" 200 737
+2025-04-09 19:25:58,324 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:25:58,327 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f46 HTTP/1.1" 200 209
+2025-04-09 19:25:58,356 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:25:58,358 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f4e HTTP/1.1" 200 358
+2025-04-09 19:25:58,392 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:25:58,395 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb269f681b82790f6f56 HTTP/1.1" 200 382
+2025-04-09 19:26:05,475 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:05,478 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:26:05,479 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:05,481 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:26:05,483 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:05,484 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:26:15,155 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:15,158 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:26:15,160 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:15,162 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:26:15,164 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:15,166 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:26:23,240 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:23,243 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:26:23,245 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:23,247 - DEBUG - http://localhost:8080 "GET /users/last_video?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 58
+2025-04-09 19:26:23,349 - DEBUG - True
+2025-04-09 19:26:23,351 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:23,353 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:26:23,389 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:23,391 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb1f9f681b82790f6f3f HTTP/1.1" 200 740
+2025-04-09 19:26:23,422 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:23,424 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fac09f681b82790f6f1f HTTP/1.1" 200 769
+2025-04-09 19:26:23,474 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:23,476 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f44 HTTP/1.1" 200 639
+2025-04-09 19:26:23,525 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:23,527 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4faed9f681b82790f6f3c HTTP/1.1" 200 737
+2025-04-09 19:26:23,567 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:23,569 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb219f681b82790f6f46 HTTP/1.1" 200 209
+2025-04-09 19:26:23,617 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:23,619 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb249f681b82790f6f4e HTTP/1.1" 200 358
+2025-04-09 19:26:23,676 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:23,679 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fb269f681b82790f6f56 HTTP/1.1" 200 382
+2025-04-09 19:26:25,431 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:25,433 - DEBUG - http://localhost:8080 "GET /anime/details?anime_id=67f4fab89f681b82790f6f03 HTTP/1.1" 200 923
+2025-04-09 19:26:25,435 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:25,437 - DEBUG - http://localhost:8080 "GET /users/status?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 27
+2025-04-09 19:26:25,439 - DEBUG - Starting new HTTP connection (1): localhost:8080
+2025-04-09 19:26:25,441 - DEBUG - http://localhost:8080 "GET /users/favourites?user_id=67f535f6749ff80fd8003864 HTTP/1.1" 200 235
+2025-04-09 19:26:25,441 - DEBUG - {'_id': {'$oid': '67f4fab89f681b82790f6f03'}, 'title': 'Fullmetal Alchemist: Brotherhood', 'description': "Two brothers lose their mother to an incurable disease. With the power of alchemy, they use taboo knowledge to resurrect her. The process fails, and as a toll for using this type of alchemy, the older brother, Edward Elric, loses his left leg while the younger brother, Alphonse Elric, loses his entire body. To save his brother, Edward sacrifices his right arm and is able to affix his brother's soul to a suit of armor. With the help of a family friend, Edward receives metal limbs - automail - to replace his lost ones. With that, Edward vows to search for the Philosopher's Stone to return the brothers to their original bodies, even if it means becoming a State Alchemist, one who uses their alchemy for the military.", 'episodes': 64, 'videos': ['1'], 'id': '67f4fab89f681b82790f6f03', 'image_url': '/images/anime/67f4fab89f681b82790f6f03.jpg'}

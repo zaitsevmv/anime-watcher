@@ -22,3 +22,25 @@ std::optional<std::string> AnimeDB::UpdateAnime(const std::string& anime_id, con
     return UpdateDocument({"_id", anime_id}, anime_data_json);
 }
 
+std::optional<int32_t> AnimeDB::AddAnimeVideo(const std::string& anime_id, const std::string& video_id) {
+    auto result = collection.update_one(
+        SearchFilter("_id", anime_id).get(), 
+        AddToSetFilter("videos", video_id).get()
+    );
+    if(result){
+        return (*result).modified_count();
+    }
+    return std::nullopt;
+}
+
+std::optional<int32_t> AnimeDB::RemoveAnimeVideo(const std::string& anime_id, const std::string& video_id) {
+    auto result = collection.update_one(
+        SearchFilter("_id", anime_id).get(), 
+        RemoveFromSetFilter("videos", video_id).get()
+    );
+    if(result){
+        return (*result).modified_count();
+    }
+    return std::nullopt;
+}
+

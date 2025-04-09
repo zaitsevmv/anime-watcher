@@ -31,6 +31,7 @@ enum class req_targets: uint32_t{
     banned = 0x0d00,
     del = 0x0e00,
     ban = 0x0f00,
+    video = 0x1000,
 
     after = 0x010000,
     query = 0x020000,
@@ -102,6 +103,8 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
             encoded ^= toUType(req_targets::banned);
         else if(tr == "chat") 
             encoded ^= toUType(req_targets::chat);
+        else if(tr == "video") 
+            encoded ^= toUType(req_targets::video);
         else if(tr == "name") 
             encoded ^= toUType(req_targets::name);
         else if(tr == "register") 
@@ -268,6 +271,11 @@ bool set_user_name(std::shared_ptr<UserDataDB> db, const std::string& user_id, c
     return (res.has_value() && *res == 1);
 }
 
+bool set_user_last_video(std::shared_ptr<UserDataDB> db, const std::string& user_id, const std::string& video_id){
+    auto res = db->ChangeLastVideo(user_id, video_id);
+    return (res.has_value() && *res == 1);
+}
+
 std::optional<bool> get_user_banned(std::shared_ptr<UserDataDB> db, const std::string& user_id){
     auto user_data = db->GetUser(user_id);
     if(!user_data.has_value()) return std::nullopt;
@@ -301,6 +309,16 @@ auto get_anime(std::shared_ptr<AnimeDB> db, const std::string& anime_id){
 
 auto update_anime(std::shared_ptr<AnimeDB> db, const std::string& anime_id,  const std::string& anime_data_json){
     return db->UpdateAnime(anime_id, anime_data_json);
+}
+
+bool add_anime_video(std::shared_ptr<AnimeDB> db, const std::string& anime_id, const std::string& video_id){
+    auto res = db->AddAnimeVideo(anime_id, video_id);
+    return (res.has_value() && *res == 1);
+}
+
+bool remove_anime_video(std::shared_ptr<AnimeDB> db, const std::string& anime_id, const std::string& video_id){
+    auto res = db->RemoveAnimeVideo(anime_id, video_id);
+    return (res.has_value() && *res == 1);
 }
 
 //Anime search Database
@@ -711,6 +729,26 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                 }
             }
             break;
+        case (toUType(req_targets::users) | toUType(req_targets::last_video) | toUType(req_targets::set)):
+            {
+                auto jv = boost::json::parse(body);
+                if(jv.as_object().contains("user_id") 
+                    && jv.as_object().contains("video_id"))
+                {
+                    auto res = set_user_last_video(
+                        user_data_db_, 
+                        jv.at("user_id").as_string().c_str(),
+                        jv.at("video_id").as_string().c_str()
+                    );
+                    std::cout << "Last video set result: " << res << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res;
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
         case (toUType(req_targets::users) | toUType(req_targets::fav) | toUType(req_targets::remove)):
             {
                 auto jv = boost::json::parse(body);
@@ -723,6 +761,47 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                         jv.at("anime_id").as_string().c_str()
                     );
                     std::cout << "Favorite remove result: " << res << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res;
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        case (toUType(req_targets::anime) | toUType(req_targets::video) | toUType(req_targets::add)):
+            {
+                auto jv = boost::json::parse(body);
+                if(jv.as_object().contains("anime_id") 
+                    && jv.as_object().contains("video_id"))
+                {
+                    auto res = add_anime_video(
+                        anime_db_, 
+                        jv.at("anime_id").as_string().c_str(),
+                        jv.at("video_id").as_string().c_str()
+                    );
+                    std::cout << "Video add result: " << res << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res;
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        case (toUType(req_targets::anime) | toUType(req_targets::video) | toUType(req_targets::remove)):
+            {
+                std::cout << "here" << std::endl;
+                auto jv = boost::json::parse(body);
+                if(jv.as_object().contains("anime_id") 
+                    && jv.as_object().contains("video_id"))
+                {
+                    auto res = remove_anime_video(
+                        anime_db_, 
+                        jv.at("anime_id").as_string().c_str(),
+                        jv.at("video_id").as_string().c_str()
+                    );
+                    std::cout << "Video remove result: " << res << std::endl;
                     boost::json::object response_object;
                     response_object["success"] = res;
                     send_json_response(http::status::ok, boost::json::serialize(response_object));

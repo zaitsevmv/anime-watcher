@@ -27,6 +27,8 @@ public:
 
     std::optional<int32_t> ChangeUserName(const std::string& user_id,  const std::string& new_user_name);
 
+    std::optional<int32_t> ChangeLastVideo(const std::string& user_id,  const std::string& video_id);
+
     std::optional<int32_t> AddUserFavourite(const std::string& user_id, const std::string& anime_id);
 
     std::optional<int32_t> RemoveUserFavourite(const std::string&user_id, const std::string& anime_id);

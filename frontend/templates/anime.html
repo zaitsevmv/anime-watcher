@@ -19,17 +19,44 @@
     {% if 'user_id' in session and user_status > 1 %}
     <a href="/anime/{{ anime.id }}/edit" class="edit-button">Edit</a>
     {% endif %}
+
+    {% if anime.videos != [] %}
+    <section class="video-container">
+        <div class="episode-selector">
+            <label for="episode-dropdown">Select Episode:</label>
+            <select id="episode-dropdown" onchange="playSelectedVideo()">
+                {% for video in anime.videos %}
+                <option value="{{ loop.index0 }}">{{ video }}</option>
+                {% endfor %}
+            </select>
+        </div>
+
+        <div class="video-player" id="featured-anime">
+            <h3 id="video-title">Episode: {{ anime.videos[0] }}</h3>
+            <video id="video-player" controls width="1100">
+                <source src="" type="video/mp4">
+                Your browser does not support the video tag.
+            </video>
+        </div>
+    </section>
+    {% endif %}
 </div>
 
 {% if 'user_id' in session %}
 <script>
-    let isFavorited = "{{ is_favourite }}" === "True"; 
+    let isFavorited = "{{ is_favourite }}" === "True";
+    const videos = {{ anime.videos| tojson | safe }};
+
+    console.log(videos)
+
+    let curVideoId = '';
 
     const favButton = document.getElementById('fav-button');
     const animeId = "{{ anime.id }}";
+    const userId = "{{ user_id }}";
 
     function addOrRemoveFavourite() {
-        if(isFavorited){
+        if (isFavorited) {
             fetch('/remove_favourite', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -40,8 +67,8 @@
                         isFavorited = !isFavorited;
                         updateButton();
                     }
-            });
-        } else{
+                });
+        } else {
             fetch('/add_favourite', {
                 method: 'POST',
                 headers: { 'Content-Type': 'application/json' },
@@ -52,7 +79,7 @@
                         isFavorited = !isFavorited;
                         updateButton();
                     }
-            });
+                });
         }
     };
 
@@ -66,7 +93,55 @@
         }
     }
 
+    function playSelectedVideo() {
+        const dropdown = document.getElementById('episode-dropdown');
+        const selectedIndex = dropdown.value;
+        const videoPlayer = document.getElementById('video-player');
+        const videoTitle = document.getElementById('video-title')
+        if (videos && videos[selectedIndex]) {
+            curVideoId = `${ animeId }_${videos[selectedIndex]}`;
+            videoPlayer.src = `/videos/${curVideoId}.mp4`;
+            videoTitle.textContent = `Episode: ${videos[selectedIndex]}`;
+            videoPlayer.load();
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        if (videos && videos.length > 0) {
+            const videoPlayer = document.getElementById('video-player');
+            if (userId != '') {
+                videoPlayer.addEventListener('play', saveLastWatched);
+            }
+            playSelectedVideo();
+        }
+    });
+
+    function saveLastWatched() {
+        const data = {
+            user_id: userId,
+            video_id: curVideoId
+        };
+
+        fetch('/update_last_video', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    console.error('Failed to save last video');
+                }
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+    }
+
     updateButton();
 </script>
 {% endif %}
+
 {% endblock %}
