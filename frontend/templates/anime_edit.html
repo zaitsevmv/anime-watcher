@@ -87,13 +87,14 @@
 <script>
     const newAnime = "{{ anime.id }}" == 'new';
     let imageUrl = '';
+    let videosList = JSON.parse('{{ anime.videos| tojson | safe}}');
 
     document.getElementById('save-btn').addEventListener('click', function () {
         const updatedData = {
             id: "{{ anime.id }}",
             title: document.getElementById('title').value,
             description: document.getElementById('description').value,
-            videos: "{{ anime.videos }}",
+            videos: videosList,
             episodes: document.getElementById('episodes').value,
             image_url: imageUrl
         };

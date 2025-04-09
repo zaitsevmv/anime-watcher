@@ -67,6 +67,9 @@ document.addEventListener("DOMContentLoaded", function () {
                 const response = await fetch(`/anime_details/${animeId}`);
                 
                 const anime = await response.json();
+                if (anime._id === undefined) {
+                    continue;
+                }
                 const animeCard = document.createElement('a');
 
                 animeCard.href = `/anime/${anime._id.$oid}`;

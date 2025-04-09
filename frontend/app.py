@@ -112,7 +112,7 @@ def anime_image(filename):
 
 ALLOWED_EXTENSIONS = {'jpg', 'jpeg'}
 
-def allowed_file(filename):
+def allowed_file_image(filename):
     return '.' in filename and \
            filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
            
@@ -132,7 +132,7 @@ def upload_anime_image():
     if file.filename == '':
         return jsonify({'success': False, 'error': 'No selected file'})
     
-    if file and allowed_file(file.filename):
+    if file and allowed_file_image(file.filename):
         filename = secure_filename(file.filename)
         if filename.rsplit('.', 1)[1].lower() == 'jpeg':
             filename = f"{filename.rsplit('.', 1)[0]}.jpg"
@@ -291,6 +291,8 @@ def anime_edit_page(anime_id):
         return
     
     if anime_id == 'new':
+        if get_user_status(session['user_id']) <= 2:
+            return render_template("login.html")
         default_path = "/images/anime/default.jpg"
         anime_data = {'id': anime_id, 'title': 'title', 'description': 'description', 'episodes': 1, 'videos': [], 'image_url': default_path}
         return render_template("anime_edit.html", anime=anime_data, user_status=get_user_status(session['user_id']))
@@ -325,6 +327,8 @@ def update_anime():
     data = request.get_json()
     anime_id = data.get('id', '')
     if anime_id == 'new':
+        if get_user_status(session['user_id']) <= 2:
+            return jsonify({'success': False, 'error': 'Insufficient privileges'}), 403
         add_response = api_request('POST', 'anime/add', data)
         if add_response and add_response.get('success'):
             image_url = data.get('image_url', '')
@@ -332,7 +336,7 @@ def update_anime():
             src_path = os.path.join(app.static_folder, 'images', 'anime', 'uploads', filename)
             logging.debug(src_path)
             logging.debug(os.path.exists(src_path))
-            if os.path.exists(src_path):
+            if os.path.exists(src_path) and allowed_file_image(src_path):
                 new_filename = f"{add_response.get('db_id','blank')}.jpg"
                 dest_path = os.path.join(app.static_folder, 'images', 'anime', new_filename)
                 
@@ -347,7 +351,7 @@ def update_anime():
             src_path = os.path.join(app.static_folder, 'images', 'anime', 'uploads', filename)
             logging.debug(src_path)
             logging.debug(os.path.exists(src_path))
-            if os.path.exists(src_path):
+            if os.path.exists(src_path) and allowed_file_image(src_path):
                 new_filename = f"{anime_id}.jpg"
                 dest_path = os.path.join(app.static_folder, 'images', 'anime', new_filename)
                 
