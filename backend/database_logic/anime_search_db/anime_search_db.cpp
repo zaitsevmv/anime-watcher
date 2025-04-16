@@ -147,6 +147,34 @@ std::optional<std::string> AnimeSearchDB::SearchAnimeId(const std::string& searc
     return boost::json::serialize(hits_array_json);
 }
 
+std::optional<std::string> AnimeSearchDB::GetAllAnime() {
+    std::string url = "http://localhost:9200/" + db_name + "/_search?pretty=true&q=*:*&size=10000";
+
+    struct curl_slist *headers = nullptr;
+    headers = curl_slist_append(headers, "Content-Type: application/json");
+
+    curl_easy_setopt(curl.get(), CURLOPT_URL, url.c_str());
+    curl_easy_setopt(curl.get(), CURLOPT_HTTPHEADER, headers);
+    curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, WriteCallback);
+    std::string curl_buffer;
+    curl_easy_setopt(curl.get(), CURLOPT_CUSTOMREQUEST, "GET");
+    curl_easy_setopt(curl.get(), CURLOPT_WRITEDATA, &curl_buffer);
+    curl_easy_setopt(curl.get(), CURLOPT_POSTFIELDS, "");
+
+    auto result = curl_easy_perform(curl.get());
+    std::cout << curl_buffer << std::endl;
+    if (result != CURLE_OK) {
+        return std::nullopt;
+    }
+    auto jv = boost::json::parse(curl_buffer);
+    if (jv.as_object().contains("error")) {
+        return std::nullopt;
+    }
+    auto hits_array_json = jv.as_object().at("hits").as_object().at("hits");
+    std::cout << hits_array_json << std::endl;
+    return boost::json::serialize(hits_array_json);
+}
+
 std::optional<int32_t> AnimeSearchDB::UpdateAnime(const std::string& anime_id, const std::string& anime_data_json) {
     std::string url = "http://localhost:9200/" + db_name + "/_update/" + anime_id;
     curl_easy_setopt(curl.get(), CURLOPT_URL, url.c_str());

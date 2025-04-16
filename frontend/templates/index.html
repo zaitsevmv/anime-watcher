@@ -5,6 +5,12 @@
     <p><h1>Welcome, {{ user_name }}!</h1></p>
 </div>
 
+{% if user_status > 2 %}
+<section class="search-container">
+    <h1><a href="/anime/new/edit" class="anime-grid">Add anime</a></h1>
+</section>
+{% endif %}
+
 <section class="search-container">
     <div id="favourite-text" class="anime-grid"></div>
     <div id="anime-results" class="anime-grid" role="list"></div>

@@ -32,7 +32,7 @@ int main(int argc, char* argv[])
         auto chat_db = std::make_shared<ChatDB>("test1_db", "chat_test3");
         auto anime_search_db = std::make_shared<AnimeSearchDB>("anime_test_en11");
 
-        auto const address = boost::asio::ip::make_address("0.0.0.0");
+        auto const address = boost::asio::ip::make_address("127.0.0.1");
         unsigned short port = static_cast<unsigned short>(8080);
         int num_workers = 3;
         bool spin = true;

@@ -39,7 +39,8 @@ enum class req_targets: uint32_t{
     user_id = 0x040000,
     add = 0x050000,
     remove = 0x060000,
-    set = 0x070000
+    set = 0x070000,
+    all = 0x080000
 
 };
 
@@ -137,6 +138,8 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
             encoded ^= toUType(req_targets::remove);
         else if(tr == "brief")
             encoded ^= toUType(req_targets::brief);
+        else if (tr == "all")
+            encoded ^= toUType(req_targets::all);
         else if(tr == "set") 
             encoded ^= toUType(req_targets::set);
     }
@@ -167,7 +170,9 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
         else if(lhs == "status") 
             encoded ^= toUType(req_targets::status); 
         else if(lhs == "banned") 
-            encoded ^= toUType(req_targets::banned); 
+            encoded ^= toUType(req_targets::banned);
+        else if (lhs == "all")
+            encoded ^= toUType(req_targets::all);
 
         if(com == "after")
             encoded ^= toUType(req_targets::after);
@@ -177,6 +182,8 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
             encoded ^= toUType(req_targets::anime_id);
         else if(com == "user_id")
             encoded ^= toUType(req_targets::user_id);
+        else if(com == "all")
+            encoded ^= toUType(req_targets::all);
 
         auto decoded = decode_url_string(val);
         result.data.emplace(decoded);
@@ -339,6 +346,10 @@ auto search_indexed_anime(std::shared_ptr<AnimeSearchDB> db, const std::string& 
     return db->SearchAnime(search_request);
 }
 
+auto get_all_indexed_anime(std::shared_ptr<AnimeSearchDB> db){
+    return db->GetAllAnime();
+}
+
 std::optional<std::string> get_index_id(std::shared_ptr<AnimeSearchDB> db, const std::string& anime_id){
     auto result = db->SearchAnimeId(anime_id);
     if(result.has_value()){
@@ -440,6 +451,27 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
                 } else{
                     send_text_response(http::status::bad_request, "Bad request");
                 }
+            }
+            break;
+        case (toUType(req_targets::anime) | toUType(req_targets::search) | toUType(req_targets::all)):
+            {
+                auto res = get_all_indexed_anime(
+                    anime_search_db_
+                );
+                boost::json::object response_object;
+                response_object["success"] = res.has_value();
+                std::cout << "Get all anime result: " << res.has_value() << std::endl; 
+                if(res){
+                    boost::json::array anime_ids_json(boost::json::make_shared_resource<boost::json::monotonic_resource>());
+                    auto jv = boost::json::parse(*res).as_array();
+                    for(const auto& anim: jv){
+                        auto src = anim.as_object().at("_source");
+                        auto anim_id = src.as_object().at("anime_id").as_string();
+                        anime_ids_json.emplace_back(anim_id);
+                    }
+                    response_object["anime_ids"] = anime_ids_json;
+                }
+                send_json_response(http::status::ok, boost::json::serialize(response_object));
             }
             break;
         case (toUType(req_targets::anime) | toUType(req_targets::details) | toUType(req_targets::anime_id)):

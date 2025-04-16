@@ -22,6 +22,8 @@ public:
     std::optional<std::string> SearchAnime(const std::string& search_request);
     std::optional<std::string> SearchAnimeId(const std::string& search_request);
 
+    std::optional<std::string> GetAllAnime();
+
     std::optional<int32_t> UpdateAnime(const std::string& anime_id, const std::string& anime_data_json);
 private:
     struct CURL_deleter{

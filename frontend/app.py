@@ -67,7 +67,7 @@ def index():
     last_video_response = api_request('GET', f'users/last_video?user_id={user_id}')
     last_video = last_video_response.get('last_video', '0') if last_video_response and last_video_response.get('success') else '0'
 
-    return render_template('index.html', anime_ids=json.loads(favorite_anime_ids), last_watched=last_video, user_name=get_username(user_id), user_id=user_id)
+    return render_template('index.html', anime_ids=json.loads(favorite_anime_ids), last_watched=last_video, user_name=get_username(user_id), user_id=user_id, user_status=get_user_status(user_id))
 
 
 @app.route('/update_name', methods=['POST'])
@@ -411,7 +411,10 @@ def remove_favourite():
 
 @app.route('/anime/search')
 def anime():
-    return render_template('search.html')
+    status = 0
+    if 'user_id' in session:
+        status = get_user_status(session['user_id'])
+    return render_template('search.html', user_status=status)
 
 
 @app.route('/search_anime', methods=['GET'])
@@ -421,6 +424,22 @@ def search_anime():
     if not query:
         return jsonify([])
     response = api_request('GET', f'anime/search?query={query}')
+    
+    if response and response.get('success'):
+        return jsonify(response.get('anime_ids', [])) 
+
+    return jsonify([]) 
+
+
+@app.route('/get_all_anime', methods=['GET'])
+def get_all_anime():
+    if 'user_id' not in session:
+        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
+    
+    if get_user_status(session['user_id']) <= 2:
+        return jsonify({'success': False, 'error': 'Insufficient privileges'}), 403
+
+    response = api_request('GET', f'anime/search/all')
     
     if response and response.get('success'):
         return jsonify(response.get('anime_ids', [])) 
