@@ -16,6 +16,8 @@
 </section>
 
 <script>
+    let activeRequestId = 0;
+
     // Debounce function to limit rapid API calls
     const debounce = (func, delay = 300) => {
         let timeoutId;
@@ -38,6 +40,7 @@
 
     // Controller for aborting pending fetch requests
     let abortController = new AbortController();
+    let abortController1 = new AbortController();
 
     const handleSearch = debounce(async (query) => {
         try {
@@ -53,6 +56,8 @@
                 statusMessage.textContent = '';
                 return;
             }
+            activeRequestId++;
+            const reqId = activeRequestId;
 
             statusMessage.textContent = 'Searching...';
 
@@ -76,7 +81,7 @@
                         const response = await fetch(`/anime_details/${animeId}`);
 
                         const anime = await response.json();
-                        if(anime._id){
+                        if(anime._id && reqId == activeRequestId){
                             const animeCard = document.createElement('a');
                             animeCard.href = `/anime/${anime._id.$oid}`;
                             animeCard.classList.add('anime-card');
@@ -155,6 +160,8 @@
             // Clear previous results
             resultsContainer.innerHTML = '';
             statusMessage.textContent = '';
+            activeRequestId++;
+            const reqId = activeRequestId;
 
             statusMessage.textContent = 'Searching...';
 
@@ -178,7 +185,7 @@
                         const response = await fetch(`/anime_details/${animeId}`);
 
                         const anime = await response.json();
-                        if(anime._id){
+                        if(anime._id && reqId == activeRequestId){
                             const animeCard = document.createElement('a');
                             animeCard.href = `/anime/${anime._id.$oid}`;
                             animeCard.classList.add('anime-card');
