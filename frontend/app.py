@@ -208,6 +208,14 @@ def delete_anime_video():
     
     video_id = f'{anime_id}_{episode}'
     
+    filename = f'{video_id}.mp4'
+    video_path = f'/videos/{video_id}.mp4' 
+    logging.debug(video_path)
+    if check_file(video_path):
+        video_path = os.path.join(app.static_folder,'videos', filename)
+        dest = os.path.join(app.static_folder, 'videos', 'to_delete_' + filename)
+        os.rename(video_path, dest)
+    
     response = api_request('POST', 'anime/video/remove', {
         'anime_id': anime_id,
         'video_id': episode
