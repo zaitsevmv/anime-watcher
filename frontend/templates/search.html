@@ -139,7 +139,12 @@
 
     // Event listeners
     searchBar.addEventListener('input', (e) => {
-        handleSearch(e.target.value.trim());
+        let query = e.target.value.trim();
+        if (query === "") {
+            getAll();
+        } else {
+            handleSearch(query);
+        }
     });
 
     // Initial cleanup
@@ -147,11 +152,8 @@
     statusMessage.textContent = '';
 </script>
 
-{% if user_status > 2 %}
 <script>
-    console.log("cool user")
-
-    const getAll = debounce(async (query) => {
+    const getAll = debounce(async () => {
         try {
             // Abort previous request
             abortController.abort();
@@ -214,8 +216,7 @@
         }
     }, 0);
 
-    getAll(1);
+    getAll();
 </script>
-{% endif %}
 
 {% endblock %}
