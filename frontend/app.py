@@ -411,10 +411,7 @@ def remove_favourite():
 
 @app.route('/anime/search')
 def anime():
-    status = 0
-    if 'user_id' in session:
-        status = get_user_status(session['user_id'])
-    return render_template('search.html', user_status=status)
+    return render_template('search.html')
 
 
 @app.route('/search_anime', methods=['GET'])
@@ -433,12 +430,6 @@ def search_anime():
 
 @app.route('/get_all_anime', methods=['GET'])
 def get_all_anime():
-    if 'user_id' not in session:
-        return jsonify({'success': False, 'error': 'Unauthorized'}), 403
-    
-    if get_user_status(session['user_id']) <= 2:
-        return jsonify({'success': False, 'error': 'Insufficient privileges'}), 403
-
     response = api_request('GET', f'anime/search/all')
     
     if response and response.get('success'):

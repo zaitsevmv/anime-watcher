@@ -42,9 +42,37 @@
     {% endif %}
 </div>
 
+{% if 'user_id' not in session %}
+<script>
+    const videos = {{ anime.videos| tojson | safe }};
+    const animeId = "{{ anime.id }}";
+
+    function playSelectedVideo() {
+        const dropdown = document.getElementById('episode-dropdown');
+        const selectedIndex = dropdown.value;
+        const videoPlayer = document.getElementById('video-player');
+        const videoTitle = document.getElementById('video-title')
+        if (videos && videos[selectedIndex]) {
+            curVideoId = `${ animeId }_${videos[selectedIndex]}`;
+            videoPlayer.src = `/videos/${curVideoId}.mp4`;
+            videoTitle.textContent = `Episode: ${videos[selectedIndex]}`;
+            videoPlayer.load();
+        }
+    }
+
+    document.addEventListener('DOMContentLoaded', function () {
+        if (videos && videos.length > 0) {
+            const videoPlayer = document.getElementById('video-player');
+            playSelectedVideo();
+        }
+    });
+</script>
+{% endif %}
+
 {% if 'user_id' in session %}
 <script>
     let isFavorited = "{{ is_favourite }}" === "True";
+    let authorised = false;
     const videos = {{ anime.videos| tojson | safe }};
 
     console.log(videos)
