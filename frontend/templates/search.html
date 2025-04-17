@@ -107,27 +107,6 @@
         }
     }, 300);
 
-    function renderResults(animeList) {
-        const fragment = document.createDocumentFragment();
-
-        animeList.forEach(anime => {
-            if(anime._id){
-                const card = document.createElement('a');
-                card.href = `/anime/${anime._id.$oid}`;
-                card.className = 'anime-card';
-                card.innerHTML = `
-                    <div class="anime-card__content">
-                        <h3 class="anime-card__title">${anime.title}</h3>
-                        <p class="anime-card__description">${truncate(anime.description, 100)}</p>
-                    </div>
-                `;
-                fragment.appendChild(card);
-            }
-        });
-
-        resultsContainer.appendChild(fragment);
-    }
-
     // Utility function to truncate text
     function truncate(text, maxLength) {
         return text.length > maxLength ?

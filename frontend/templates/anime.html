@@ -72,7 +72,6 @@
 {% if 'user_id' in session %}
 <script>
     let isFavorited = "{{ is_favourite }}" === "True";
-    let authorised = false;
     const videos = {{ anime.videos| tojson | safe }};
 
     console.log(videos)
