@@ -10,7 +10,7 @@
     <h1>{{ anime.title }}</h1>
     <img src="{{ anime.image_url }}" alt="{{ anime.title }}" style="max-width:300px;" />
     <p style="white-space: pre-line;">{{ anime.description }}</p>
-    <p>Episodes: {{ anime.episodes }}</p>
+    <p>Эпизоды: {{ anime.episodes }}</p>
     {% if 'user_id' in session %}
     <button id='fav-button' class='good-button' onclick="addOrRemoveFavourite()">
         Add to Favourite

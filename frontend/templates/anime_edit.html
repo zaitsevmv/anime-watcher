@@ -32,7 +32,7 @@
         {% endif %}
     </p>
 
-    <p>Episodes:
+    <p>Эпизоды:
         {% if 'user_id' in session and user_status > 1 %}
         <input type="number" id="episodes" class="editable" value="{{ anime.episodes }}" style="width: 60px;">
         {% else %}
@@ -42,14 +42,14 @@
 
     {% if 'user_id' in session and user_status > 2 %}
     <div class="video-upload-section">
-        <h3>Videos</h3>
+        <h3>Видео</h3>
         {% if anime.videos != [] %}
         <div class="video-upload-form">
             <h4>Delete</h4>
             <div class="existing-videos">
                 {% for video in anime.videos %}
                 <div class="video-item">
-                    <span>Episode {{ video }}</span>
+                    <span>Эпизод {{ video }}</span>
                     <button class="delete-video-btn bad-button" data-video-id="{{ video }}">Удалить</button>
                 </div>
                 {% endfor %}
