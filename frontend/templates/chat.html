@@ -7,19 +7,19 @@
     {% if user_banned == False %}
     <div class="chat-input">
         <input type="text" id="message-input" placeholder="Type your message...">
-        <button onclick="sendMessage()">Send</button>
+        <button onclick="sendMessage()">Отправить</button>
     </div>
     {% else %}
     <div class="chat-input blocked">
-        <input type="text" id="message-input" placeholder="You are banned from this chat" disabled>
+        <input type="text" id="message-input" placeholder="Вы были заблокированы в чате" disabled>
     </div>
     {% endif %}
 
     {% if user_status > 2 %}
     <div id="moderation-menu" class="moderation-menu" style="display: none;">
-        <button class="bad-button" onclick="banUser()">Ban User</button>
-        <button class="bad-button" onclick="deleteMessage()">Delete Message</button>
-        <button class="neutral-button" onclick="closeModMenu()">Cancel</button>
+        <button class="bad-button" onclick="banUser()">Забанить пользователя</button>
+        <button class="bad-button" onclick="deleteMessage()">Удалить сообщение</button>
+        <button class="neutral-button" onclick="closeModMenu()">Отмена</button>
     </div>
     {% endif %}
 </div>
@@ -58,7 +58,7 @@
                     });
                 }
             })
-            .catch(error => console.error("Error fetching messages:", error));
+            .catch(error => console.error("Ошибка получения сообщений:", error));
     }
 
     function sendMessage() {
@@ -73,7 +73,7 @@
                     document.getElementById('message-input').value = '';
                     fetchMessages();
                 } else {
-                    alert("Message not sent: " + data.error);
+                    alert("Ошибка отправки сообщения: " + data.error);
                 }
             });
     }
@@ -124,12 +124,12 @@
         }).then(response => response.json())
             .then(data => {
                 if (data.success) {
-                    alert(`User banned successfully`);
+                    alert(`Пользователь успешно заблокирован!`);
                     lastTimestamp = 0;
                     fetchMessages();
                     closeModMenu();
                 } else {
-                    alert("Ban failed: " + data.error);
+                    alert("Ошибка блокировки пользователя: " + data.error);
                 }
             });
     }
@@ -147,7 +147,7 @@
                     selectedMessage.element.remove();
                     closeModMenu();
                 } else {
-                    alert("Delete failed: " + data.error);
+                    alert("Ошибка удаления сообщения: " + data.error);
                 }
             });
     }
@@ -210,7 +210,7 @@
                     });
                 }
             })
-            .catch(error => console.error("Error fetching messages:", error));
+            .catch(error => console.error("Ошибка получения сообщений:", error));
     }
 
     function sendMessage() {
@@ -225,7 +225,7 @@
                     document.getElementById('message-input').value = '';
                     fetchMessages();
                 } else {
-                    alert("Message not sent: " + data.error);
+                    alert("Ошибка отправки сообщений: " + data.error);
                 }
             });
     }

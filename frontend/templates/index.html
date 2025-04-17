@@ -2,12 +2,12 @@
 
 {% block content %}
 <div id="welcome-text" class="anime-grid">
-    <p><h1>Welcome, {{ user_name }}!</h1></p>
+    <p><h1>Добро пожаловать, {{ user_name }}!</h1></p>
 </div>
 
 {% if user_status > 2 %}
 <section class="search-container">
-    <h1><a href="/anime/new/edit" class="anime-grid">Add anime</a></h1>
+    <h1><a href="/anime/new/edit" class="anime-grid">Добавить аниме</a></h1>
 </section>
 {% endif %}
 
@@ -21,11 +21,11 @@
 </section>
 
 <div id="name-edit" class="anime-grid">
-    <div id="name-display" style="color: #0d6ac7;cursor: pointer;">Change name</div>
+    <div id="name-display" style="color: #0d6ac7;cursor: pointer;">Изменить псевдоним</div>
     <form id="name-edit-form" style="display: none;">
         <input type="text" id="name-input">
-        <button type="button" class="good-button" id="save-edit">Save</button>
-        <button type="button" class="neutral-button" id="cancel-edit">Cancel</button>
+        <button type="button" class="good-button" id="save-edit">Сохранить</button>
+        <button type="button" class="neutral-button" id="cancel-edit">Отмена</button>
     </form>
 </div>
 
@@ -38,10 +38,10 @@ document.addEventListener("DOMContentLoaded", function () {
     const favouriteTextContainer = document.getElementById('favourite-text');
 
     if (!animeIds || animeIds.length === 0) {
-        favouriteTextContainer.innerHTML = "<p><h2>You have no favourite anime!</h2></p>";
+        favouriteTextContainer.innerHTML = "<p><h2>У вас нет любимых аниме</h2></p>";
         return;
     } else {
-        favouriteTextContainer.innerHTML = "<p><h2>Favourite anime</h2></p>";
+        favouriteTextContainer.innerHTML = "<p><h2>Любимые аниме</h2></p>";
     }
 
     let featuredRendered = false;
@@ -58,14 +58,14 @@ document.addEventListener("DOMContentLoaded", function () {
                     <h1><a href="/anime/${video_data.anime_id}" class="edit-button">${video_data.title}</a> - ep.${video_data.episode}</h1>
                     <video width="1100" controls>
                         <source src="/videos/${last_video}.mp4" type="video/mp4">
-                        Your browser does not support the video tag.
+                        Ваш браузер не поддерживает видео.
                     </video>
                 `;
             }
 
             if(animeIds){
                 favouriteTextContainer.innerHTML = `
-                    <h2>Favourite anime</h2>
+                    <h2>Любимое аниме</h2>
                 `;
             }
 
@@ -87,7 +87,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 resultsContainer.appendChild(animeCard);
             }
         } catch (error) {
-            console.error('Error fetching anime details:', error);
+            console.error('Ошибка получения аниме:', error);
         }
     };
 
@@ -126,12 +126,12 @@ document.addEventListener("DOMContentLoaded", function () {
                 welcomeDisplay.innerHTML = `<p><h1>Welcome, ${newName}!</h1></p>`;
                 nameDisplay.style.display = 'block';
                 nameEditForm.style.display = 'none';
-                alert('Name changed successfully!');
+                alert('Псевдоним успешно изменен!');
             } else {
-                alert('Error occured!');
+                alert('Ошибка изменения псевдонима');
             }
         } catch (error) {
-            console.error('Error changing name:', error);
+            console.error('Ошибка изменения псевдонима:', error);
         }
     }
 

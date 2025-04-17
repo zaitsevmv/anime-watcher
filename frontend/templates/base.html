@@ -9,16 +9,16 @@
 <body>
     <nav style="display: flex; justify-content: space-between; align-items: center;">
         <div>
-            <a href="/">Home</a>
-            <a href="/anime/search">Anime</a>
-            <a href="/chat">Chat</a>
+            <a href="/">Главная</a>
+            <a href="/anime/search">Поиск</a>
+            <a href="/chat">Чат</a>
         </div>
         <div>
             {% if 'user_id' in session %}
-            <a href="/logout">Logout</a>
+            <a href="/logout">Выйти</a>
             {% else %}
-            <a href="/login">Login</a>
-            <a href="/register">Register</a>
+            <a href="/login">Вход</a>
+            <a href="/register">Регистрация</a>
             {% endif %}
         </div>
     </nav>

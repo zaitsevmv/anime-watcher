@@ -23,7 +23,7 @@
     {% if anime.videos != [] %}
     <section class="video-container">
         <div class="episode-selector">
-            <label for="episode-dropdown">Select Episode:</label>
+            <label for="episode-dropdown">Выберите эпизод:</label>
             <select id="episode-dropdown" onchange="playSelectedVideo()">
                 {% for video in anime.videos %}
                 <option value="{{ loop.index0 }}">{{ video }}</option>
@@ -32,10 +32,10 @@
         </div>
 
         <div class="video-player" id="featured-anime">
-            <h3 id="video-title">Episode: {{ anime.videos[0] }}</h3>
+            <h3 id="video-title">Эпизод: {{ anime.videos[0] }}</h3>
             <video id="video-player" controls width="1100">
                 <source src="" type="video/mp4">
-                Your browser does not support the video tag.
+                Ваш браузер не поддерживает видео.
             </video>
         </div>
     </section>
@@ -55,7 +55,7 @@
         if (videos && videos[selectedIndex]) {
             curVideoId = `${ animeId }_${videos[selectedIndex]}`;
             videoPlayer.src = `/videos/${curVideoId}.mp4`;
-            videoTitle.textContent = `Episode: ${videos[selectedIndex]}`;
+            videoTitle.textContent = `Эпизод: ${videos[selectedIndex]}`;
             videoPlayer.load();
         }
     }
@@ -113,10 +113,10 @@
 
     function updateButton() {
         if (isFavorited) {
-            favButton.textContent = "Remove from Favourite";
+            favButton.textContent = "Удалить из Любимого";
             favButton.className = "bad-button";
         } else {
-            favButton.textContent = "Add to Favourite";
+            favButton.textContent = "Добавить в Любимое";
             favButton.className = "good-button";
         }
     }
@@ -129,7 +129,7 @@
         if (videos && videos[selectedIndex]) {
             curVideoId = `${ animeId }_${videos[selectedIndex]}`;
             videoPlayer.src = `/videos/${curVideoId}.mp4`;
-            videoTitle.textContent = `Episode: ${videos[selectedIndex]}`;
+            videoTitle.textContent = `Эпизод: ${videos[selectedIndex]}`;
             videoPlayer.load();
         }
     }
@@ -160,11 +160,11 @@
             .then(response => response.json())
             .then(data => {
                 if (!data.success) {
-                    console.error('Failed to save last video');
+                    console.error('Не удалось сохранить прогресс');
                 }
             })
             .catch(error => {
-                console.error('Error:', error);
+                console.error('Ошибка:', error);
             });
     }
 
