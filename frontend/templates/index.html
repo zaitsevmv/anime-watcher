@@ -37,32 +37,8 @@ document.addEventListener("DOMContentLoaded", function () {
     const featuredContainer = document.getElementById('featured-anime');
     const favouriteTextContainer = document.getElementById('favourite-text');
 
-    if (!animeIds || animeIds.length === 0) {
-        favouriteTextContainer.innerHTML = "<p><h2>У вас нет любимых аниме</h2></p>";
-        return;
-    } else {
-        favouriteTextContainer.innerHTML = "<p><h2>Любимые аниме</h2></p>";
-    }
-
-    let featuredRendered = false;
-
     const fetchAnimeDetails = async (animeIds) => {
         try {
-            const last_video = '{{ last_watched }}'
-
-            const response = await fetch(`/anime_by_video/${last_video}`);
-            const video_data = await response.json();
-
-            if (video_data.title) {
-                featuredContainer.innerHTML = `
-                    <h1><a href="/anime/${video_data.anime_id}" class="edit-button">${video_data.title}</a> - ep.${video_data.episode}</h1>
-                    <video width="1100" controls>
-                        <source src="/videos/${last_video}.mp4" type="video/mp4">
-                        Ваш браузер не поддерживает видео.
-                    </video>
-                `;
-            }
-
             if(animeIds){
                 favouriteTextContainer.innerHTML = `
                     <h2>Любимое аниме</h2>
@@ -90,6 +66,36 @@ document.addEventListener("DOMContentLoaded", function () {
             console.error('Ошибка получения аниме:', error);
         }
     };
+
+    const fetchLastVideo = async () => {
+        try {
+            const last_video = '{{ last_watched }}'
+
+            const response = await fetch(`/anime_by_video/${last_video}`);
+            const video_data = await response.json();
+
+            if (video_data.title) {
+                featuredContainer.innerHTML = `
+                    <h1><a href="/anime/${video_data.anime_id}" class="edit-button">${video_data.title}</a> - ep.${video_data.episode}</h1>
+                    <video width="1100" controls>
+                        <source src="/videos/${last_video}.mp4" type="video/mp4">
+                        Ваш браузер не поддерживает видео.
+                    </video>
+                `;
+            }
+        } catch (error) {
+            console.error('Ошибка получения последнего видео:', error);
+        }
+    };
+
+    fetchLastVideo();
+
+    if (!animeIds || animeIds.length === 0) {
+        favouriteTextContainer.innerHTML = "<p><h2>У вас нет любимых аниме</h2></p>";
+        return;
+    } else {
+        favouriteTextContainer.innerHTML = "<p><h2>Любимые аниме</h2></p>";
+    }
 
     fetchAnimeDetails(animeIds);
 
