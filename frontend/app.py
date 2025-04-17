@@ -294,7 +294,7 @@ def anime_edit_page(anime_id):
         if get_user_status(session['user_id']) <= 2:
             return render_template("login.html")
         default_path = "/images/anime/default.jpg"
-        anime_data = {'id': anime_id, 'title': 'title', 'description': 'description', 'episodes': 1, 'videos': [], 'image_url': default_path}
+        anime_data = {'id': anime_id, 'title': 'Заголовок', 'description': 'Описание', 'episodes': 1, 'videos': [], 'image_url': default_path}
         return render_template("anime_edit.html", anime=anime_data, user_status=get_user_status(session['user_id']))
     
     response = api_request('GET', f'anime/details?anime_id={anime_id}')
