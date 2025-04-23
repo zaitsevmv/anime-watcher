@@ -5,6 +5,8 @@ from functools import wraps
 from dotenv import load_dotenv
 from flask_session import Session
 from werkzeug.utils import secure_filename
+from prometheus_flask_exporter import PrometheusMetrics
+from prometheus_client import Counter
 import redis
 import bcrypt
 import os
@@ -26,6 +28,35 @@ server_session = Session(app)
 
 logging.basicConfig(filename="debug.log", level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
+metrics = PrometheusMetrics(app)
+
+new_videos_counter = Counter(
+    'new_videos_counter', 'Количество загруженных видео'
+)
+
+new_images_counter = Counter(
+    'new_images_counter', 'Количество отправленных сообщений'
+)
+
+new_users_counter = Counter(
+    'new_users_counter', 'Количество новых пользователей'
+)
+
+banned_users_counter = Counter(
+    'banned_users_counter', 'Количество заблокиррованных пользователей'
+)
+
+new_anime_counter = Counter(
+    'new_anime_counter', 'Количество добавленных аниме'
+)
+
+new_messages_counter = Counter(
+    'new_messages_counter', 'Количество отправленных сообщений'
+)
+
+deleted_messages_counter = Counter(
+    'deleted_messages_counter', 'Количество удаленных сообщений'
+)
 
 def hash_password(password):
     salt = bcrypt.gensalt()
@@ -140,6 +171,8 @@ def upload_anime_image():
         filepath = os.path.join(app.static_folder, 'images', 'anime', 'uploads', filename)
         file.save(filepath)
         
+        new_images_counter.inc()
+
         return jsonify({
             'success': True,
             'imageUrl': url_for('static', filename=f'images/anime/uploads/{filename}')
@@ -186,6 +219,7 @@ def upload_anime_video():
             'video_id': episode
         })
         if response and response.get('success'):
+            new_videos_counter.inc()
             return jsonify({"success": True})
         
         return jsonify({'success': False})
@@ -349,6 +383,9 @@ def update_anime():
                 dest_path = os.path.join(app.static_folder, 'images', 'anime', new_filename)
                 
                 shutil.move(src_path, dest_path)
+
+            new_anime_counter.inc()
+
             return jsonify({"success": True, "id": add_response.get('db_id', 'search')})
         return jsonify({"success": False})
     else:
@@ -478,7 +515,7 @@ def delete_anime():
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     if 'user_id' in session:
-        return render_template('index.html')
+        return redirect(url_for('index'))
     if request.method == 'POST':
         # API call to backend for authentication
         response = api_request('POST', 'auth/login', {
@@ -497,7 +534,7 @@ def login():
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if 'user_id' in session:
-        return render_template('index.html')
+        return redirect(url_for('index'))
     if request.method == 'POST':
         # API call to backend for user registration
         response = api_request('POST', 'auth/register', {
@@ -508,6 +545,7 @@ def register():
         
         if response and response.get('success'):
             session['user_id'] = response['user_id']
+            new_users_counter.inc()
             return redirect(url_for('index'))
     return render_template('register.html')
 
@@ -558,6 +596,7 @@ def ban_user():
         'flag': target_flag
     })
     if ban_response and ban_response.get('success'):
+        banned_users_counter.inc()
         return jsonify({'success': True})
     return jsonify({'success': False, 'error': 'Failed to ban user'}), 500
 
@@ -575,6 +614,7 @@ def delete_message():
         'message_id': message_id
     })
     if ban_response and ban_response.get('success'):
+        deleted_messages_counter.inc()
         return jsonify({'success': True})
     return jsonify({'success': False, 'error': 'Failed to delete message'}), 500
 
@@ -637,5 +677,6 @@ def send_message():
     })
 
     if response and response.get('success'):
+        messages_counter.inc()
         return jsonify({'success': True})
     return jsonify({'success': False, 'error': 'Failed to send message'}), 500
