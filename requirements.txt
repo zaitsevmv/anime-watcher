@@ -1,5 +1,6 @@
 flask
 flask_socketio
+flask_session
 requests
 dotenv
 zodb
@@ -7,3 +8,4 @@ persistent
 redis
 bs4
 bcrypt
+prometheus_flask_exporter
