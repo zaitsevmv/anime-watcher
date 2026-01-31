@@ -22,7 +22,7 @@ app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
 API_BASE_URL = os.getenv('API_BASE_URL')
 
 app.config['SESSION_TYPE'] = 'redis'
-app.config['SESSION_REDIS'] = redis.from_url('redis://127.0.0.1:6379')
+app.config['SESSION_REDIS'] = redis.from_url('redis://192.168.0.2:6379')
 
 server_session = Session(app)
 
