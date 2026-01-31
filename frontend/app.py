@@ -96,9 +96,10 @@ def index():
     favorite_anime_ids = fav_response.get('anime_ids', '[]') if fav_response and fav_response.get('success') else '[]'
     
     last_video_response = api_request('GET', f'users/last_video?user_id={user_id}')
-    last_video = last_video_response.get('last_video', '0') if last_video_response and last_video_response.get('success') else '0'
+    last_video_id = last_video_response.get('last_video_id', '0') if last_video_response and last_video_response.get('success') else '0'
+    last_video_ts = last_video_response.get('last_video_timestamp_ms', 0) if last_video_response and last_video_response.get('success') else 0
 
-    return render_template('index.html', anime_ids=json.loads(favorite_anime_ids), last_watched=last_video, user_name=get_username(user_id), user_id=user_id, user_status=get_user_status(user_id))
+    return render_template('index.html', anime_ids=json.loads(favorite_anime_ids), last_watched=last_video, timestamp_ms=last_video_ts, user_name=get_username(user_id), user_id=user_id, user_status=get_user_status(user_id))
 
 
 @app.route('/update_name', methods=['POST'])
@@ -128,7 +129,8 @@ def update_last_video():
     data = request.get_json()
     response = api_request('POST', 'users/last_video/set', data={
         'user_id': data.get('user_id', ''),
-        'video_id': data.get('video_id', '')
+        'video_id': data.get('video_id', ''),
+        'timestamp_s': data.get('timestamp_s', 0)
     })
     if response and response.get('success'):
         return jsonify({"success": True})

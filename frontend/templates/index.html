@@ -55,11 +55,20 @@ document.addEventListener("DOMContentLoaded", function () {
             if (video_data.title) {
                 featuredContainer.innerHTML = `
                     <h1><a href="/anime/${video_data.anime_id}" class="edit-button">${video_data.title}</a> - эп.${video_data.episode}</h1>
-                    <video width="1100" controls>
+                    <video id="video-player" width="1100" controls>
                         <source src="/videos/${last_video}.mp4" type="video/mp4">
                         Ваш браузер не поддерживает видео.
                     </video>
                 `;
+
+                const video = document.getElementById('video-player');
+
+                video.addEventListener('loadedmetadata', () => {
+                    const savedTime = '{{ timestamp_ms }}';
+                    if (savedTime !== 0) {
+                        video.currentTime = savedTime;
+                    }
+                });
             }
             if(animeIds){
                 favouriteTextContainer.innerHTML = `
@@ -99,11 +108,20 @@ document.addEventListener("DOMContentLoaded", function () {
             if (video_data.title) {
                 featuredContainer.innerHTML = `
                     <h1><a href="/anime/${video_data.anime_id}" class="edit-button">${video_data.title}</a> - эп.${video_data.episode}</h1>
-                    <video width="1100" controls>
+                    <video id="video-player" width="1100" controls>
                         <source src="/videos/${last_video}.mp4" type="video/mp4">
                         Ваш браузер не поддерживает видео.
                     </video>
                 `;
+
+                const video = document.getElementById('video-player');
+
+                video.addEventListener('loadedmetadata', () => {
+                    const savedTime = '{{ timestamp_ms }}';
+                    if (savedTime !== 0) {
+                        video.currentTime = savedTime;
+                    }
+                });
             }
         } catch (error) {
             console.error('Ошибка получения последнего видео:', error);

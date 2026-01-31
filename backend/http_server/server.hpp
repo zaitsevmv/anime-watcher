@@ -15,7 +15,6 @@
 #include <boost/beast/http.hpp>
 #include <boost/beast/http/fields.hpp>
 #include <boost/beast/http/message.hpp>
-#include <boost/beast/http/message_fwd.hpp>
 #include <boost/beast/http/parser.hpp>
 #include <boost/beast/http/string_body.hpp>
 #include <boost/beast/version.hpp>

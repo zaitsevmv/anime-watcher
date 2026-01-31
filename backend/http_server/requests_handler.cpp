@@ -257,12 +257,24 @@ std::optional<std::string> get_user_favourites(std::shared_ptr<UserDataDB> db, c
     return boost::json::serialize(jv.at("favourite_anime"));
 }
 
-std::optional<std::string> get_user_last_video(std::shared_ptr<UserDataDB> db, const std::string& user_id){
+struct last_video {
+    std::string video_id;
+    uint64_t timestamp_s = 0;
+};
+
+std::optional<last_video> get_user_last_video(std::shared_ptr<UserDataDB> db, const std::string& user_id){
     auto user_data = db->GetUser(user_id);
     if(!user_data.has_value()) return std::nullopt;
     auto jv = boost::json::parse(*user_data).as_object();
-    if(!jv.contains("last_video")) return std::nullopt;
-    return jv.at("last_video").as_string().c_str();
+    if(!jv.contains("last_video") || !jv.at("last_video").as_object().contains("video_id")) return std::nullopt;
+    last_video video_struct;
+    if (jv.at("last_video").at("video_id").is_string()) {
+        video_struct.video_id = jv.at("last_video").as_string().c_str();
+    }
+    if (jv.at("last_video").at("video_id").is_uint64()) {
+        video_struct.timestamp_s = jv.at("last_video").as_uint64();
+    }
+    return video_struct;
 }
 
 std::optional<std::string> get_user_name(std::shared_ptr<UserDataDB> db, const std::string& user_id){
@@ -278,8 +290,11 @@ bool set_user_name(std::shared_ptr<UserDataDB> db, const std::string& user_id, c
     return (res.has_value() && *res == 1);
 }
 
-bool set_user_last_video(std::shared_ptr<UserDataDB> db, const std::string& user_id, const std::string& video_id){
-    auto res = db->ChangeLastVideo(user_id, video_id);
+bool set_user_last_video(std::shared_ptr<UserDataDB> db, const std::string& user_id, const std::string& video_id, const uint64_t timestamp){
+    boost::json::object last_video;
+    last_video["video_id"] = video_id;
+    last_video["timestamp_s"] = timestamp;
+    auto res = db->ChangeLastVideo(user_id, boost::json::serialize(last_video));
     return (res.has_value() && *res == 1);
 }
 
@@ -521,7 +536,8 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
                     boost::json::object response_object;
                     response_object["success"] = res.has_value();
                     if(res){
-                        response_object["last_video"] = *res;
+                        response_object["last_video_id"] = (*res).video_id;
+                        response_object["last_video_timestamp_s"] = (*res).timestamp_s;
                     }
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
                 } else{
@@ -770,7 +786,8 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                     auto res = set_user_last_video(
                         user_data_db_, 
                         jv.at("user_id").as_string().c_str(),
-                        jv.at("video_id").as_string().c_str()
+                        jv.at("video_id").as_string().c_str(),
+                        jv.at("timestamp_s").as_uint64()
                     );
                     std::cout << "Last video set result: " << res << std::endl;
                     boost::json::object response_object;
@@ -851,10 +868,10 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                     && jv.as_object().contains("videos")
                     && jv.as_object().contains("episodes"))
                 {
-                    auto anime_id = jv.as_object().at("id").try_as_string();
-                    if(!anime_id.has_value()){
+                    if(!jv.as_object().at("id").is_string()){
                         send_text_response(http::status::bad_request, "Bad request");
                     }
+                    auto anime_id = jv.as_object().at("id").as_string();
                     boost::json::object anime_data;
                     anime_data["title"] = jv.as_object().at("title"); 
                     anime_data["description"] = jv.as_object().at("description"); 
@@ -862,7 +879,7 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                     anime_data["episodes"] = jv.as_object().at("episodes"); 
                     auto res = update_anime(
                         anime_db_, 
-                        anime_id->c_str(),
+                        anime_id.c_str(),
                         boost::json::serialize(anime_data)
                     );
                     std::cout << "Anime update result: " << res.has_value() << std::endl;
@@ -870,8 +887,8 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                     if(res){
                         boost::json::object anime_brief;
                         anime_brief["title"] = jv.as_object().at("title");
-                        anime_brief["anime_id"] = *anime_id;
-                        auto idx_id = get_index_id(anime_search_db_, anime_id->c_str());
+                        anime_brief["anime_id"] = anime_id;
+                        auto idx_id = get_index_id(anime_search_db_, anime_id.c_str());
                         if(idx_id){
                             boost::json::object idx_data;
                             idx_data["doc"] = anime_brief;
@@ -900,18 +917,18 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                 auto jv = boost::json::parse(body);
                 if(jv.as_object().contains("id"))
                 {
-                    auto anime_id = jv.as_object().at("id").try_as_string();
-                    if(!anime_id.has_value()){
+                    if(!jv.as_object().at("id").is_string()){
                         send_text_response(http::status::bad_request, "Bad request");
                     }
+                    auto anime_id = jv.as_object().at("id").as_string();
                     auto res = delete_anime(
                         anime_db_, 
-                        anime_id->c_str()
+                        anime_id.c_str()
                     );
                     std::cout << "Anime delete result: " << res << std::endl;
                     boost::json::object response_object;
                     if(res){
-                        auto idx_id = get_index_id(anime_search_db_, anime_id->c_str());
+                        auto idx_id = get_index_id(anime_search_db_, anime_id.c_str());
                         if(idx_id){
                             auto idx_result = delete_indexed_anime(
                                 anime_search_db_, 

@@ -138,6 +138,7 @@
             const videoPlayer = document.getElementById('video-player');
             if (userId != '') {
                 videoPlayer.addEventListener('play', saveLastWatched);
+                videoPlayer.addEventListener("visibilitychange", saveLastWatched);
             }
             playSelectedVideo();
         }
@@ -146,7 +147,8 @@
     function saveLastWatched() {
         const data = {
             user_id: userId,
-            video_id: curVideoId
+            video_id: curVideoId,
+            timestamp_s: document.getElementById('video-player').currentTime
         };
 
         fetch('/update_last_video', {
