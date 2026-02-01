@@ -38,6 +38,8 @@ const debounce = (func, delay = 300) => {
     };
 };
 
+let last_video_id = "";
+
 document.addEventListener("DOMContentLoaded", function () {
     const animeIds = JSON.parse('{{ anime_ids| tojson | safe}}');
 
@@ -101,6 +103,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const fetchLastVideo = debounce(async () => {
         try {
             const last_video = '{{ last_watched }}'
+            last_video_id = last_video;
 
             const response = await fetch(`/anime_by_video/${last_video}`);
             const video_data = await response.json();
@@ -117,7 +120,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 const video = document.getElementById('video-player');
 
                 video.addEventListener('loadedmetadata', () => {
-                    const savedTime = '{{ timestamp_ms }}';
+                    const savedTime = {{ timestamp_s }};
                     if (savedTime !== 0) {
                         video.currentTime = savedTime;
                     }
@@ -192,5 +195,34 @@ document.addEventListener("DOMContentLoaded", function () {
     });
     
 });
+
+setInterval(() => {
+    const videoPlayer = document.getElementById('video-player');
+
+    if (!videoPlayer.paused && !isNaN(videoPlayer.currentTime)) {
+        const data = {
+            user_id: "{{ user_id }}",
+            video_id: last_video_id,
+            timestamp_s: videoPlayer.currentTime
+        };
+
+        fetch('/update_last_video', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(data)
+        })
+            .then(response => response.json())
+            .then(data => {
+                if (!data.success) {
+                    console.error('Не удалось сохранить прогресс');
+                }
+            })
+            .catch(error => {
+                console.error('Ошибка:', error);
+            });
+    }
+}, 2000);
 </script>
 {% endblock %}

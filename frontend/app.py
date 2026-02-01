@@ -13,16 +13,17 @@ import os
 import time
 import logging
 import json
+import math
 
 
 load_dotenv()
 
 app = Flask(__name__, static_folder='static')
 app.config['SECRET_KEY'] = os.getenv('FLASK_SECRET_KEY')
-API_BASE_URL = os.getenv('API_BASE_URL')
+API_BASE_URL = 'http://192.168.0.10:8080'
 
 app.config['SESSION_TYPE'] = 'redis'
-app.config['SESSION_REDIS'] = redis.from_url('redis://192.168.0.2:6379')
+app.config['SESSION_REDIS'] = redis.from_url('redis://192.168.0.10:6379')
 
 server_session = Session(app)
 
@@ -97,9 +98,9 @@ def index():
     
     last_video_response = api_request('GET', f'users/last_video?user_id={user_id}')
     last_video_id = last_video_response.get('last_video_id', '0') if last_video_response and last_video_response.get('success') else '0'
-    last_video_ts = last_video_response.get('last_video_timestamp_ms', 0) if last_video_response and last_video_response.get('success') else 0
+    last_video_ts = last_video_response.get('last_video_timestamp_s', 0) if last_video_response and last_video_response.get('success') else 0
 
-    return render_template('index.html', anime_ids=json.loads(favorite_anime_ids), last_watched=last_video, timestamp_ms=last_video_ts, user_name=get_username(user_id), user_id=user_id, user_status=get_user_status(user_id))
+    return render_template('index.html', anime_ids=json.loads(favorite_anime_ids), last_watched=last_video_id, timestamp_s=last_video_ts, user_name=get_username(user_id), user_id=user_id, user_status=get_user_status(user_id))
 
 
 @app.route('/update_name', methods=['POST'])
@@ -115,7 +116,7 @@ def update_name():
     if response and response.get('success'):
         user_name = data.get('name', '')
         user_id = data.get('user_id', '')
-        redis_conn = redis.from_url('redis://127.0.0.1:6379')
+        redis_conn = redis.from_url('redis://192.168.0.10:6379')
         redis_conn.set(f"user:{user_id}:name", user_name)
         return jsonify({"success": True})
     return jsonify({"success": False})
@@ -130,7 +131,7 @@ def update_last_video():
     response = api_request('POST', 'users/last_video/set', data={
         'user_id': data.get('user_id', ''),
         'video_id': data.get('video_id', ''),
-        'timestamp_s': data.get('timestamp_s', 0)
+        'timestamp_s': math.floor(data.get('timestamp_s', 0))
     })
     if response and response.get('success'):
         return jsonify({"success": True})
@@ -568,7 +569,7 @@ def chat():
 def get_username(user_id):
     if 'user_id' not in session:
         return jsonify({'success': False, 'error': 'Unauthorized'}), 403
-    redis_conn = redis.from_url('redis://127.0.0.1:6379')
+    redis_conn = app.config['SESSION_REDIS']
     username = redis_conn.get(f"user:{user_id}:name")
     if username:
         return username.decode('utf-8')

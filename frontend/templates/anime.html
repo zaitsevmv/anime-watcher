@@ -170,6 +170,14 @@
     }
 
     updateButton();
+
+    const videoPlayer = document.getElementById('video-player');
+
+    setInterval(() => {
+        if (!videoPlayer.paused && !isNaN(videoPlayer.currentTime)) {
+            saveLastWatched();
+        }
+    }, 2000);
 </script>
 {% endif %}
 
