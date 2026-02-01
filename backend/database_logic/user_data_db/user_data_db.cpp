@@ -65,10 +65,10 @@ std::optional<int32_t> UserDataDB::ChangeUserName(const std::string& user_id,  c
     return std::nullopt;
 }
 
-std::optional<int32_t> UserDataDB::ChangeLastVideo(const std::string& user_id,  const std::string& last_video) {
+std::optional<int32_t> UserDataDB::ChangeLastVideo(const std::string& user_id,  const std::string& last_video_json) {
     auto result = collection.update_one(
         SearchFilter("_id", user_id).get(), 
-        SetFieldFilter("last_video", last_video).get()
+        SetFieldFilter("last_video", bsoncxx::from_json(last_video_json).view()).get()
     );
     if(result){
         return (*result).modified_count();

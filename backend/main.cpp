@@ -11,12 +11,12 @@ int main(int argc, char* argv[])
 {
     try
     {
-        auto animedb = std::make_shared<AnimeDB>("test1_db", "anime");
-        auto user_data_db = std::make_shared<UserDataDB>("test1_db", "users2");
-        auto chat_db = std::make_shared<ChatDB>("test1_db", "chat_test3");
-        auto anime_search_db = std::make_shared<AnimeSearchDB>("anime_test_en11");
+        auto animedb = std::make_shared<AnimeDB>("anime_db", "anime");
+        auto user_data_db = std::make_shared<UserDataDB>("anime_db", "users");
+        auto chat_db = std::make_shared<ChatDB>("anime_db", "chat");
+        auto anime_search_db = std::make_shared<AnimeSearchDB>("anime_db");
 
-        auto const address = boost::asio::ip::make_address("127.0.0.1");
+        auto const address = boost::asio::ip::make_address("192.168.0.10");
         unsigned short port = static_cast<unsigned short>(8080);
         int num_workers = 3;
         bool spin = true;
