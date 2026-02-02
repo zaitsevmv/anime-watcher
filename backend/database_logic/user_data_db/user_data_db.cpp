@@ -76,6 +76,17 @@ std::optional<int32_t> UserDataDB::ChangeLastVideo(const std::string& user_id,  
     return std::nullopt;
 }
 
+std::optional<int32_t> UserDataDB::AddVideoToHistory(const std::string& user_id, const std::string& anime_id, const std::string& last_video_json) {
+    auto result = collection.update_one(
+        SearchFilter("_id", user_id).get(), 
+        SetFieldFilter(std::string("history." + anime_id), bsoncxx::from_json(last_video_json).view()).get()
+    );
+    if(result){
+        return (*result).modified_count();
+    }
+    return std::nullopt;
+}
+
 std::optional<int32_t> UserDataDB::AddUserFavourite(const std::string& user_id, const std::string& anime_id) {
     auto result = collection.update_one(
         SearchFilter("_id", user_id).get(), 

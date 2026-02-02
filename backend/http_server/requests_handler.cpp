@@ -7,6 +7,7 @@
 #include <cstdint>
 #include <memory>
 #include <optional>
+#include <string_view>
 #include <type_traits>
 #include <vector>
 
@@ -32,6 +33,7 @@ enum class req_targets: uint32_t{
     del = 0x0e00,
     ban = 0x0f00,
     video = 0x1000,
+    history = 0x1100,
 
     after = 0x010000,
     query = 0x020000,
@@ -119,7 +121,9 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
         else if(tr == "delete") 
             encoded ^= toUType(req_targets::del);
         else if(tr == "favourites") 
-            encoded ^= toUType(req_targets::fav); 
+            encoded ^= toUType(req_targets::fav);
+        else if(tr == "history") 
+            encoded ^= toUType(req_targets::history);
         else if(tr == "update") 
             encoded ^= toUType(req_targets::update); 
         else if(tr == "send") 
@@ -161,6 +165,8 @@ EndpointStruct convert_endpoint(const std::string_view& endpoint){
             encoded ^= toUType(req_targets::brief);
         else if(lhs == "favourites")
             encoded ^= toUType(req_targets::fav);
+        else if(lhs == "history") 
+            encoded ^= toUType(req_targets::history);
         else if(lhs == "name") 
             encoded ^= toUType(req_targets::name);
         else if(lhs == "last_video")
@@ -257,6 +263,14 @@ std::optional<std::string> get_user_favourites(std::shared_ptr<UserDataDB> db, c
     return boost::json::serialize(jv.at("favourite_anime"));
 }
 
+std::optional<std::string> get_user_history(std::shared_ptr<UserDataDB> db, const std::string& user_id){
+    auto user_data = db->GetUser(user_id);
+    if(!user_data.has_value()) return std::nullopt;
+    auto jv = boost::json::parse(*user_data).as_object();
+    if(!jv.contains("history")) return std::nullopt;
+    return boost::json::serialize(jv.at("history"));
+}
+
 struct last_video {
     std::string video_id;
     int64_t timestamp_s = 0;
@@ -294,8 +308,15 @@ bool set_user_last_video(std::shared_ptr<UserDataDB> db, const std::string& user
     boost::json::object last_video;
     last_video["video_id"] = video_id;
     last_video["timestamp_s"] = timestamp;
-    auto res = db->ChangeLastVideo(user_id, boost::json::serialize(last_video));
-    return (res.has_value() && *res == 1);
+    auto res_last_video = db->ChangeLastVideo(user_id, boost::json::serialize(last_video));
+    std::string anime_id = video_id.substr(0, video_id.rfind('_'));
+    int32_t episode_num = std::stoi(video_id.substr(video_id.rfind('_')+1));
+    boost::json::object history_video;
+    history_video["episode_number"] = episode_num;
+    history_video["video_id"] = video_id;
+    history_video["timestamp_s"] = timestamp;
+    auto res_history = db->AddVideoToHistory(user_id, anime_id, boost::json::serialize(history_video));
+    return (res_last_video.has_value() && *res_history == 1);
 }
 
 std::optional<bool> get_user_banned(std::shared_ptr<UserDataDB> db, const std::string& user_id){
@@ -519,6 +540,25 @@ void http_worker::process_get_request(const http::request<request_body_t, http::
                     response_object["success"] = res.has_value();
                     if(res){
                         response_object["anime_ids"] = *res;
+                    }
+                    send_json_response(http::status::ok, boost::json::serialize(response_object));
+                } else{
+                    send_text_response(http::status::bad_request, "Bad request");
+                }
+            }
+            break;
+        case (toUType(req_targets::users) | toUType(req_targets::history) | toUType(req_targets::user_id)):
+            {
+                if(endpoint.data.has_value()){
+                    auto res = get_user_history(
+                        user_data_db_, 
+                        *endpoint.data
+                    );
+                    std::cout << "History get result: " << res.has_value() << std::endl;
+                    boost::json::object response_object;
+                    response_object["success"] = res.has_value();
+                    if(res){
+                        response_object["history"] = *res;
                     }
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
                 } else{
