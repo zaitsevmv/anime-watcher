@@ -14,7 +14,7 @@
 #include <filesystem>
 
 BaseMongoDB::BaseMongoDB(const std::string& db_name, const std::string& collection_name)
-    : client(mongocxx::uri("mongodb://admin:secret@localhost:27017"))
+    : client(mongocxx::uri("mongodb://admin:secret@192.168.0.10:27017"))
 {
     if(client[db_name].has_collection(collection_name)){
         collection = client[db_name][collection_name];

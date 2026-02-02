@@ -259,7 +259,7 @@ std::optional<std::string> get_user_favourites(std::shared_ptr<UserDataDB> db, c
 
 struct last_video {
     std::string video_id;
-    uint64_t timestamp_s = 0;
+    int64_t timestamp_s = 0;
 };
 
 std::optional<last_video> get_user_last_video(std::shared_ptr<UserDataDB> db, const std::string& user_id){
@@ -269,10 +269,10 @@ std::optional<last_video> get_user_last_video(std::shared_ptr<UserDataDB> db, co
     if(!jv.contains("last_video") || !jv.at("last_video").as_object().contains("video_id")) return std::nullopt;
     last_video video_struct;
     if (jv.at("last_video").at("video_id").is_string()) {
-        video_struct.video_id = jv.at("last_video").as_string().c_str();
+        video_struct.video_id = jv.at("last_video").at("video_id").as_string().c_str();
     }
-    if (jv.at("last_video").at("video_id").is_uint64()) {
-        video_struct.timestamp_s = jv.at("last_video").as_uint64();
+    if (jv.at("last_video").as_object().contains("timestamp_s") && jv.at("last_video").at("timestamp_s").is_int64()) {
+        video_struct.timestamp_s = jv.at("last_video").at("timestamp_s").as_int64();
     }
     return video_struct;
 }
@@ -290,7 +290,7 @@ bool set_user_name(std::shared_ptr<UserDataDB> db, const std::string& user_id, c
     return (res.has_value() && *res == 1);
 }
 
-bool set_user_last_video(std::shared_ptr<UserDataDB> db, const std::string& user_id, const std::string& video_id, const uint64_t timestamp){
+bool set_user_last_video(std::shared_ptr<UserDataDB> db, const std::string& user_id, const std::string& video_id, const int64_t timestamp){
     boost::json::object last_video;
     last_video["video_id"] = video_id;
     last_video["timestamp_s"] = timestamp;
@@ -614,25 +614,30 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
     switch (endpoint.target) {
         case (toUType(req_targets::auth) | toUType(req_targets::login)):
             {
+                std::cout << "start" << std::endl;
                 auto jv = boost::json::parse(body);
                 if(jv.as_object().contains("login")){
                     UserDataForm login_form;
                     login_form.login = jv.at("login").as_string().c_str();
+                    std::cout << "got login" << std::endl;
 
                     auto res = user_password_and_id(
                         user_data_db_, 
                         login_form
                     );
+                    std::cout << "got login" << std::endl;
                     boost::json::object response_object;
                     response_object["success"] = res.has_value();
                     if(res){
                         response_object["hashed_password"] = (*res).first;
                         response_object["user_id"] = (*res).second;
                     }
+                    std::cout << "sending response login" << std::endl;
                     send_json_response(http::status::ok, boost::json::serialize(response_object));
                 } else{
                     send_text_response(http::status::bad_request, "Bad request");
                 }
+                std::cout << "end" << std::endl;
             }
             break;
         case (toUType(req_targets::auth) | toUType(req_targets::reg)):
@@ -787,7 +792,7 @@ void http_worker::process_post_request(const http::request<request_body_t, http:
                         user_data_db_, 
                         jv.at("user_id").as_string().c_str(),
                         jv.at("video_id").as_string().c_str(),
-                        jv.at("timestamp_s").as_uint64()
+                        jv.at("timestamp_s").as_int64()
                     );
                     std::cout << "Last video set result: " << res << std::endl;
                     boost::json::object response_object;

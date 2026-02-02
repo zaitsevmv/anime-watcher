@@ -22,7 +22,7 @@ AnimeSearchDB::AnimeSearchDB(const std::string& name)
      db_name(name) 
 {
     curl_global_init(CURL_GLOBAL_DEFAULT);
-    std::string url = "localhost:9200/" + db_name + "?pretty";
+    std::string url = "192.168.0.10:9200/" + db_name + "?pretty";
     curl_easy_setopt(curl.get(),CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, WriteCallback);
     std::string curl_buffer;
@@ -30,6 +30,7 @@ AnimeSearchDB::AnimeSearchDB(const std::string& name)
     curl_easy_setopt(curl.get(), CURLOPT_CUSTOMREQUEST, "PUT");
     
     auto result = curl_easy_perform(curl.get());
+    std::cout << curl_buffer << std::endl;
     auto jv = boost::json::parse(curl_buffer);
     if(jv.as_object().contains("error")) {
         if(boost::json::serialize(
@@ -46,7 +47,7 @@ AnimeSearchDB::AnimeSearchDB(const std::string& name)
 }
 
 std::optional<int32_t> AnimeSearchDB::AddAnime(const std::string& anime_data_json) {
-    std::string url = "http://localhost:9200/" + db_name + "/_doc";
+    std::string url = "http://192.168.0.10:9200/" + db_name + "/_doc";
     curl_easy_setopt(curl.get(), CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl.get(), CURLOPT_CUSTOMREQUEST, "POST");
     curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, WriteCallback);
@@ -71,7 +72,7 @@ std::optional<int32_t> AnimeSearchDB::AddAnime(const std::string& anime_data_jso
 }
 
 std::optional<int32_t> AnimeSearchDB::DeleteAnime(const std::string& anime_id) {
-    std::string url = "http://localhost:9200/" + db_name + "/_doc/" + anime_id;
+    std::string url = "http://192.168.0.10:9200/" + db_name + "/_doc/" + anime_id;
     curl_easy_setopt(curl.get(), CURLOPT_CUSTOMREQUEST, "DELETE");
     curl_easy_setopt(curl.get(), CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, WriteCallback);
@@ -92,7 +93,7 @@ std::optional<int32_t> AnimeSearchDB::DeleteAnime(const std::string& anime_id) {
 }
 
 std::optional<std::string> AnimeSearchDB::SearchAnime(const std::string& search_request) {
-    std::string url = "http://localhost:9200/" + db_name + "/_search?pretty";
+    std::string url = "http://192.168.0.10:9200/" + db_name + "/_search?pretty";
     std::string json_data = "{\"query\":{\"match_phrase_prefix\":{\"title\":\"" + search_request + "\"}}, \"size\": 20}";
 
     struct curl_slist* headers = nullptr;
@@ -120,7 +121,7 @@ std::optional<std::string> AnimeSearchDB::SearchAnime(const std::string& search_
 }
 
 std::optional<std::string> AnimeSearchDB::SearchAnimeId(const std::string& search_request) {
-    std::string url = "http://localhost:9200/" + db_name + "/_search?pretty";
+    std::string url = "http://192.168.0.10:9200/" + db_name + "/_search?pretty";
     std::string json_data = "{\"query\":{\"match\":{\"anime_id\":\"" + search_request + "\"}}}";
 
     struct curl_slist* headers = nullptr;
@@ -148,7 +149,7 @@ std::optional<std::string> AnimeSearchDB::SearchAnimeId(const std::string& searc
 }
 
 std::optional<std::string> AnimeSearchDB::GetAllAnime() {
-    std::string url = "http://localhost:9200/" + db_name + "/_search?pretty=true&q=*:*&size=10000";
+    std::string url = "http://192.168.0.10:9200/" + db_name + "/_search?pretty=true&q=*:*&size=10000";
 
     struct curl_slist *headers = nullptr;
     headers = curl_slist_append(headers, "Content-Type: application/json");
@@ -176,7 +177,7 @@ std::optional<std::string> AnimeSearchDB::GetAllAnime() {
 }
 
 std::optional<int32_t> AnimeSearchDB::UpdateAnime(const std::string& anime_id, const std::string& anime_data_json) {
-    std::string url = "http://localhost:9200/" + db_name + "/_update/" + anime_id;
+    std::string url = "http://192.168.0.10:9200/" + db_name + "/_update/" + anime_id;
     curl_easy_setopt(curl.get(), CURLOPT_URL, url.c_str());
     curl_easy_setopt(curl.get(), CURLOPT_CUSTOMREQUEST, "POST");
     curl_easy_setopt(curl.get(), CURLOPT_WRITEFUNCTION, WriteCallback);

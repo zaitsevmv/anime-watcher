@@ -31,7 +31,7 @@ protected:
 
     std::optional<std::string> UpdateDocument(const SearchFilter& filter, const std::string& new_data_json);
 
-    static mongocxx::instance instance;
+    inline static mongocxx::instance instance{};
     mongocxx::collection collection;
     mongocxx::client client;
 };
