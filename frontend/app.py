@@ -317,7 +317,7 @@ def anime_page(anime_id):
         status = status_response.get('status', 0) if status_response and status_response.get('success') else 0
         
         is_fav = is_favourite(anime_id)
-        user_anime_history = user_anime_history(anime_id)
+        user_anime_history = get_user_anime_history(anime_id)
     else:
         status = 0
         is_fav = False
@@ -431,13 +431,14 @@ def is_favourite(anime_id):
     return anime_id in data
 
 
-def user_anime_history(anime_id):
+def get_user_anime_history(anime_id):
     user_id = session['user_id']
     history_response = api_request('GET', f'users/history?user_id={user_id}')
-    anime_history = history_response.get(anime_id, None) if history_response and history_response.get('success') else None
-    
+    anime_history = history_response.get('history', {}) if history_response and history_response.get('success') else None
+    if anime_history is None:
+        return None
     data = json.loads(anime_history)
-    return data
+    return data.get(anime_id, None)
 
 
 @app.route('/add_favourite', methods=['POST'])
