@@ -171,6 +171,14 @@
 
     updateButton();
 
+    const user_anime_history = {{ user_anime_history | tojson | safe }};
+    if (user_anime_history !== null) {
+        document.getElementById('episode-dropdown').value = user_anime_history['episode_number']-1;
+        document.getElementById('video-title').textContent = `Эпизод: ${videos[user_anime_history['episode_number']-1]}`;
+        document.getElementById('video-player').src = `/videos/${user_anime_history['video_id']}.mp4`;
+        document.getElementById('video-player').currentTime = user_anime_history['timestamp_s'];
+    }
+
     const videoPlayer = document.getElementById('video-player');
 
     setInterval(() => {
