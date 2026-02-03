@@ -58,12 +58,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 featuredContainer.innerHTML = `
                     <h1><a href="/anime/${video_data.anime_id}" class="edit-button">${video_data.title}</a> - эп.${video_data.episode}</h1>
                     <video id="video-player" width="1100" controls>
-                        <source src="/videos/${last_video}.mp4" type="video/mp4">
+                        <source src="" type="video/mp4">
                         Ваш браузер не поддерживает видео.
                     </video>
                 `;
 
                 const video = document.getElementById('video-player');
+                const video_link_response = await fetch(`/videos/${last_video}`);
+                const video_link = await video_link_response.json()
+
+                if (video_link.success) {
+                    video.src = video_link.link;
+                }
 
                 video.addEventListener('loadedmetadata', () => {
                     const savedTime = '{{ timestamp_ms }}';
@@ -112,13 +118,18 @@ document.addEventListener("DOMContentLoaded", function () {
                 featuredContainer.innerHTML = `
                     <h1><a href="/anime/${video_data.anime_id}" class="edit-button">${video_data.title}</a> - эп.${video_data.episode}</h1>
                     <video id="video-player" width="1100" controls>
-                        <source src="/videos/${last_video}.mp4" type="video/mp4">
+                        <source src="" type="video/mp4">
                         Ваш браузер не поддерживает видео.
                     </video>
                 `;
 
                 const video = document.getElementById('video-player');
+                const video_link_response = await fetch(`/videos/${last_video}`);
+                const video_link = await video_link_response.json()
 
+                if (video_link.success) {
+                    video.src = video_link.link;
+                }
                 video.addEventListener('loadedmetadata', () => {
                     const savedTime = {{ timestamp_s }};
                     if (savedTime !== 0) {

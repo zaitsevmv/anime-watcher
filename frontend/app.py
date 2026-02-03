@@ -14,6 +14,7 @@ import time
 import logging
 import json
 import math
+import boto3
 
 
 load_dotenv()
@@ -26,6 +27,8 @@ app.config['SESSION_TYPE'] = 'redis'
 app.config['SESSION_REDIS'] = redis.from_url('redis://192.168.0.10:6379')
 
 server_session = Session(app)
+
+S3_BUCKET = '9c17126d-52b4-4e27-96f6-e7f494ab8baf'
 
 logging.basicConfig(filename="debug.log", level=logging.DEBUG, format="%(asctime)s - %(levelname)s - %(message)s")
 
@@ -59,6 +62,10 @@ deleted_messages_counter = Counter(
     'deleted_messages_counter', 'Количество удаленных сообщений'
 )
 
+s3_session = boto3.Session()
+s3_endpoint = 'https://s3.twcstorage.ru'
+s3 = s3_session.client('s3', endpoint_url=s3_endpoint)
+
 def hash_password(password):
     salt = bcrypt.gensalt()
     hashed_password = bcrypt.hashpw(password.encode('utf-8'), salt)
@@ -75,7 +82,12 @@ def login_required(f):
 
 
 def check_file(path):
-    return os.path.exists(app.static_folder + path)
+    try:
+        s3.head_object(Bucket=S3_BUCKET, Key=path)
+        return True
+    except Exception as e:
+        return False
+    return False
 
 
 def api_request(method, endpoint, data=None, headers=None):
@@ -138,7 +150,7 @@ def update_last_video():
     return jsonify({"success": False})
 
 
-@app.route('/images/anime/<filename>', methods=['GET'])
+@app.route('/anime/images/<filename>', methods=['GET'])
 def anime_image(filename):
     images_dir = os.path.join(app.static_folder, 'images', 'anime')
     return send_from_directory(images_dir, filename)
@@ -171,20 +183,25 @@ def upload_anime_image():
         if filename.rsplit('.', 1)[1].lower() == 'jpeg':
             filename = f"{filename.rsplit('.', 1)[0]}.jpg"
 
-        filepath = os.path.join(app.static_folder, 'images', 'anime', 'uploads', filename)
+        filepath = os.path.join(app.static_folder, 'images', filename)
         file.save(filepath)
+
+        s3.upload_file(filepath, S3_BUCKET, filename)
+
+        if os.path.exists(filepath):
+            os.remove(filepath)
         
         new_images_counter.inc()
 
         return jsonify({
             'success': True,
-            'imageUrl': url_for('static', filename=f'images/anime/uploads/{filename}')
+            'imageUrl': f'{s3_endpoint}/{S3_BUCKET}/{filename}'
         })
     
     return jsonify({'success': False, 'error': 'Only JPG/JPEG files are allowed'})
 
 
-ALLOWED_EXTENSIONS_VIDEO = {'mp4'}
+ALLOWED_EXTENSIONS_VIDEO = {'mp4', 'mkv'}
 
 def allowed_file_video(filename):
     return '.' in filename and \
@@ -212,10 +229,15 @@ def upload_anime_video():
     
     if file and allowed_file_video(file.filename):
         video_id = f'{anime_id}_{episode}'
-        filename = f'{video_id}.mp4'
+        filename = f'{video_id}'
 
         filepath = os.path.join(app.static_folder, 'videos', filename)
         file.save(filepath)
+
+        s3.upload_file(filepath, S3_BUCKET, video_id)
+
+        if os.path.exists(filepath):
+            os.remove(filepath)
         
         response = api_request('POST', 'anime/video/add', {
             'anime_id': anime_id,
@@ -245,19 +267,12 @@ def delete_anime_video():
     
     video_id = f'{anime_id}_{episode}'
     
-    filename = f'{video_id}.mp4'
-    video_path = f'/videos/{video_id}.mp4' 
-    logging.debug(video_path)
-    if check_file(video_path):
-        video_path = os.path.join(app.static_folder,'videos', filename)
-        dest = os.path.join(app.static_folder, 'videos', 'to_delete_' + filename)
-        os.rename(video_path, dest)
-    
     response = api_request('POST', 'anime/video/remove', {
         'anime_id': anime_id,
         'video_id': episode
     })
     if response and response.get('success'):
+        s3.delete_object(Bucket=S3_BUCKET, Key=video_id)
         return jsonify({"success": True})
     
     return jsonify({'success': False})
@@ -265,15 +280,12 @@ def delete_anime_video():
 
 @app.route('/videos/<filename>', methods=['GET'])
 def anime_video(filename):
-    videos_dir = os.path.join(app.static_folder, 'videos')
-    return send_from_directory(videos_dir, filename)
+    return jsonify({"success": True, "link": f'{s3_endpoint}/{S3_BUCKET}/{filename}'})
 
 
 @app.route('/anime_by_video/<video_id>', methods=['GET'])
 def get_anime_by_video(video_id):
-    video_path = f'/videos/{video_id}.mp4' 
-    logging.debug(check_file(video_path))
-    if check_file(video_path):
+    if check_file(video_id):
         anime_id, sep, episode = video_id.rpartition('_')
         if sep:
             response = api_request('GET', f'anime/details?anime_id={anime_id}')
@@ -304,11 +316,11 @@ def anime_page(anime_id):
         anime_data['id'] = oid_obj['$oid']
     except (json.JSONDecodeError, KeyError, TypeError):
         anime_data['id'] = anime_data.get('_id')
-        
-    image_path = f'/images/anime/{anime_data["id"]}.jpg'
-    default_path = "/images/anime/default.jpg"
 
-    anime_data['image_url'] = image_path if check_file(image_path) else default_path    
+    image_path = f'{s3_endpoint}/{S3_BUCKET}/{anime_data["id"]}.jpg'
+    default_path = f"{s3_endpoint}/{S3_BUCKET}/default.jpg"
+
+    anime_data['image_url'] = image_path if check_file(f'{anime_data["id"]}.jpg') else default_path    
     
     user_id = ''
     if 'user_id' in session:
@@ -340,7 +352,7 @@ def anime_edit_page(anime_id):
     if anime_id == 'new':
         if get_user_status(session['user_id']) <= 2:
             return render_template("login.html")
-        default_path = "/images/anime/default.jpg"
+        default_path = f"{s3_endpoint}/{S3_BUCKET}/default.jpg"
         anime_data = {'id': anime_id, 'title': 'Заголовок', 'description': 'Описание', 'episodes': 1, 'videos': [], 'image_url': default_path}
         return render_template("anime_edit.html", anime=anime_data, user_status=get_user_status(session['user_id']))
     
@@ -355,10 +367,10 @@ def anime_edit_page(anime_id):
     anime_data = json.loads(anime_data)
     anime_data['id'] = anime_id
         
-    image_path = f'/images/anime/{anime_data["id"]}.jpg'
-    default_path = "/images/anime/default.jpg"
+    image_path = f'{s3_endpoint}/{S3_BUCKET}/{anime_data["id"]}.jpg'
+    default_path = f"{s3_endpoint}/{S3_BUCKET}/default.jpg"
 
-    anime_data['image_url'] = image_path if check_file(image_path) else default_path    
+    anime_data['image_url'] = image_path if check_file(f'{anime_data["id"]}.jpg') else default_path    
         
     return render_template("anime_edit.html", anime=anime_data, user_status=get_user_status(session['user_id']))
 
@@ -380,14 +392,17 @@ def update_anime():
         if add_response and add_response.get('success'):
             image_url = data.get('image_url', '')
             filename = os.path.basename(image_url)
-            src_path = os.path.join(app.static_folder, 'images', 'anime', 'uploads', filename)
-            logging.debug(src_path)
-            logging.debug(os.path.exists(src_path))
-            if os.path.exists(src_path) and allowed_file_image(src_path):
+            if check_file(filename) and allowed_file_image(filename):
                 new_filename = f"{add_response.get('db_id','blank')}.jpg"
-                dest_path = os.path.join(app.static_folder, 'images', 'anime', new_filename)
-                
-                shutil.move(src_path, dest_path)
+                s3.copy_object(
+                    Bucket=S3_BUCKET,
+                    Key=new_filename,
+                    CopySource={'Bucket': S3_BUCKET, 'Key': filename}
+                )
+                s3.delete_object(
+                    Bucket=S3_BUCKET,
+                    Key=filename
+                )
 
             new_anime_counter.inc()
 
@@ -398,14 +413,17 @@ def update_anime():
         if update_response and update_response.get('success'):
             image_url = data.get('image_url', '')
             filename = os.path.basename(image_url)
-            src_path = os.path.join(app.static_folder, 'images', 'anime', 'uploads', filename)
-            logging.debug(src_path)
-            logging.debug(os.path.exists(src_path))
-            if os.path.exists(src_path) and allowed_file_image(src_path):
+            if check_file(filename) and allowed_file_image(filename):
                 new_filename = f"{anime_id}.jpg"
-                dest_path = os.path.join(app.static_folder, 'images', 'anime', new_filename)
-                
-                shutil.move(src_path, dest_path)
+                s3.copy_object(
+                    Bucket=S3_BUCKET,
+                    Key=new_filename,
+                    CopySource={'Bucket': S3_BUCKET, 'Key': filename}
+                )
+                s3.delete_object(
+                    Bucket=S3_BUCKET,
+                    Key=filename
+                )
             return jsonify({"success": True})
     return jsonify({"success": False})
 
@@ -503,10 +521,10 @@ def anime_details(anime_id):
     response = api_request('GET', f'anime/details?anime_id={anime_id}')
     if response and response.get('success'):
         data = json.loads(response.get('anime', ''))
-        image_path = f'/images/anime/{data["_id"]["$oid"]}.jpg'
-        default_path = "/images/anime/default.jpg"
+        image_path = f'{s3_endpoint}/{S3_BUCKET}/{data["_id"]["$oid"]}.jpg'
+        default_path = f"{s3_endpoint}/{S3_BUCKET}/default.jpg"
 
-        data['image_url'] = image_path if check_file(image_path) else default_path
+        data['image_url'] = image_path if check_file(f'{data["_id"]["$oid"]}.jpg') else default_path
         return data
     return {}
 

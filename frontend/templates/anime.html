@@ -54,7 +54,13 @@
         const videoTitle = document.getElementById('video-title')
         if (videos && videos[selectedIndex]) {
             curVideoId = `${ animeId }_${videos[selectedIndex]}`;
-            videoPlayer.src = `/videos/${curVideoId}.mp4`;
+            fetch(`/videos/${curVideoId}`)
+                .then(response => response.json())
+                .then(video_link => {
+                    if (video_link.success) {
+                        videoPlayer.src = video_link.link;
+                    }
+                });
             videoTitle.textContent = `Эпизод: ${videos[selectedIndex]}`;
             videoPlayer.load();
         }
@@ -127,7 +133,14 @@
         const videoTitle = document.getElementById('video-title')
         if (videos && videos[selectedIndex]) {
             curVideoId = `${ animeId }_${videos[selectedIndex]}`;
-            videoPlayer.src = `/videos/${curVideoId}.mp4`;
+
+            fetch(`/videos/${curVideoId}`)
+                .then(response => response.json())
+                .then(video_link => {
+                    if (video_link.success) {
+                        videoPlayer.src = video_link.link;
+                    }
+                });
             videoTitle.textContent = `Эпизод: ${videos[selectedIndex]}`;
             videoPlayer.load();
         }
